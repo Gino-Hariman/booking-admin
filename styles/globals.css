@@ -4,6 +4,22 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 @layer base {
   input {
     @apply w-full py-4 px-6 rounded-full border focus:border-gray-500 shadow-inner disabled:border-shade-BD placeholder:text-shade-BD invalid:border-danger-500;
@@ -22,18 +38,14 @@
   }
 }
 
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
+.header-right {
+  width: calc(100% - 3.5rem);
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
+.sidebar:hover {
+  width: 16rem;
 }
-
-* {
-  box-sizing: border-box;
+@media only screen and (min-width: 768px) {
+  .header-right {
+    width: calc(100% - 16rem);
+  }
 }
