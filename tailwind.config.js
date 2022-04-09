@@ -1,7 +1,12 @@
 module.exports = {
-  content: [
+  // content: [
+  //   './pages/**/*.{js,ts,jsx,tsx}',
+  //   './components/**/*.{js,ts,jsx,tsx}',
+  // ],
+  purge: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
+    './layout/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     colors: {
@@ -9,7 +14,6 @@ module.exports = {
         BG: '#F9F9F9',
         FG: '#FFFFFF',
         BD: '#E0E0E0',
-        O: '#FFFFFF',
         100: '#000000',
       },
       gray: {
@@ -85,7 +89,7 @@ module.exports = {
         900: '#001A33',
       },
     },
-    fontSizes: {
+    fontSize: {
       'sm-1': '4px',
       'sm-2': '6px',
       'sm-3': '8px',
@@ -121,5 +125,13 @@ module.exports = {
       xl: '1366px',
     },
   },
-  plugins: [],
+  plugins: [
+    // plugin(function ({ addBase, addComponents, addUtilities, theme }) {
+    //   addBase({
+    //     h1: {
+    //       fontSize: theme('fontSize.tag'),
+    //     },
+    //   });
+    // }),
+  ],
 };
