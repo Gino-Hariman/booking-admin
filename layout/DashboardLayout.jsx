@@ -1,5 +1,4 @@
-const { Navbar } = require('@/components/Header');
-const { default: Sidebar } = require('@/components/Header/Sidebar');
+import { Navbar, Sidebar } from '@/components/Header';
 
 const DashboardLayout = ({ children }) => {
   return (

@@ -1,7 +1,9 @@
 import sidebarConfig from '@/utils/sidebarConfig';
+import { useRouter } from 'next/router';
 import NavItem from './NavItem';
 
 const SidebarContent = () => {
+  const router = useRouter();
   return (
     <ul class="flex flex-col py-4">
       <li class="px-5 hidden md:block">
@@ -13,7 +15,12 @@ const SidebarContent = () => {
       </li>
 
       {sidebarConfig.map((item) => (
-        <NavItem key={item.id} title={item.title} icon={item.icon} />
+        <NavItem
+          key={item.id}
+          title={item.title}
+          icon={item.icon}
+          isActive={router.pathname === item.path}
+        />
       ))}
     </ul>
   );

@@ -1,13 +1,23 @@
-const NavItem = ({ title, icon }) => {
+import classNames from '@/helpers/classNames';
+import Link from 'next/link';
+
+const NavItem = ({ title, icon, path = '', isActive = false }) => {
   return (
     <li>
-      <a
-        href="#"
-        class="relative flex items-center focus:outline-none hover:bg-blue-800 hover:bg-primary-50 hover:text-white-800 border-transparent pr-6 py-4"
-      >
-        <span class="inline-flex justify-center items-center ml-4">{icon}</span>
-        <span class="ml-2 text-sm tracking-wide truncate">{title}</span>
-      </a>
+      <Link passHref href={path}>
+        <a
+          href="#"
+          className={classNames(
+            isActive && 'active-nav-item',
+            'relative flex items-center nav-item pr-6 py-4'
+          )}
+        >
+          <span class="inline-flex justify-center items-center ml-4">
+            {icon}
+          </span>
+          <span class="ml-2 text-sm tracking-wide truncate">{title}</span>
+        </a>
+      </Link>
     </li>
   );
 };
