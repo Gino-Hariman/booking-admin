@@ -19,6 +19,7 @@ const SidebarContent = () => {
           key={item.id}
           title={item.title}
           icon={item.icon}
+          path={item.path}
           isActive={router.pathname === item.path}
         />
       ))}
