@@ -4,13 +4,13 @@ import { useState } from 'react';
 const TabBarButton = ({ id, student, title, activeTab, onClick }) => {
   const style = () => {
     switch (activeTab) {
-      case 'student-request':
+      case 'Student Request':
         return 'student-request';
-      case 'accept-student':
+      case 'Accepted Students':
         return 'accept-student';
-      case 'reject-student':
+      case 'Rejected Students':
         return 'reject-student';
-      case 'ongoing-student':
+      case 'Ongoing Booking':
         return 'ongoing-student';
       default:
         return 'student-request';

@@ -1,14 +1,7 @@
 import { TabBarButton, TabBarButtonMobile } from '@/components/TabBar';
 import tabBarConfig from '@/utils/tabBarConfig';
-import { useState } from 'react';
 
-const DashboardLayout = ({ children }) => {
-  const [selectedItem, setSelectedItem] = useState('');
-
-  const handleSelect = (id) => {
-    return setSelectedItem(id);
-  };
-
+const DashboardLayout = ({ selectedItem, handleSelect, children }) => {
   return (
     <div className="h-full relative xl:w-full xl:mx-0 hidden sm:block p-8">
       <TabBarButtonMobile options={tabBarConfig} />
@@ -16,11 +9,11 @@ const DashboardLayout = ({ children }) => {
         {tabBarConfig.map((item) => (
           <TabBarButton
             key={item.id}
-            id={item.id}
+            id={item.title}
             title={item.title}
             student={item.student}
             activeTab={selectedItem}
-            onClick={() => handleSelect(item.id)}
+            onClick={() => handleSelect(item.title)}
           />
         ))}
       </ul>
