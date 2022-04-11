@@ -42,6 +42,21 @@ a {
   .active-nav-item {
     @apply bg-primary-500 text-primary-50;
   }
+  .tab-btn {
+    @apply w-full flex rounded-3 cursor-pointer items-center justify-center shadow-md bg-shade-FG hover:bg-shade-40;
+  }
+  .student-request {
+    @apply border-2 border-primary-500;
+  }
+  .accept-student {
+    @apply border-2 border-success-500;
+  }
+  .reject-student {
+    @apply border-2 border-danger-500;
+  }
+  .ongoing-student {
+    @apply border-2 border-warning-500;
+  }
 }
 
 .header-right {

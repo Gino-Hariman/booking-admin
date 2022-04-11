@@ -111,6 +111,7 @@ module.exports = {
       0: 2,
       1: 4,
       2: 8,
+      3: 12,
       full: 100,
       circle: 1000,
     },
@@ -124,6 +125,12 @@ module.exports = {
     extend: {
       spacing: {
         nav: '76px',
+      },
+      gridTemplateColumns: {
+        'auto-fill': 'repeat(auto-fit, minmax(318px, 1fr))',
+      },
+      gridAutoRows: {
+        'auto-fill': 'minmax(142px,1fr)',
       },
     },
   },
