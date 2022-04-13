@@ -3,7 +3,7 @@ import { NavItem, SidebarContent, SidebarHeader } from './components';
 
 const Sidebar = () => {
   return (
-    <div className="bg-shade-FG fixed flex flex-col top-nav left-0 w-14 hover:w-64 md:w-64 h-full text-white transition-all duration-300 border-none z-10 shadow sidebar">
+    <div className="bg-shade-FG fixed z-50 flex flex-col top-nav left-0 w-14 hover:w-64 md:w-64 h-full text-white transition-all duration-300 border-none shadow sidebar">
       <SidebarHeader />
 
       <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between grow ">

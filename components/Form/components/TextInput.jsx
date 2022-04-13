@@ -20,6 +20,7 @@ const TextInput = ({
       </label>
 
       <input
+        className="input"
         id="password"
         type={inputType}
         placeholder={placeholder}

@@ -39,7 +39,7 @@ const Dropdowns = ({ Icon, placeholder, datas }) => {
       {open && (
         <ul
           // tabIndex="0"
-          className="absolute shadow-mdf w-full max-w-dropdown overflow-hidden mt-2 menu text-gray-700 bg-shade-FG rounded-3 "
+          className="absolute z-40 shadow-md w-full max-w-dropdown overflow-hidden mt-2 menu text-gray-700 bg-shade-FG rounded-3 "
         >
           {datas.map((item) => (
             <li

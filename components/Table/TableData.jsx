@@ -1,4 +1,5 @@
 import Chip from '../Chip';
+import EditTextInput from '../EditTextInput';
 
 const TableData = ({ isOngoingBooking }) => {
   return (
@@ -27,6 +28,7 @@ const TableData = ({ isOngoingBooking }) => {
           </span>
         </div>
       </div>
+      <EditTextInput />
       <div className="flex space-x-6">
         <Chip title="Accept" width="w-[160px]" />
         <Chip title="Rejected" width="w-[160px]" />
