@@ -4,6 +4,8 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
     './layout/**/*.{js,ts,jsx,tsx}',
   ],
+  mode: 'jit',
+  important: true,
   theme: {
     colors: {
       shade: {
@@ -134,15 +136,13 @@ module.exports = {
       gridAutoRows: {
         'auto-fill': 'minmax(142px,1fr)',
       },
+      width: {
+        dropdown: '225px',
+      },
+      maxWidth: {
+        dropdown: '225px',
+        pagination: '446px',
+      },
     },
   },
-  plugins: [
-    // plugin(function ({ addBase, addComponents, addUtilities, theme }) {
-    //   addBase({
-    //     h1: {
-    //       fontSize: theme('fontSize.tag'),
-    //     },
-    //   });
-    // }),
-  ],
 };

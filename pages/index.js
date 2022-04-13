@@ -1,4 +1,3 @@
-import { TabBarButton, TabBarButtonMobile } from '@/components/TabBar';
 import Table from '@/components/Table';
 import AdminLayout from '@/layout/AdminLayout';
 import DashboardLayout from '@/layout/DashboardLayout';

@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import DataForm from './DataForm';
 import Container from '../Container';
+import { Button } from '../Buttons';
 
 const LoginForm = () => {
   const {
@@ -43,13 +44,7 @@ const LoginForm = () => {
         register={register}
         errors={errors}
       />
-      <button
-        className="btn mt-12 self-center duration-300 text-white shadow"
-        type="submit"
-        onClick={() => console.log('login!')}
-      >
-        Login
-      </button>
+      <Button title="Login" onClick={() => console.log('Login!!')} />
     </form>
   );
 };

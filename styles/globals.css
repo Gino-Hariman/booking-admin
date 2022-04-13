@@ -8,7 +8,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins' !important;
 }
 
 a {
@@ -34,7 +34,7 @@ a {
     @apply text-gray-600 text-md-2 mb-2 font-medium;
   }
   .btn {
-    @apply px-11 py-4 rounded-full bg-primary-500 text-shade-FG text-md-4 font-semibold hover:bg-primary-600 focus:bg-primary-200 active:bg-primary-700 disabled:bg-primary-50;
+    @apply px-11 py-4 rounded-full bg-primary-500 text-shade-FG text-md-4 font-semibold hover:bg-primary-600 active:bg-primary-700 disabled:bg-primary-50;
   }
   .nav-item {
     @apply bg-shade-FG text-gray-500 hover:bg-primary-50;
@@ -56,6 +56,15 @@ a {
   }
   .ongoing-student {
     @apply border-2 border-warning-500;
+  }
+  .chip {
+    @apply w-full py-3 text-center text-md-4 font-medium rounded-full;
+  }
+  .success-chip {
+    @apply bg-success-50 text-success-500;
+  }
+  .reject-chip {
+    @apply bg-danger-50 text-danger-500;
   }
 }
 
