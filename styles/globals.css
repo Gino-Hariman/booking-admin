@@ -80,6 +80,13 @@ a {
   }
 }
 
+.SingleDatePickerInput {
+  height: 56px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0px 24px;
+}
+
 .CalendarDay__selected_span {
   background: #1c2560 !important;
   color: #f9f9f9 !important;
@@ -97,11 +104,6 @@ a {
   color: white !important;
 }
 
-/* .CalendarDay__hovered_span:hover,
-.CalendarDay__hovered_span {
-  background: brown !important;
-} */
-
 .SingleDatePickerInput_calendarIcon {
   margin: 0 !important;
   width: 20px;
@@ -113,11 +115,12 @@ a {
 .DateInput_input {
   border-radius: 8px !important;
   margin: 0 !important;
-  outline: none;
-  overflow: hidden;
+  margin-left: 12px !important;
+  /* outline: none; */
+  /* overflow: hidden; */
   border: none;
   box-shadow: none;
-  padding: 0 8px !important;
+  /* padding: 0 8px !important; */
   color: #46494e !important;
 }
 
@@ -135,7 +138,7 @@ a {
 .SingleDatePickerInput__withBorder {
   border-radius: 8px !important;
   overflow: hidden;
-  padding: 16px 24px !important;
+  /* padding: 16px 24px !important; */
   margin: 0 !important;
 }
 

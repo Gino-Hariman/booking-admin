@@ -16,7 +16,7 @@ const Dropdowns = ({ Icon, placeholder, datas }) => {
   };
 
   return (
-    <div className="w-dropdown">
+    <div className="w-full min-w-[200px] max-w-dropdown">
       <button
         onClick={handleClick}
         // tabIndex="0"
