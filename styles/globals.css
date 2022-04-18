@@ -58,7 +58,7 @@ a {
     @apply border-2 border-warning-500;
   }
   .chip {
-    @apply w-full py-3 text-center text-md-4 font-medium rounded-full;
+    @apply w-full py-3 text-center font-medium rounded-full;
   }
   .success-chip {
     @apply bg-success-50 text-success-500;

@@ -1,10 +1,10 @@
 import classNames from '@/helpers/classNames';
 
-const Chip = ({ title, width = 'w-normal-chip' }) => {
+const Chip = ({ title, width = 'w-normal-chip', type = 'accept' }) => {
   return (
     <div
       className={classNames(
-        title.includes('Accept') ? 'success-chip' : 'reject-chip',
+        type === 'accept' ? 'success-chip' : 'reject-chip',
         width,
         'chip success-chip'
       )}

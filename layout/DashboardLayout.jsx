@@ -12,8 +12,11 @@ const DashboardLayout = ({ selectedItem, handleSelect, children }) => {
             id={item.title}
             title={item.title}
             student={item.student}
-            activeTab={selectedItem}
-            onClick={() => handleSelect(item.title)}
+            activeTab={selectedItem.title}
+            Icon={item.icon}
+            onClick={() =>
+              handleSelect({ title: item.title, compName: item.compName })
+            }
           />
         ))}
       </ul>

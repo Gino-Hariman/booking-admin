@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.6",
     "@hookform/resolvers": "^2.8.8",
     "@next/bundle-analyzer": "^12.1.4",
     "@svgr/webpack": "^6.2.1",

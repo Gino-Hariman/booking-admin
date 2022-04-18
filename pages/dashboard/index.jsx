@@ -3,12 +3,14 @@ import TableData from '@/components/Table/TableData';
 import { useDashboardTab } from '@/context/DashboardTabContext';
 import AdminLayout from '@/layout/AdminLayout';
 import studentRequest from '@/_mocks/studentRequest';
+import * as DashboardTable from '../../components/Dashboard/index';
 
 const Dashboard = () => {
   const { selectedTab } = useDashboardTab();
+  const Comp = DashboardTable[selectedTab.compName];
   return (
-    <Table title={selectedTab}>
-      {studentRequest.map((item) => (
+    <Table title={selectedTab.title}>
+      {/* {studentRequest.map((item) => (
         <TableData
           key={item.id}
           id={item.id}
@@ -20,7 +22,8 @@ const Dashboard = () => {
           major={item.major}
           studentClass={item.kelas}
         />
-      ))}
+      ))} */}
+      <Comp />
     </Table>
   );
 };

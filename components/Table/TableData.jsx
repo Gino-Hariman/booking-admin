@@ -1,6 +1,3 @@
-import Chip from '../Chip';
-import EditTextInput from '../EditTextInput';
-
 const TableData = ({
   id,
   nim,
@@ -10,6 +7,7 @@ const TableData = ({
   time,
   major,
   studentClass,
+  children,
 }) => {
   return (
     <div className="flex flex-1 items-center justify-between border-b-2 border-black-20 py-6 px-2 flex-wrap space-y-4">
@@ -39,10 +37,9 @@ const TableData = ({
       </div>
 
       <div className="flex auto-cols-max justify-start lg:space-x-6">
-        <Chip title="Accept" width="w-large-chip" />
-        {/* <Chip title="Rejected" width="w-[160px]" /> */}
+        {/* Status Chip */}
+        {children}
       </div>
-      {/* </div> */}
     </div>
   );
 };

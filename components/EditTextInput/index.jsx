@@ -29,6 +29,9 @@ const EditTextInput = () => {
         )}
       >
         <textarea
+          onBlur={() => {
+            setCanEdit(false);
+          }}
           rows={3}
           className="w-full focus:outline-none resize-none text-ellipsis truncate break-words overflow-hidden"
           id="notes"
@@ -37,7 +40,7 @@ const EditTextInput = () => {
           ref={(inputEl) => (inputRef = inputEl)}
         />
         <span onClick={handleCanEdit}>
-          <EditIcon />
+          <EditIcon className="w-6" />
         </span>
       </div>
       <button
