@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import ChevUp from '../../public/icons/OChevronUp.svg';
-import ChevDown from '../../public/icons/OChevronDown.svg';
-import Location from '../../public/icons/Location.svg';
+import ChevronUp from '@/icons/Outline/Chevron Up.svg';
+import ChevronDown from '@/icons/Outline/Chevron Down.svg';
 
 const Dropdowns = ({ Icon, placeholder, datas }) => {
   const [open, setOpen] = useState(false);
@@ -16,23 +15,22 @@ const Dropdowns = ({ Icon, placeholder, datas }) => {
   };
 
   return (
-    <div className="w-full min-w-[200px] max-w-dropdown">
+    <div className="w-full h-[56px] min-w-[200px] max-w-dropdown">
       <button
         onClick={handleClick}
         // tabIndex="0"
         className="flex w-full justify-evenly items-center px-3 py-4 rounded-2 bg-white border-2 border-shade-BD"
       >
-        {/* <Location /> */}
-        <Icon />
+        <Icon className="w-6" fill="#696E76" />
 
         <p className="flex-1 ml-2 text-gray-700 text-sm">
           {selected ? selected : placeholder}
         </p>
         <div className="flex-1 flex justify-center">
           {open ? (
-            <ChevDown width={20} height={20} />
+            <ChevronDown width={20} height={20} />
           ) : (
-            <ChevUp width={20} height={20} />
+            <ChevronUp width={20} height={20} />
           )}
         </div>
       </button>

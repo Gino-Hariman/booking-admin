@@ -1,24 +1,42 @@
-// import Scan from '@/icons/Fill/Scan.svg';
-import dashboard from '@/icons/dashboard.svg';
+import DashboardIcon from '@/icons/Fill/Dashboard.svg';
+import LocationIcon from '@/icons/Fill/Location.svg';
+import StudentIcon from '@/icons/Fill/Student List.svg';
+import ReportIcon from '@/icons/Fill/Report.svg';
+import AdminIcon from '@/icons/Fill/Admin.svg';
 
 import getIcon from '../getIcon';
 
 const sidebarConfig = [
-  { id: 1, title: 'Dashboard', path: '/', icon: getIcon(dashboard) },
+  {
+    id: 1,
+    title: 'Dashboard',
+    path: '/dashboard',
+    icon: DashboardIcon,
+  },
   {
     id: 2,
     title: 'Lounge Location',
     path: '/admin/lounge-location',
-    icon: getIcon(dashboard),
+    icon: LocationIcon,
   },
   {
     id: 3,
     title: 'Student List',
     path: '/admin/student-list',
-    icon: getIcon(dashboard),
+    icon: StudentIcon,
   },
-  { id: 4, title: 'Report', path: '/admin/report', icon: getIcon(dashboard) },
-  { id: 5, title: 'Admin', path: '/admin/admins', icon: getIcon(dashboard) },
+  {
+    id: 4,
+    title: 'Report',
+    path: '/admin/report',
+    icon: ReportIcon,
+  },
+  {
+    id: 5,
+    title: 'Admin',
+    path: '/admin/admins',
+    icon: AdminIcon,
+  },
 ];
 
 export default sidebarConfig;

@@ -139,6 +139,8 @@ module.exports = {
       },
       width: {
         dropdown: '225px',
+        'large-chip': '276px',
+        'normal-chip': '160px',
       },
       maxWidth: {
         dropdown: '225px',

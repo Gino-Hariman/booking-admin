@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import Pencil from '@/icons/OEdit.svg';
 import classNames from '@/helpers/classNames';
+import EditIcon from '@/icons/Fill/Edit.svg';
 
 const EditTextInput = () => {
   const [data, setData] = useState('');
@@ -37,11 +37,14 @@ const EditTextInput = () => {
           ref={(inputEl) => (inputRef = inputEl)}
         />
         <span onClick={handleCanEdit}>
-          <Pencil />
+          <EditIcon />
         </span>
       </div>
       <button
-        className={classNames(canEdit ? 'hidden' : 'flex')}
+        className={classNames(
+          canEdit ? 'hidden' : 'flex',
+          'font-medium text-md-3 text-info-300'
+        )}
         onClick={handleCanEdit}
       >
         Add New Booking Notes

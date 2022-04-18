@@ -1,6 +1,6 @@
 import classNames from '@/helpers/classNames';
 
-const Chip = ({ title, width }) => {
+const Chip = ({ title, width = 'w-normal-chip' }) => {
   return (
     <div
       className={classNames(

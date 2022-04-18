@@ -15,7 +15,8 @@ const ButtonWithIcon = ({
       disabled={isDisabled}
     >
       <p className={classNames(position === 'left' && 'order-last')}>{title}</p>
-      <Icon />
+
+      <Icon className="w-6" />
     </button>
   );
 };

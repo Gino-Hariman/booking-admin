@@ -1,7 +1,7 @@
 import Chip from '../Chip';
 import EditTextInput from '../EditTextInput';
 
-const TableData = ({
+const EditTableData = ({
   id,
   nim,
   location,
@@ -12,7 +12,7 @@ const TableData = ({
   studentClass,
 }) => {
   return (
-    <div className="flex flex-1 items-center justify-between border-b-2 border-black-20 py-6 px-2 flex-wrap space-y-4">
+    <div className="grid xl:grid-cols-5 items-center justify-between border-b-2 border-black-20 py-6 px-2 space-y-4">
       <div className="col-span-3 space-y-2">
         <sub className="text-md-4 font-medium text-gray-700">ID : {id}</sub>
         <h1 className="text-lg-3 font-medium text-gray-900">
@@ -37,14 +37,16 @@ const TableData = ({
           </span>
         </div>
       </div>
-
-      <div className="flex auto-cols-max justify-start lg:space-x-6">
-        <Chip title="Accept" width="w-large-chip" />
-        {/* <Chip title="Rejected" width="w-[160px]" /> */}
+      <div className="col-2">
+        <EditTextInput />
+      </div>
+      <div className="flex auto-cols-max col-span-3 lg:col-auto md:justify-start justify-end space-x-6">
+        <Chip title="Accept" width="w-[160px]" />
+        <Chip title="Rejected" width="w-[160px]" />
       </div>
       {/* </div> */}
     </div>
   );
 };
 
-export default TableData;
+export default EditTableData;

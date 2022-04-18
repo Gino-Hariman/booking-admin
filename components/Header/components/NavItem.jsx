@@ -1,4 +1,5 @@
 import classNames from '@/helpers/classNames';
+import getIcon from '@/utils/getIcon';
 import Link from 'next/link';
 
 const NavItem = ({ title, icon, path = '', isActive = false }) => {
@@ -13,7 +14,7 @@ const NavItem = ({ title, icon, path = '', isActive = false }) => {
           )}
         >
           <span class="inline-flex justify-center items-center ml-4">
-            {icon}
+            {getIcon(icon, 24, isActive)}
           </span>
           <span class="ml-2 text-sm tracking-wide truncate">{title}</span>
         </a>
