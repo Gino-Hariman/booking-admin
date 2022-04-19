@@ -13,6 +13,7 @@ module.exports = {
         FG: '#FFFFFF',
         BD: '#E0E0E0',
         40: '#999999',
+        70: '#4D4D4D',
         100: '#000000',
       },
       gray: {

@@ -1,4 +1,3 @@
-import Chip from '../Chip';
 import EditTextInput from '../EditTextInput';
 
 const EditTableData = ({
@@ -13,7 +12,7 @@ const EditTableData = ({
   children,
 }) => {
   return (
-    <div className="grid xl:grid-cols-5 items-center justify-between border-b-2 border-black-20 py-6 space-y-4">
+    <div className="grid xl:grid-cols-5 lg:space-x-6 items-center border-b-2 border-black-20 py-6 space-y-4">
       <div className="col-span-3 space-y-2">
         <sub className="text-md-4 font-medium text-gray-700">ID : {id}</sub>
         <h1 className="text-lg-3 font-medium text-gray-900">
@@ -41,11 +40,9 @@ const EditTableData = ({
       <div className="col-2">
         <EditTextInput />
       </div>
-      <div className="flex auto-cols-max col-span-3 lg:col-auto md:justify-start justify-end space-x-6">
+      <div className="flex auto-cols-max col-span-3 lg:col-auto justify-start space-x-6">
         {/* status chip */}
         {children}
-        {/* <Chip title="Accept" width="w-[160px]" />
-        <Chip title="Rejected" width="w-[160px]" /> */}
       </div>
     </div>
   );

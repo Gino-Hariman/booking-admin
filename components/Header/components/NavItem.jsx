@@ -9,8 +9,8 @@ const NavItem = ({ title, icon, path = '', isActive = false }) => {
         <a
           href="#"
           className={classNames(
-            isActive && 'active-nav-item',
-            'relative flex items-center nav-item pr-6 py-4'
+            isActive ? 'active-nav-item' : 'nav-item',
+            'relative flex items-center pr-6 py-4'
           )}
         >
           <span class="inline-flex justify-center items-center ml-4">

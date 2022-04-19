@@ -15,7 +15,7 @@ const TableData = ({
         <sub className="text-md-4 font-medium text-gray-700">ID : {id}</sub>
         <h1 className="text-lg-3 font-medium text-gray-900">
           {location} -
-          <span className="font-normal text-gray-800">{studentName}</span>
+          <span className="ml-1 font-normal text-gray-800">{studentName}</span>
         </h1>
         <div className="flex text-md-3 lg:space-x-8 text-gray-700 flex-col lg:flex-row">
           <span>

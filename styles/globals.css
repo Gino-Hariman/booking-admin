@@ -43,7 +43,7 @@ a {
     @apply bg-primary-500 text-primary-50;
   }
   .tab-btn {
-    @apply w-full flex rounded-3 cursor-pointer items-center justify-center shadow-md bg-shade-FG hover:bg-shade-40;
+    @apply w-full flex rounded-3 cursor-pointer items-center justify-between shadow-md bg-shade-FG hover:bg-shade-BG;
   }
   .student-request {
     @apply border-2 border-primary-500;
