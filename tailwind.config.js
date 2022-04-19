@@ -117,6 +117,7 @@ module.exports = {
       3: 12,
       4: 16,
       5: 20,
+      6: 24,
       full: 100,
       circle: 1000,
     },
@@ -134,9 +135,11 @@ module.exports = {
       },
       gridTemplateColumns: {
         'auto-fill': 'repeat(auto-fit, minmax(318px, 1fr))',
+        'time-chip': 'repeat(auto-fill, minmax(105px, 105px))',
       },
       gridAutoRows: {
         'auto-fill': 'minmax(142px,1fr)',
+        'time-chip': 'minmax(31px,1fr)',
       },
       width: {
         dropdown: '225px',
@@ -149,4 +152,5 @@ module.exports = {
       },
     },
   },
+  Plugin: [],
 };

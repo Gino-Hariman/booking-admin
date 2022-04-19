@@ -9,7 +9,7 @@ const ButtonWithIcon = ({
 }) => {
   return (
     <button
-      className="btn w-full flex justify-between mt-12 self-center duration-300 text-white shadow"
+      className="btn rounded-full w-full flex justify-between mt-12 self-center duration-300 text-white shadow"
       type="submit"
       onClick={onClick}
       disabled={isDisabled}
