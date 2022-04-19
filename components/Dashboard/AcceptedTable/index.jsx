@@ -1,10 +1,10 @@
 import Chip from '@/components/Chip';
-import TableData from '@/components/Table/TableData';
+import ListItem from '@/components/ListData/ListItem';
 import studentRequest from '@/_mocks/studentRequest';
 
 const AcceptedTable = ({ title = 'Acceppted By Admin 1' }) => {
   return studentRequest.map((item) => (
-    <TableData
+    <ListItem
       key={item.id}
       id={item.id}
       nim={item.nim}
@@ -16,7 +16,7 @@ const AcceptedTable = ({ title = 'Acceppted By Admin 1' }) => {
       studentClass={item.kelas}
     >
       <Chip title={title} width="w-large-chip text-md-3" type="accept" />
-    </TableData>
+    </ListItem>
   ));
 };
 

@@ -1,0 +1,39 @@
+import classNames from '@/helpers/classNames';
+
+const Switch = ({ checked, setChecked }) => {
+  const handleCheck = () => {
+    return setChecked((prev) => !prev);
+  };
+  return (
+    <div class="flex items-center justify-center w-full">
+      <label for="toggleB" class="flex items-center cursor-pointer">
+        {/* <!-- toggle --> */}
+        <div class="relative">
+          {/* <!-- input --> */}
+          <input
+            onClick={handleCheck}
+            type="checkbox"
+            id="toggleB"
+            class="sr-only"
+            checked={checked}
+          />
+          {/* <!-- line --> */}
+          <div
+            class={classNames(
+              checked ? 'bg-success-500' : 'bg-gray-400',
+              'block w-14 h-8 rounded-full'
+            )}
+          ></div>
+          {/* <!-- dot --> */}
+          <div class="dot bg-shade-BG absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+        </div>
+        {/* <!-- label --> */}
+        <div class="ml-3 text-gray-700 font-medium">
+          {checked ? 'Active' : 'Deactive'}
+        </div>
+      </label>
+    </div>
+  );
+};
+
+export default Switch;

@@ -1,11 +1,10 @@
 import Chip from '@/components/Chip';
-import EditTableData from '@/components/Table/EditTableData';
-import TableData from '@/components/Table/TableData';
+import ListItem from '@/components/ListData/ListItem';
 import studentRequest from '@/_mocks/studentRequest';
 
 const RejectedTable = ({ title = 'Rejected By Admin 1' }) => {
   return studentRequest.map((item) => (
-    <TableData
+    <ListItem
       key={item.id}
       id={item.id}
       nim={item.nim}
@@ -21,7 +20,7 @@ const RejectedTable = ({ title = 'Rejected By Admin 1' }) => {
         width="min-w-large-chip w-large-chip text-md-3"
         type="reject"
       />
-    </TableData>
+    </ListItem>
   ));
 };
 

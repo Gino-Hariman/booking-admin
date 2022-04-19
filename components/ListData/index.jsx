@@ -1,7 +1,7 @@
 import Pagination from './Pagination';
 import { TableFilter } from './components';
 
-const Table = ({ title, children }) => {
+const ListData = ({ title, children }) => {
   return (
     <div className="rounded-5 shadow-sm py-10 px-12 bg-shade-FG">
       <h2 className="mb-2 text-lg-3 font-semibold text-primary-900">{title}</h2>
@@ -13,4 +13,4 @@ const Table = ({ title, children }) => {
   );
 };
 
-export default Table;
+export default ListData;

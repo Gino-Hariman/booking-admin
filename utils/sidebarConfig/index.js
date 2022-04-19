@@ -16,7 +16,7 @@ const sidebarConfig = [
   {
     id: 2,
     title: 'Lounge Location',
-    path: '/admin/lounge-location',
+    path: '/lounge-location',
     icon: LocationIcon,
   },
   {

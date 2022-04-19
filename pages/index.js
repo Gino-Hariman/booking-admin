@@ -1,4 +1,4 @@
-import Table from '@/components/Table';
+import Table from '@/components/ListData';
 import AdminLayout from '@/layout/AdminLayout';
 import DashboardLayout from '@/layout/DashboardLayout';
 import Head from 'next/head';

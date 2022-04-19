@@ -1,10 +1,10 @@
 import Chip from '@/components/Chip';
-import EditTableData from '@/components/Table/EditTableData';
+import EditListItem from '@/components/ListData/EditListItem';
 import studentRequest from '@/_mocks/studentRequest';
 
 const OngoingTable = ({ title = 'Acceppted By Admin 1' }) => {
   return studentRequest.map((item) => (
-    <EditTableData
+    <EditListItem
       key={item.id}
       id={item.id}
       nim={item.nim}
@@ -20,7 +20,7 @@ const OngoingTable = ({ title = 'Acceppted By Admin 1' }) => {
         width="min-w-large-chip w-large-chip text-md-3"
         type="accept"
       />
-    </EditTableData>
+    </EditListItem>
   ));
 };
 

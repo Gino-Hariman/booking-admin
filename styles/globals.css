@@ -149,3 +149,8 @@ a {
   -webkit-line-clamp: 2 !important; /* number of lines to show */
   -webkit-box-orient: vertical !important;
 }
+
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #fff !important;
+}
