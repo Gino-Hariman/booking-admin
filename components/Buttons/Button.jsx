@@ -1,7 +1,6 @@
 import classNames from '@/helpers/classNames';
 
 const Button = ({ title, outlined = false, onClick }) => {
-  console.log('outlined', outlined);
   return (
     <button
       className={classNames(

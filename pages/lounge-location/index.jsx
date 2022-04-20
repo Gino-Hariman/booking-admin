@@ -1,39 +1,54 @@
 import Actions from '@/components/Tables/Contents/Actions';
 import ImageContent from '@/components/Tables/Contents/ImageContent';
+import Switch from '@/components/Tables/Contents/Switch';
 import TimeChip from '@/components/Tables/Contents/TimeChip';
 import TableList from '@/components/Tables/TableList';
 import AdminLayout from '@/layout/AdminLayout';
+import loungeLocationTable from '@/_mocks/loungeLocationTable';
 import tableData from '@/_mocks/tableData';
-import React from 'react';
+import React, { useState } from 'react';
 
 const LoungeLocation = () => {
+  const handleChangeStatus = () => {
+    console.log('changed12');
+  };
+
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Name',
+        Header: 'Lounge Name',
         accessor: 'name',
         // Cell: AvatarCell,
-        imgAccessor: 'imgUrl',
-        emailAccessor: 'email',
+        // imgAccessor: 'imgUrl',
+        // emailAccessor: 'email',
       },
       {
-        Header: 'Title',
-        accessor: 'title',
+        Header: 'Lounge Detail',
+        accessor: 'detail',
+      },
+      {
+        Header: 'Max Capacity',
+        accessor: 'max_capacity',
+        // Cell: StatusPill,
       },
       {
         Header: 'Status',
         accessor: 'status',
-        // Cell: StatusPill,
+        // accessor: (rowData, rowIndex) => {
+        //   return <Switch checked={checked} setChecked={setChecked} />;
+        // },
+        id: 'status',
+        Cell: Switch,
       },
+      // {
+      //   Header: 'Lounge Booking Schedule',
+      //   accessor: 'schedule',
+      //   id: 'schedule',
+      //   Cell: TimeChip,
+      // },
       {
-        Header: 'Lounge Booking Schedule',
-        accessor: 'schedule',
-        id: 'schedule',
-        Cell: TimeChip,
-      },
-      {
-        Header: 'Role',
-        accessor: 'role',
+        Header: 'Lounge Photo',
+        accessor: 'imgUrl',
         Cell: ImageContent,
         // Filter: SelectColumnFilter, // new
         // filter: 'includes',
@@ -45,7 +60,13 @@ const LoungeLocation = () => {
     ],
     []
   );
-  return <TableList columns={columns} data={tableData} />;
+  return (
+    <TableList
+      columns={columns}
+      data={loungeLocationTable}
+      handleChangeStatus={handleChangeStatus}
+    />
+  );
 };
 
 LoungeLocation.layout = AdminLayout;

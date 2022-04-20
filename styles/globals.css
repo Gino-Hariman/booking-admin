@@ -69,6 +69,9 @@ a {
   .reject-chip {
     @apply bg-danger-50 text-danger-500;
   }
+  .breadcrumb {
+    @apply flex space-x-2;
+  }
 }
 
 .header-right {

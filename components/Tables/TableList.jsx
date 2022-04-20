@@ -8,7 +8,7 @@ import {
 import Pagination from '../ListData/Pagination';
 import TableHeader from './TableHeaders';
 
-const TableList = ({ columns, data }) => {
+const TableList = ({ columns, data, handleChangeStatus }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -38,11 +38,12 @@ const TableList = ({ columns, data }) => {
     useFilters, // useFilters!
     useGlobalFilter,
     useSortBy,
-    usePagination // new
+    usePagination, // new,
+    handleChangeStatus
   );
   return (
     <div className="mt-4 rounded-6 shadow bg-shade-FG p-12 flex flex-col">
-      <TableHeader />
+      <TableHeader addPath="/lounge-location/add-new-lounge-location" />
       <div className="-my-2 mt-6 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -58,7 +59,7 @@ const TableList = ({ columns, data }) => {
                       // we can add them into the header props
                       <th
                         scope="col"
-                        className="group px-6 py-3 text-left text-lg-1 font-medium text-gray-800 uppercase tracking-wider"
+                        className="group px-2 py-3 text-left text-lg-1 font-medium text-gray-800 uppercase tracking-wider"
                         {...column.getHeaderProps(
                           column.getSortByToggleProps()
                         )}
