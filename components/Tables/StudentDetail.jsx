@@ -1,6 +1,7 @@
 import NimIcon from '@/icons/Outline/Nim.svg';
 import MajorIcon from '@/icons/Outline/Major.svg';
 import ClassIcon from '@/icons/Outline/Class.svg';
+import classNames from '@/helpers/classNames';
 
 const DetailItem = ({ Icon, title }) => {
   return (
@@ -11,9 +12,15 @@ const DetailItem = ({ Icon, title }) => {
   );
 };
 
-const StudentDetail = ({ nim, major, kelas }) => {
+const StudentDetail = ({ isHeader, nim, major, kelas }) => {
   return (
-    <div className="flex w-full flex-col lg:flex-row justify-end space-y-2 lg:space-y-0 lg:space-x-14">
+    <div
+      className={classNames(
+        isHeader
+          ? 'flex w-full flex-col lg:flex-row justify-end space-y-2 lg:space-y-0 lg:space-x-14'
+          : 'flex flex-col space-y-1'
+      )}
+    >
       <DetailItem Icon={NimIcon} title={nim} />
       <DetailItem Icon={MajorIcon} title={major} />
       <DetailItem Icon={ClassIcon} title={kelas} />

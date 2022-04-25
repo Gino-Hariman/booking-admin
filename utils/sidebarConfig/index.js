@@ -28,13 +28,13 @@ const sidebarConfig = [
   {
     id: 4,
     title: 'Report',
-    path: '/admin/report',
+    path: '/report',
     icon: ReportIcon,
   },
   {
     id: 5,
     title: 'Admin',
-    path: '/admin/admins',
+    path: '/admin',
     icon: AdminIcon,
   },
 ];

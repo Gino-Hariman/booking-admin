@@ -1,7 +1,7 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
 import TextNote from '@/components/Tables/Contents/TextNote';
 import TextStatus from '@/components/Tables/Contents/TextStatus';
-import StudentDetail from '@/components/Tables/TableHeaders/StudentDetail';
+import StudentDetail from '@/components/Tables/StudentDetail';
 import TableList from '@/components/Tables/TableList';
 import AdminLayout from '@/layout/AdminLayout';
 import bookingHistory from '@/_mocks/bookingHistory';
@@ -31,7 +31,7 @@ const BookingHistory = () => {
       <Breadcrumbs />
       <TableList
         tableHeaderChild={
-          <StudentDetail nim={nim} major={major} kelas={kelas} />
+          <StudentDetail isHeader nim={nim} major={major} kelas={kelas} />
         }
         tableTitle={`${name} Booking History`}
         columns={columns}
