@@ -16,6 +16,7 @@ const TableList = ({
   btnTitle,
   tableHeaderChild,
   handleChangeStatus = () => {},
+  hasHeader = true,
 }) => {
   const {
     getTableProps,
@@ -51,7 +52,12 @@ const TableList = ({
   );
   return (
     <div className="mt-4 rounded-6 shadow bg-shade-FG p-12 flex flex-col">
-      <TableHeader title={tableTitle} btnTitle={btnTitle} addPath={addPath}>
+      <TableHeader
+        hasHeader={hasHeader}
+        title={tableTitle}
+        btnTitle={btnTitle}
+        addPath={addPath}
+      >
         {tableHeaderChild}
       </TableHeader>
       <div className="-my-2 mt-6 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
@@ -76,18 +82,6 @@ const TableList = ({
                       >
                         <div className="flex items-center justify-between">
                           {column.render('Header')}
-                          {/* Add a sort direction indicator */}
-                          <span>
-                            {/* {column.isSorted ? (
-                              column.isSortedDesc ? (
-                                <SortDownIcon className="w-4 h-4 text-gray-400" />
-                              ) : (
-                                <SortUpIcon className="w-4 h-4 text-gray-400" />
-                              )
-                            ) : (
-                              <SortIcon className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100" />
-                            )} */}
-                          </span>
                         </div>
                       </th>
                     ))}
@@ -103,21 +97,23 @@ const TableList = ({
                   prepareRow(row);
                   return (
                     <tr
-                      className="even:bg-shade-40 even:bg-opacity-5 "
+                      className="even:bg-shade-40 even:bg-opacity-5"
                       {...row.getRowProps()}
                     >
                       {row.cells.map((cell) => {
                         return (
                           <td
                             {...cell.getCellProps()}
-                            className="px-2 py-10 whitespace-nowrap"
+                            className="px-2 py-10"
                             role="cell"
                           >
                             {cell.column.Cell.name === 'defaultRenderer' ? (
-                              <div className="text-md-4  font-medium text-gray-700">
+                              // <div className="text-md-4  font-medium text-gray-700">
+                              <p className="line-clamp-2">
                                 {cell.render('Cell')}
-                              </div>
+                              </p>
                             ) : (
+                              // </div>
                               cell.render('Cell')
                             )}
                           </td>

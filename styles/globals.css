@@ -170,3 +170,12 @@ input:checked + .checkbox {
 input:checked + div .icon {
   @apply block font-bold text-shade-FG !important;
 }
+
+p {
+  display: -webkit-box !important;
+  /* max-width: 100% !important; */
+  /* -webkit-line-clamp: 3 !important; */
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  word-wrap: break-word;
+}

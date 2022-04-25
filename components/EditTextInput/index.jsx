@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import classNames from '@/helpers/classNames';
 import EditIcon from '@/icons/Fill/Edit.svg';
 import Modals from '../Modals';
+import BookingNotes from '../Modals/template/BookingNotes';
 
 const EditTextInput = () => {
   const [showModal, setShowModal] = useState(false);
@@ -19,7 +20,7 @@ const EditTextInput = () => {
     setCanEdit(true);
     setShowModal(true);
   };
-  const handlesSetData = (e) => {
+  const onChange = (e) => {
     setData(e.target.value);
   };
   const handleOpenModal = () => {
@@ -36,14 +37,14 @@ const EditTextInput = () => {
       <div
         className={classNames(
           data ? 'flex' : 'hidden',
-          'space-x-2 items-center'
+          'space-x-2 items-center justify-between'
         )}
       >
-        <p className="w-full focus:outline-none resize-none text-ellipsis truncate break-words overflow-hidden">
+        <p className="text-gray-500 text-md-3 font-medium line-clamp-3">
           {data}
         </p>
         <span onClick={handleOpenModal}>
-          <EditIcon className="w-6" />
+          <EditIcon className="w-6" fill="#AFB7C4" />
         </span>
       </div>
       <button
@@ -57,12 +58,18 @@ const EditTextInput = () => {
       </button>
       {showModal && (
         <Modals
-          data={data}
+          // data={data}
           setShowModal={setShowModal}
           handleOpenModal={handleOpenModal}
-          handleCloseModal={handleCloseModal}
-          handlesSetData={handlesSetData}
-        />
+          // handleCloseModal={handleCloseModal}
+          // handleAdd={handlesSetData}
+        >
+          <BookingNotes
+            value={data}
+            onChange={onChange}
+            onSubmit={handleCloseModal}
+          />
+        </Modals>
       )}
     </>
   );

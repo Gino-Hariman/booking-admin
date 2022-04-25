@@ -1,8 +1,13 @@
+import Dropdowns from '@/components/Dropdowns';
+import { TableFilter } from '@/components/ListData/components';
 import TextLink from '@/components/Tables/Contents/Actions/TextLink';
+import MajorIcon from '@/icons/Fill/Major.svg';
+
 import TableList from '@/components/Tables/TableList';
 import AdminLayout from '@/layout/AdminLayout';
 import studentList from '@/_mocks/studentList';
 import React from 'react';
+import acceptedBy from '@/_mocks/acceptedBy';
 
 const StudentList = () => {
   const columns = React.useMemo(
@@ -35,6 +40,11 @@ const StudentList = () => {
   );
   return (
     <TableList
+      tableHeaderChild={
+        <TableFilter>
+          <Dropdowns placeholder="Major" Icon={MajorIcon} datas={acceptedBy} />
+        </TableFilter>
+      }
       tableTitle="Student List"
       columns={columns}
       data={studentList}
