@@ -1,10 +1,15 @@
 import classNames from '@/helpers/classNames';
 
-const Button = ({ title, outlined = false, onClick }) => {
+const Button = ({
+  title,
+  outlinedClass = 'outlined-btn',
+  outlined = false,
+  onClick,
+}) => {
   return (
     <button
       className={classNames(
-        outlined ? 'outlined-btn' : 'btn mt-12',
+        outlined ? outlinedClass : 'btn',
         'rounded-full self-center duration-300 text-white shadow'
       )}
       type="submit"

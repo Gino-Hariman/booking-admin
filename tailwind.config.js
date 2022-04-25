@@ -141,6 +141,9 @@ module.exports = {
         'auto-fill': 'minmax(142px,1fr)',
         'time-chip': 'minmax(31px,1fr)',
       },
+      gridAutoColumns: {
+        test: 'minmax(31px,1fr)',
+      },
       width: {
         dropdown: '225px',
         'large-chip': '276px',

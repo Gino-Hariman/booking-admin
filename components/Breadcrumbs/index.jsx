@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import classNames from '@/helpers/classNames';
 
 const convertBreadcrumb = (string) => {
   return string
@@ -35,12 +36,19 @@ const Breadcrumbs = () => {
     return null;
   }
 
+  const checkLast = (i) => {
+    if (i === breadcrumbs.length - 1) return true;
+    return false;
+  };
+
   return (
     <nav aria-label="breadcrumbs">
-      <ol className="breadcrumb">
-        <li>
-          <a href="/">HOME</a>
-        </li>
+      <ol className={'breadcrumb font-medium'}>
+        {/* <li>
+          <a className="text-gray-400" href="/">
+            HOME
+          </a>
+        </li> */}
         {breadcrumbs.map((breadcrumb, i) => {
           console.log(
             'last',
@@ -50,14 +58,21 @@ const Breadcrumbs = () => {
 
           return (
             <>
-              {i >= 0 ? <div>{'/'}</div> : null}
-              <li key={breadcrumb.href}>
-                <Link href={breadcrumb.href}>
-                  <a> {convertBreadcrumb(breadcrumb.breadcrumb)}</a>
-                </Link>
-              </li>
+              {i > 0 ? <div>{'/'}</div> : null}
+              {checkLast(i) ? (
+                <p className="text-gray-700">
+                  {convertBreadcrumb(breadcrumb.breadcrumb)}
+                </p>
+              ) : (
+                <li key={breadcrumb.href}>
+                  <Link href={breadcrumb.href}>
+                    <a className="text-gray-400">
+                      {convertBreadcrumb(breadcrumb.breadcrumb)}
+                    </a>
+                  </Link>
+                </li>
+              )}
               {/* check last crumb */}
-              {i === breadcrumbs.length - 1 && <p>{breadcrumb.breadcrumb}</p>}
             </>
           );
         })}

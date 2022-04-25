@@ -3,13 +3,13 @@ import { SingleDatePicker } from 'react-dates';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
-const DatePicker = () => {
+const DatePicker = ({ placeholder }) => {
   const [date, setDate] = useState();
   const [focused, setFocused] = useState();
 
   return (
     <SingleDatePicker
-      placeholder="27 Jan 2022"
+      placeholder={placeholder}
       date={date}
       onDateChange={(date) => setDate(date)}
       focused={focused}

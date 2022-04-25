@@ -1,5 +1,4 @@
-import sidebarConfig from '@/utils/sidebarConfig';
-import { NavItem, SidebarContent, SidebarHeader } from './components';
+import { SidebarContent, SidebarHeader } from './components';
 
 const Sidebar = () => {
   return (

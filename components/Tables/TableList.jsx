@@ -8,7 +8,15 @@ import {
 import Pagination from '../ListData/Pagination';
 import TableHeader from './TableHeaders';
 
-const TableList = ({ columns, data, handleChangeStatus }) => {
+const TableList = ({
+  tableTitle,
+  columns,
+  data,
+  addPath,
+  btnTitle,
+  tableHeaderChild,
+  handleChangeStatus = () => {},
+}) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -43,7 +51,9 @@ const TableList = ({ columns, data, handleChangeStatus }) => {
   );
   return (
     <div className="mt-4 rounded-6 shadow bg-shade-FG p-12 flex flex-col">
-      <TableHeader addPath="/lounge-location/add-new-lounge-location" />
+      <TableHeader title={tableTitle} btnTitle={btnTitle} addPath={addPath}>
+        {tableHeaderChild}
+      </TableHeader>
       <div className="-my-2 mt-6 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -93,7 +103,7 @@ const TableList = ({ columns, data, handleChangeStatus }) => {
                   prepareRow(row);
                   return (
                     <tr
-                      className="odd:bg-shade-40 odd:bg-opacity-5 "
+                      className="even:bg-shade-40 even:bg-opacity-5 "
                       {...row.getRowProps()}
                     >
                       {row.cells.map((cell) => {
@@ -118,9 +128,9 @@ const TableList = ({ columns, data, handleChangeStatus }) => {
                 })}
               </tbody>
             </table>
-            <Pagination />
           </div>
         </div>
+        <Pagination />
       </div>
     </div>
   );

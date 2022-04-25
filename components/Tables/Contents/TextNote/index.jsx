@@ -1,7 +1,7 @@
-const TextNote = ({ title }) => {
+const TextNote = ({ value }) => {
   return (
     <p className="text-left text-gray-500 font-medium text-md-4">
-      {title ? title : '-'}
+      {value ? value : '-'}
     </p>
   );
 };
