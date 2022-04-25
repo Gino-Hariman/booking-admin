@@ -34,7 +34,7 @@ const Modals = ({ handleCloseModal, handlesSetData, data }) => {
                 />
               </div>
               {/*footer*/}
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-center mt-12">
                 <Button title="Continue" onClick={handleCloseModal}>
                   Save Changes
                 </Button>

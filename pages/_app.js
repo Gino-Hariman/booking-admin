@@ -1,7 +1,10 @@
 import DashboardTabProvider from '@/context/DashboardTabContext';
 import { useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Slide, ToastContainer } from 'react-toastify';
 import '../styles/globals.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MyFallbackComponent({ error, resetErrorBoundary }) {
   return (
@@ -14,6 +17,17 @@ function MyFallbackComponent({ error, resetErrorBoundary }) {
 }
 
 function MyApp({ Component, pageProps }) {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        refetchOnmount: true,
+        refetchOnReconnect: false,
+        retry: true,
+        staleTime: 5 * 60 * 1000,
+      },
+    },
+  });
   const Layout =
     Component.layout ||
     (({ children }) => {
@@ -30,9 +44,22 @@ function MyApp({ Component, pageProps }) {
   return (
     <ErrorBoundary FallbackComponent={MyFallbackComponent}>
       <DashboardTabProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <QueryClientProvider client={queryClient}>
+          <Layout>
+            <Component {...pageProps} />
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
+          </Layout>
+        </QueryClientProvider>
       </DashboardTabProvider>
     </ErrorBoundary>
   );

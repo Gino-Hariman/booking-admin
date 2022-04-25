@@ -6,10 +6,10 @@ const Actions = () => {
   return (
     <div>
       <IconButton>
-        <EditIcon className="w-6" />
+        <EditIcon className="w-6" fill="#696E76" />
       </IconButton>
       <IconButton>
-        <TrashIcon className="w-6" />
+        <TrashIcon className="w-6" fill="#696E76" />
       </IconButton>
     </div>
   );

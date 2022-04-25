@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import ChevronUp from '@/icons/Outline/Chevron Up.svg';
 import ChevronDown from '@/icons/Outline/Chevron Down.svg';
+import classNames from '@/helpers/classNames';
 
-const Dropdowns = ({ Icon, placeholder, datas }) => {
+const Dropdowns = ({ Icon, placeholder, datas, rounded = false }) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState('');
   const handleClick = () => {
@@ -15,18 +16,21 @@ const Dropdowns = ({ Icon, placeholder, datas }) => {
   };
 
   return (
-    <div className="w-full h-[56px] min-w-[200px] max-w-dropdown">
+    <div className="w-full relative h-[56px] min-w-[200px]">
       <button
         onClick={handleClick}
         // tabIndex="0"
-        className="flex w-full justify-evenly items-center px-3 py-4 rounded-2 bg-white border-2 border-shade-BD"
+        className={classNames(
+          rounded ? 'rounded-full' : 'rounded-2',
+          'flex w-full justify-between items-center px-4 py-4 bg-white border-2 border-shade-BD'
+        )}
       >
-        <Icon className="w-6" fill="#696E76" />
+        {Icon && <Icon className="w-6" fill="#696E76" />}
 
-        <p className="flex-1 ml-2 text-gray-700 text-sm">
+        <p className=" ml-2 text-gray-700 text-sm">
           {selected ? selected : placeholder}
         </p>
-        <div className="flex-1 flex justify-center">
+        <div className=" flex justify-center">
           {open ? (
             <ChevronDown width={20} height={20} />
           ) : (
@@ -37,7 +41,7 @@ const Dropdowns = ({ Icon, placeholder, datas }) => {
       {open && (
         <ul
           // tabIndex="0"
-          className="absolute z-40 shadow-md w-full max-w-dropdown overflow-hidden mt-2 menu text-gray-700 bg-shade-FG rounded-3 "
+          className="absolute z-40 shadow-md w-full overflow-hidden mt-2 menu text-gray-700 bg-shade-FG rounded-3 "
         >
           {datas.map((item) => (
             <li

@@ -20,7 +20,7 @@ const SidebarContent = () => {
           title={item.title}
           icon={item.icon}
           path={item.path}
-          isActive={router.pathname === item.path}
+          isActive={router.pathname.includes(item.path)}
         />
       ))}
     </ul>

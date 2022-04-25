@@ -22,7 +22,7 @@ const sidebarConfig = [
   {
     id: 3,
     title: 'Student List',
-    path: '/admin/student-list',
+    path: '/student-list',
     icon: StudentIcon,
   },
   {

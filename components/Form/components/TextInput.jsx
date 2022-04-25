@@ -1,5 +1,4 @@
-import { Controller, useController } from 'react-hook-form';
-import InputIcon from './InputIcon';
+import classNames from '@/helpers/classNames';
 
 const TextInput = ({
   name,
@@ -20,8 +19,8 @@ const TextInput = ({
       </label>
 
       <input
-        className="input"
-        id="password"
+        className={classNames(isError && 'error-input', 'input')}
+        id={name}
         type={inputType}
         placeholder={placeholder}
         // value={input}

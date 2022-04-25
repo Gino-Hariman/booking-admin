@@ -31,13 +31,16 @@ a {
     @apply text-gray-600 text-md-2 mb-2 font-medium;
   }
   .input {
-    @apply w-full py-4 px-6 rounded-full border outline-none focus:border-gray-500 shadow-inner disabled:border-shade-BD placeholder:text-shade-BD invalid:border-danger-500;
+    @apply w-full py-4 px-6 rounded-full border outline-none focus:border-gray-500 shadow-inner disabled:border-shade-BD placeholder:text-shade-BD;
+  }
+  .error-input {
+    @apply border-danger-500;
   }
   .btn {
-    @apply px-11 py-4 bg-primary-500 text-shade-FG text-md-4 font-semibold hover:bg-primary-600 active:bg-primary-700 disabled:bg-primary-50;
+    @apply px-11 py-4 bg-primary-500 text-shade-FG text-sm-4 md:text-md-4 font-semibold hover:bg-primary-600 active:bg-primary-700 disabled:bg-primary-50;
   }
   .outlined-btn {
-    @apply outline outline-1 py-4 px-12 text-md-3 font-medium text-info-600 hover:bg-shade-40 outline-info-600;
+    @apply outline outline-1 py-4 px-12 text-sm-4 md:text-md-3 font-medium text-info-600 hover:bg-shade-BG outline-info-600;
   }
   .outlined .nav-item {
     @apply bg-shade-FG text-gray-500 hover:bg-primary-50;
@@ -68,6 +71,9 @@ a {
   }
   .reject-chip {
     @apply bg-danger-50 text-danger-500;
+  }
+  .breadcrumb {
+    @apply flex space-x-2;
   }
 }
 
@@ -156,4 +162,11 @@ a {
 input:checked ~ .dot {
   transform: translateX(100%);
   background-color: #fff !important;
+}
+
+input:checked + .checkbox {
+  @apply bg-info-500 border-info-500 !important;
+}
+input:checked + div .icon {
+  @apply block font-bold text-shade-FG !important;
 }

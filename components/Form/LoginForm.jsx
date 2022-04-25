@@ -2,13 +2,13 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import DataForm from './DataForm';
-import Container from '../Container';
 import { Button } from '../Buttons';
 
 const LoginForm = () => {
   const {
     register,
     formState: { errors },
+    handleSubmit,
   } = useForm({
     resolver: yupResolver(
       Yup.object().shape({
@@ -23,6 +23,10 @@ const LoginForm = () => {
       password: '',
     },
   });
+
+  const onSubmit = (data) => {
+    console.log('data', data);
+  };
 
   return (
     <form className="flex flex-col">
@@ -44,7 +48,9 @@ const LoginForm = () => {
         register={register}
         errors={errors}
       />
-      <Button title="Login" onClick={() => console.log('Login!!')} />
+      <div className="mt-12 text-center">
+        <Button title="Login" onClick={handleSubmit(onSubmit)} />
+      </div>
     </form>
   );
 };
