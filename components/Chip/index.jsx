@@ -1,9 +1,16 @@
 import classNames from '@/helpers/classNames';
 
-const Chip = ({ title, width = 'w-normal-chip', type = 'accept', onClick }) => {
+const Chip = ({
+  title,
+  width = 'w-normal-chip',
+  type = 'accept',
+  onClick,
+  isDisabled = false,
+}) => {
   return (
     <button
-      onClick={() => console.log('123')}
+      disabled={isDisabled}
+      onClick={onClick}
       className={classNames(
         type === 'accept' ? 'success-chip' : 'reject-chip',
         width,

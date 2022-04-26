@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import EditTextInput from '../EditTextInput';
 
 const EditListItem = ({
@@ -21,7 +22,7 @@ const EditListItem = ({
         </h1>
         <div className="flex text-md-3 lg:space-x-8 text-gray-700 flex-col lg:flex-row">
           <span>
-            <p>{date}</p>
+            <p>{dayjs(date).format('DD MMMM YYYY')}</p>
           </span>
           <span>
             <p>{time}</p>

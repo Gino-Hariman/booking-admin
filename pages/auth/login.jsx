@@ -7,9 +7,6 @@ const Login = () => {
     <Container>
       <LoginForm />
     </Container>
-    // <Container title="Login" styles="mx-auto bg-primary-500">
-    // <h1>Login</h1>
-    // </Container>
   );
 };
 
