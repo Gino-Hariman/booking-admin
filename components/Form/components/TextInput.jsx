@@ -14,7 +14,7 @@ const TextInput = ({
 
   return (
     <div key={name} className="mt-5">
-      <label className="label" for="password">
+      <label className="label" for={name}>
         {label}
       </label>
 
