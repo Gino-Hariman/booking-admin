@@ -1,11 +1,15 @@
 import DashboardTabProvider from '@/context/DashboardTabContext';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 // import { QueryClient, QueryClientProvider } from 'react-query';
 import { Slide, ToastContainer } from 'react-toastify';
 import '../styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { AuthProvider } from '@/context/AuthenticationContext';
+import ProtectedRoutes from '@/axios/ProtectedRoutes';
+import { LoadingModal } from '@/components/Loading';
 
 function MyFallbackComponent({ error, resetErrorBoundary }) {
   return (
@@ -45,22 +49,30 @@ function MyApp({ Component, pageProps }) {
   return (
     <ErrorBoundary FallbackComponent={MyFallbackComponent}>
       <QueryClientProvider client={queryClient}>
-        <DashboardTabProvider>
-          <Layout>
-            <Component {...pageProps} />
-            <ToastContainer
-              position="top-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-            />
-          </Layout>
-        </DashboardTabProvider>
+        <AuthProvider>
+          <ProtectedRoutes>
+            <DashboardTabProvider>
+              <Layout>
+                <Suspense fallback={<LoadingModal title="Loading ...." />}>
+                  <Component {...pageProps} />
+                </Suspense>
+                <ToastContainer
+                  position="top-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                />
+              </Layout>
+            </DashboardTabProvider>
+          </ProtectedRoutes>
+        </AuthProvider>
+
+        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       </QueryClientProvider>
     </ErrorBoundary>
   );

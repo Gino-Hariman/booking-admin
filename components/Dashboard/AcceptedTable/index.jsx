@@ -1,5 +1,6 @@
 import Chip from '@/components/Chip';
 import ListItem from '@/components/ListData/ListItem';
+import { LoadingModal } from '@/components/Loading';
 import useGetQuery from '@/hooks/useGetQuery';
 import studentRequest from '@/_mocks/studentRequest';
 
@@ -13,7 +14,7 @@ const AcceptedTable = ({ page }) => {
     }
   );
 
-  if (isFetching) return <p>loading</p>;
+  if (isFetching) return <LoadingModal />;
   return data.map((item) => (
     <ListItem
       key={item.order_id}

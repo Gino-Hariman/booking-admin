@@ -60,9 +60,7 @@ const EditTextInput = () => {
         <Modals
           // data={data}
           setShowModal={setShowModal}
-          handleOpenModal={handleOpenModal}
-          // handleCloseModal={handleCloseModal}
-          // handleAdd={handlesSetData}
+          handleCloseModal={handleCloseModal}
         >
           <BookingNotes
             value={data}

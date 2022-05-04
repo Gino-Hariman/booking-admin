@@ -22,7 +22,7 @@ const RequestTable = ({ page }) => {
   const acceptMutation = usePutQuery('/book/approve');
   const declineMutation = usePutQuery('/book/decline');
 
-  if (isFetching) return <p>loading</p>;
+  // if (isFetching) return <p>loading</p>;
 
   const handleAccept = (id) => {
     setCounter((prev) => prev + 2);
@@ -51,7 +51,7 @@ const RequestTable = ({ page }) => {
   };
   return (
     <>
-      {data.map((item) => (
+      {studentRequest.map((item) => (
         <ListItem
           key={item.order_id}
           id={item.order_id}

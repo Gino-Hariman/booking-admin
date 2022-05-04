@@ -5,9 +5,11 @@ import DataForm from './DataForm';
 import { Button } from '../Buttons';
 import usePostQuery from '@/hooks/usePostQuery';
 import useToast from '@/hooks/useToast';
+import { useAuth } from '@/context/AuthenticationContext';
 
 const LoginForm = () => {
   const { notify } = useToast();
+  const { isAuthenticated, user, login } = useAuth();
   const {
     register,
     formState: { errors },
@@ -27,18 +29,19 @@ const LoginForm = () => {
     },
   });
 
-  const mutation = usePostQuery('/admin/login');
+  // const mutation = usePostQuery('/admin/login');
 
   const onSubmit = (data) => {
     console.log('data', data);
-    mutation.mutate(data, {
-      onSuccess: (res) => {
-        notify('success', res.verify);
-        localStorage.setItem('name', res.name);
-        localStorage.setItem('role', res.permission);
-      },
-      onError: (err) => notify('error', err.error),
-    });
+    login(data);
+    // mutation.mutate(data, {
+    //   onSuccess: (res) => {
+    //     notify('success', res.verify);
+    //     localStorage.setItem('name', res.name);
+    //     localStorage.setItem('role', res.permission);
+    //   },
+    //   onError: (err) => notify('error', err.error),
+    // });
     // mutation.mutate();
   };
 

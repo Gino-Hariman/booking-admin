@@ -1,6 +1,6 @@
 import Chip from '@/components/Chip';
 import EditListItem from '@/components/ListData/EditListItem';
-import Loading from '@/components/Loading';
+import { LoadingModal } from '@/components/Loading';
 import useGetQuery from '@/hooks/useGetQuery';
 import studentRequest from '@/_mocks/studentRequest';
 import dayjs from 'dayjs';
@@ -16,9 +16,8 @@ const OngoingTable = ({ page }) => {
       onError: (err) => console.log('Sorry!', err),
     }
   );
-  console.log('dayjs(', dayjs().format('YYYY-MM-DD'));
-  if (isFetching) return <Loading />;
-  return data.map((item) => (
+  // if (isFetching) return <LoadingModal />;
+  return studentRequest.map((item) => (
     <EditListItem
       key={item.order_id}
       id={item.order_id}

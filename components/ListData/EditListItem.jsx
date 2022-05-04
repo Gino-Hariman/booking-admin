@@ -1,5 +1,8 @@
 import dayjs from 'dayjs';
 import EditTextInput from '../EditTextInput';
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/solid';
+import { useState } from 'react';
+import { Actions } from './components';
 
 const EditListItem = ({
   id,
@@ -12,6 +15,7 @@ const EditListItem = ({
   studentClass,
   children,
 }) => {
+  console.log('isAccepte', isAccept);
   return (
     <div className="grid xl:grid-cols-5 lg:space-x-6 items-center border-b-2 border-black-20 py-6 space-y-4">
       <div className="col-span-3 space-y-2">
@@ -39,7 +43,9 @@ const EditListItem = ({
         </div>
       </div>
       <div className="col-2">
-        <EditTextInput />
+        {isAccept === undefined ? <Actions /> : <EditTextInput />}
+
+        {/* <EditTextInput /> */}
       </div>
       <div className="flex auto-cols-max col-span-3 lg:col-auto justify-start space-x-6">
         {/* status chip */}

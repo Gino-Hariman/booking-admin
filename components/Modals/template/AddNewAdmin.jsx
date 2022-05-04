@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/Buttons';
 
-const AddNewAdmin = ({ register, errors }) => {
+const AddNewAdmin = ({}) => {
   const {
     register,
     formState: { errors },
