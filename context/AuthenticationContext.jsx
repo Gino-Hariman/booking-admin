@@ -12,17 +12,19 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const { notify } = useToast();
-  const loginMutation = usePostQuery('/admin/login');
+  const loginMutation = usePostQuery('/login');
+  console.log(user, '123');
 
   useEffect(() => {
     async function loadUserFromCookies() {
       const token = Cookies.get('token');
       if (token) {
         console.log("Got a token in the cookies, let's see if it is valid");
-        instance.defaults.headers.Authorization = `Bearer ${token}`;
+        // instance.defaults.headers.Authorization = `Bearer ${token}`;
+        instance.defaults.headers['x-admin-auth'] = token;
         // const { data: user } = await instance.get('users/me');
-        // if (user) setUser(user);
-        setUser('testing Mario');
+        setUser(Cookies.get('name'));
+        // setUser('testing Mario');
       }
       setLoading(false);
     }
@@ -34,10 +36,14 @@ export const AuthProvider = ({ children }) => {
       onSuccess: (res) => {
         console.log('res', res);
         if (res.type === 'error') return notify('error', err.message);
+        Cookies.set('name', res.admin_name);
+        Cookies.set('adminID', res['id_admin']);
         Cookies.set('token', res.token);
+        // instance.defaults.headers['x-admin-auth'] = res.token;
+        setUser(res.admin_name);
         notify('success', 'Login Success!!');
         window.location.pathname = '/dashboard';
-        return router;
+        // return router;
       },
       onError: () => notify('error', 'Sorry, Something went wrong!'),
     });

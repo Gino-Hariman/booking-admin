@@ -26,13 +26,22 @@ const EditTextInput = () => {
   const handleCloseModal = () => {
     setCanEdit(false);
     setShowModal(false);
-    setIsAccept(undefined);
+    // setIsAccept(undefined);
+  };
+
+  const handleAcceptStudent = () => {
+    // setCanEdit(true);
+    setIsAccept(1);
   };
 
   if (isAccept === undefined)
     return (
       <>
-        <Actions handleOpenModal={handleOpenModal} setIsAccept={setIsAccept} />
+        <Actions
+          handleAcceptStudent={handleAcceptStudent}
+          handleOpenModal={handleOpenModal}
+          setIsAccept={setIsAccept}
+        />
         {showModal && (
           <Modals
             // data={data}

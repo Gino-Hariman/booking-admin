@@ -1,6 +1,6 @@
 import Chip from '@/components/Chip';
 import ListItem from '@/components/ListData/ListItem';
-import Loading from '@/components/Loading';
+import Loading, { LoadingModal } from '@/components/Loading';
 import useGetQuery from '@/hooks/useGetQuery';
 import studentRequest from '@/_mocks/studentRequest';
 import { useState } from 'react';
@@ -17,7 +17,7 @@ const RejectedTable = ({ page }) => {
     }
   );
 
-  if (isFetching) return <Loading />;
+  if (isFetching) return <LoadingModal />;
   return data.map((item) => (
     <ListItem
       key={item.order_id}
