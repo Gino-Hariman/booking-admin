@@ -6,7 +6,8 @@ import BookingNotes from '../Modals/template/BookingNotes';
 import { Actions } from '../ListData/components';
 
 const EditTextInput = () => {
-  const [isAccept, setIsAccept] = useState(undefined);
+  const [isAccept, setIsAccept] = useState(false);
+  const [isDecline, setIsDecline] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState(null);
   const [canEdit, setCanEdit] = useState(false);
@@ -33,6 +34,8 @@ const EditTextInput = () => {
     // setCanEdit(true);
     setIsAccept(1);
   };
+
+  const handleDeclineStudent = () => {};
 
   if (isAccept === undefined)
     return (

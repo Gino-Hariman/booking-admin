@@ -49,7 +49,7 @@ a {
     @apply bg-primary-500 text-primary-50;
   }
   .tab-btn {
-    @apply w-full flex rounded-3 cursor-pointer items-center justify-between shadow-md bg-shade-FG hover:bg-shade-BG;
+    @apply w-full border-2 border-shade-FG flex rounded-3 cursor-pointer items-center justify-between shadow-md bg-shade-FG hover:bg-shade-BG;
   }
   .student-request {
     @apply border-2 border-primary-500;

@@ -1,10 +1,12 @@
 import Chip from '@/components/Chip';
 import ListItem from '@/components/ListData/ListItem';
+import { LoadingModal } from '@/components/Loading';
 import useGetQuery from '@/hooks/useGetQuery';
 import usePostQuery from '@/hooks/usePostQuery';
 import usePutQuery from '@/hooks/usePutQuery';
 import useToast from '@/hooks/useToast';
 import studentRequest from '@/_mocks/studentRequest';
+import Cookies from 'js-cookie';
 import { useState } from 'react';
 
 const RequestTable = ({ page }) => {
@@ -18,17 +20,22 @@ const RequestTable = ({ page }) => {
       onError: (err) => console.log('Sorry!', err),
     }
   );
-
+  console.log('data', data);
+  console.log('222');
   const acceptMutation = usePutQuery('/book/approve');
   const declineMutation = usePutQuery('/book/decline');
 
-  // if (isFetching) return <p>loading</p>;
+  if (isFetching) return <LoadingModal />;
 
   const handleAccept = (id) => {
     setCounter((prev) => prev + 2);
 
     acceptMutation.mutate(
-      { order_id: id, accept_by: localStorage.getItem('name') },
+      {
+        order_id: id,
+        handle_by: Cookies.get('name'),
+        id_admin: Cookies.get('adminID'),
+      },
       {
         onSuccess: (res) => {
           notify('success', `Approve ${res}`);
@@ -51,7 +58,7 @@ const RequestTable = ({ page }) => {
   };
   return (
     <>
-      {studentRequest.map((item) => (
+      {data.map((item) => (
         <ListItem
           key={item.order_id}
           id={item.order_id}
