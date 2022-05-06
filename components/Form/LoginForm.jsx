@@ -3,8 +3,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import DataForm from './DataForm';
 import { Button } from '../Buttons';
+import usePostQuery from '@/hooks/usePostQuery';
+import useToast from '@/hooks/useToast';
+import { useAuth } from '@/context/AuthenticationContext';
 
 const LoginForm = () => {
+  const { notify } = useToast();
+  const { isAuthenticated, user, login } = useAuth();
   const {
     register,
     formState: { errors },
@@ -12,20 +17,32 @@ const LoginForm = () => {
   } = useForm({
     resolver: yupResolver(
       Yup.object().shape({
-        email: Yup.string().required('Email Required').email('Invalid Email'),
+        username: Yup.string().required('Email Required'),
         password: Yup.string('Password format is not valid').required(
           'Password Required'
         ),
       })
     ),
     defaultValues: {
-      email: '',
+      username: '',
       password: '',
     },
   });
 
+  // const mutation = usePostQuery('/admin/login');
+
   const onSubmit = (data) => {
     console.log('data', data);
+    login(data);
+    // mutation.mutate(data, {
+    //   onSuccess: (res) => {
+    //     notify('success', res.verify);
+    //     localStorage.setItem('name', res.name);
+    //     localStorage.setItem('role', res.permission);
+    //   },
+    //   onError: (err) => notify('error', err.error),
+    // });
+    // mutation.mutate();
   };
 
   return (
@@ -33,9 +50,9 @@ const LoginForm = () => {
       <DataForm
         forms={[
           {
-            label: 'Student Email',
-            name: 'email',
-            placeholder: 'youremail@email.com',
+            label: 'Username',
+            name: 'username',
+            placeholder: 'username',
             type: 'TextInput',
           },
           {

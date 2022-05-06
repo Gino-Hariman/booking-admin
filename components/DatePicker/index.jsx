@@ -1,21 +1,30 @@
 import React, { useState } from 'react';
-import { SingleDatePicker } from 'react-dates';
+import { DateRangePicker, SingleDatePicker } from 'react-dates';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
-const DatePicker = ({ placeholder }) => {
-  const [date, setDate] = useState();
-  const [focused, setFocused] = useState();
+const DatePicker = () => {
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [focusedInput, setFocusedInput] = useState(null);
+  const handleDatesChange = ({ startDate, endDate }) => {
+    setStartDate(startDate);
+    setEndDate(endDate);
+  };
 
   return (
-    <SingleDatePicker
-      placeholder={placeholder}
-      date={date}
-      onDateChange={(date) => setDate(date)}
-      focused={focused}
-      onFocusChange={({ focused }) => setFocused(focused)}
-      id="date"
+    <DateRangePicker
       showDefaultInputIcon
+      showClearDates
+      reopenPickerOnClearDates
+      id="date"
+      startDate={startDate}
+      startDateId="tata-start-date"
+      endDate={endDate}
+      endDateId="tata-end-date"
+      onDatesChange={handleDatesChange}
+      focusedInput={focusedInput}
+      onFocusChange={(focusedInput) => setFocusedInput(focusedInput)}
     />
   );
 };

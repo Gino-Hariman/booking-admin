@@ -1,22 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import classNames from '@/helpers/classNames';
 import EditIcon from '@/icons/Fill/Edit.svg';
 import Modals from '../Modals';
 import BookingNotes from '../Modals/template/BookingNotes';
+import { Actions } from '../ListData/components';
 
 const EditTextInput = () => {
+  const [isAccept, setIsAccept] = useState(undefined);
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState(null);
   const [canEdit, setCanEdit] = useState(false);
-  const inputRef = useRef();
   console.log('data', data);
 
-  // useEffect(() => {
-  //   inputRef.focus();
-  // }, [canEdit]);
-
   const handleCanEdit = () => {
-    // inputRef.focus();
     setCanEdit(true);
     setShowModal(true);
   };
@@ -30,7 +26,37 @@ const EditTextInput = () => {
   const handleCloseModal = () => {
     setCanEdit(false);
     setShowModal(false);
+    // setIsAccept(undefined);
   };
+
+  const handleAcceptStudent = () => {
+    // setCanEdit(true);
+    setIsAccept(1);
+  };
+
+  if (isAccept === undefined)
+    return (
+      <>
+        <Actions
+          handleAcceptStudent={handleAcceptStudent}
+          handleOpenModal={handleOpenModal}
+          setIsAccept={setIsAccept}
+        />
+        {showModal && (
+          <Modals
+            // data={data}
+            setShowModal={setShowModal}
+            handleCloseModal={handleCloseModal}
+          >
+            <BookingNotes
+              value={data}
+              onChange={onChange}
+              onSubmit={handleCloseModal}
+            />
+          </Modals>
+        )}
+      </>
+    );
 
   return (
     <>
@@ -60,9 +86,7 @@ const EditTextInput = () => {
         <Modals
           // data={data}
           setShowModal={setShowModal}
-          handleOpenModal={handleOpenModal}
-          // handleCloseModal={handleCloseModal}
-          // handleAdd={handlesSetData}
+          handleCloseModal={handleCloseModal}
         >
           <BookingNotes
             value={data}

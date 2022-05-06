@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_MAIN_HOST}/api/v1`,
+  baseURL: `${process.env.NEXT_PUBLIC_MAIN_HOST}/admin`,
   withCredentials: true,
   headers: {
     Accept: 'application/json',
@@ -9,5 +9,4 @@ const instance = axios.create({
   },
   responseType: 'json',
 });
-
 export default instance;

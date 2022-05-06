@@ -1,3 +1,4 @@
+import ErrorMessage from '@/components/ErrorMessage';
 import classNames from '@/helpers/classNames';
 
 const TextInput = ({
@@ -14,7 +15,7 @@ const TextInput = ({
 
   return (
     <div key={name} className="mt-5">
-      <label className="label" for="password">
+      <label className="label" for={name}>
         {label}
       </label>
 
@@ -30,7 +31,7 @@ const TextInput = ({
         ref={r?.ref}
       />
 
-      {isError && <p>{errors[name]?.message}</p>}
+      {isError && <ErrorMessage message={errors[name]?.message} />}
     </div>
   );
 };

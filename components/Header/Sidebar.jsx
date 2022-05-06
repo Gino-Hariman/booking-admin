@@ -1,9 +1,11 @@
 import { SidebarContent, SidebarHeader } from './components';
 import LogoutIcon from '@/icons/Outline/Logout.svg';
+import { useAuth } from '@/context/AuthenticationContext';
 
 const Sidebar = () => {
+  const { logout } = useAuth();
   const handleLogout = () => {
-    console.log('logout');
+    logout();
   };
   return (
     <div className="bg-shade-FG fixed z-50 flex flex-col top-nav left-0 w-14 hover:w-64 md:w-64 h-full text-white transition-all duration-300 border-none shadow sidebar">

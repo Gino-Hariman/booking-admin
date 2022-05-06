@@ -4,6 +4,7 @@ import { useState } from 'react';
 // import OffEyeIcon from '../../../public/icons/eye-off.svg';
 import InputIcon from './InputIcon';
 import { EyeOffIcon, EyeIcon } from '@heroicons/react/solid';
+import ErrorMessage from '@/components/ErrorMessage';
 
 const PassInput = ({ name, placeholder, label, register, errors }) => {
   const [passHidden, setPassHidden] = useState(true);
@@ -11,6 +12,7 @@ const PassInput = ({ name, placeholder, label, register, errors }) => {
     setPassHidden((prev) => !prev);
   };
 
+  const isError = errors && errors[name];
   const r = register(name);
   return (
     <div key={name} className="mt-5">
@@ -32,7 +34,7 @@ const PassInput = ({ name, placeholder, label, register, errors }) => {
         </InputIcon>
       </div>
 
-      <p>{errors && errors[name]?.message}</p>
+      {isError && <ErrorMessage message={errors[name]?.message} />}
     </div>
   );
 };

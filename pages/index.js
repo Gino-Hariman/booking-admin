@@ -4,6 +4,29 @@ import DashboardLayout from '@/layout/DashboardLayout';
 import Head from 'next/head';
 import { useState } from 'react';
 
+export const getServerSideProps = ({ req }) => {
+  const user = req.cookies.token;
+  if (!user) {
+    return {
+      redirect: {
+        destination: '/auth/login',
+        permanent: false,
+      },
+    };
+  } else {
+    return {
+      redirect: {
+        destination: '/admin',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
+
 export default function Home() {
   const [selectedItem, setSelectedItem] = useState('');
   const handleSelect = (id) => {
