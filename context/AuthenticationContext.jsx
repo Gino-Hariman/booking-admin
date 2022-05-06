@@ -60,8 +60,10 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     Cookies.remove('token');
+    Cookies.remove('name');
+    Cookies.remove('adminID');
     setUser(null);
-    delete instance.defaults.headers.Authorization;
+    delete instance.defaults.headers['x-admin-auth'];
     window.location.pathname = '/auth/login';
   };
 
