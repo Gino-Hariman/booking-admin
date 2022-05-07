@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import EditTextInput from '../EditTextInput';
 
 const EditListItem = ({
-  id,
+  orderID,
   nim,
   location,
   studentName,
@@ -10,12 +10,16 @@ const EditListItem = ({
   time,
   major,
   studentClass,
+  present,
+  note,
   children,
 }) => {
   return (
     <div className="grid xl:grid-cols-5 lg:space-x-6 items-center border-b-2 border-black-20 py-6 space-y-4">
       <div className="col-span-3 space-y-2">
-        <sub className="text-md-4 font-medium text-gray-700">ID : {id}</sub>
+        <sub className="text-md-4 font-medium text-gray-700">
+          ID : {orderID}
+        </sub>
         <h1 className="text-lg-3 font-medium text-gray-900">
           {location} -
           <span className="font-normal text-gray-800">{studentName}</span>
@@ -40,7 +44,7 @@ const EditListItem = ({
       </div>
       <div className="col-2">
         {/* Accept or Reject Student and Add Notes */}
-        <EditTextInput />
+        <EditTextInput present={present} note={note} orderID={orderID} />
       </div>
       <div className="flex auto-cols-max col-span-3 lg:col-auto justify-start space-x-6">
         {/* status chip */}

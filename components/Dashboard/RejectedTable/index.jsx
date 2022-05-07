@@ -32,7 +32,7 @@ const RejectedTable = ({ page }) => {
     >
       <Chip
         isDisabled
-        title={`Rejected By ${item.accepted_by}`}
+        title={`Rejected By ${item.handle_by}`}
         width="min-w-large-chip w-large-chip text-md-3"
         type="reject"
       />

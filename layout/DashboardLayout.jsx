@@ -4,9 +4,9 @@ import tabBarConfig from '@/utils/tabBarConfig';
 const DashboardLayout = ({ selectedItem, handleSelect, children }) => {
   return (
     // <div className="h-full xl:w-full xl:mx-0 hidden sm:block p-8">
-    <>
+    <div>
       <TabBarButtonMobile options={tabBarConfig} />
-      <ul className="hidden lg:grid grid-cols-auto-fill auto-rows-auto-fill gap-4 mb-8">
+      <ul className="hidden z-50 lg:grid grid-cols-auto-fill auto-rows-auto-fill gap-4 mb-8">
         {tabBarConfig.map((item) => (
           <TabBarButton
             key={item.id}
@@ -21,8 +21,8 @@ const DashboardLayout = ({ selectedItem, handleSelect, children }) => {
           />
         ))}
       </ul>
-      {children}
-    </>
+      <div className=" ">{children}</div>
+    </div>
 
     // </div>
   );
