@@ -2,34 +2,30 @@ import Chip from '@/components/Chip';
 import ListItem from '@/components/ListData/ListItem';
 import { LoadingModal } from '@/components/Loading';
 import useGetQuery from '@/hooks/useGetQuery';
-import usePostQuery from '@/hooks/usePostQuery';
 import usePutQuery from '@/hooks/usePutQuery';
 import useToast from '@/hooks/useToast';
-import studentRequest from '@/_mocks/studentRequest';
 import Cookies from 'js-cookie';
-import { useState } from 'react';
+import { useQueryClient } from 'react-query';
 
 const RequestTable = ({ page }) => {
-  const [counter, setCounter] = useState(0);
+  const queryClient = useQueryClient();
   const { notify } = useToast();
+
   const { data, isFetching } = useGetQuery(
-    ['request', 'table', counter, page],
+    ['request', 'table', page],
     `/book/filtered?status=pending&page=${page}`,
     {
       // keepPreviousData: true,
-      onError: (err) => console.log('Sorry!', err),
+      onError: (err) => notify('error', 'Sorry, Something went wrong!'),
     }
   );
-  console.log('data', data);
-  console.log('222');
+
   const acceptMutation = usePutQuery('/book/approve');
   const declineMutation = usePutQuery('/book/decline');
 
   if (isFetching) return <LoadingModal />;
 
   const handleAccept = (id) => {
-    setCounter((prev) => prev + 2);
-
     acceptMutation.mutate(
       {
         order_id: id,
@@ -38,7 +34,12 @@ const RequestTable = ({ page }) => {
       },
       {
         onSuccess: (res) => {
+          console.log('res mutate', res);
+
           notify('success', `Approve ${res}`);
+        },
+        onSettled: () => {
+          queryClient.invalidateQueries('request');
         },
       }
     );

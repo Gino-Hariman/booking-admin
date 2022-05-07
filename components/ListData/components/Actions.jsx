@@ -1,9 +1,6 @@
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/solid';
 
-const Actions = ({ handleAcceptStudent, handleOpenModal, setIsAccept }) => {
-  const handleClick = (data) => {
-    setIsAccept(data);
-  };
+const Actions = ({ handleAcceptStudent, handleDeclineStudent }) => {
   return (
     <div className="flex">
       <CheckCircleIcon
@@ -11,10 +8,7 @@ const Actions = ({ handleAcceptStudent, handleOpenModal, setIsAccept }) => {
         className="w-12 h-12 text-success-500"
       />
       <XCircleIcon
-        onClick={() => {
-          // handleClick(0);
-          handleOpenModal();
-        }}
+        onClick={handleDeclineStudent}
         className="w-12 h-12 text-danger-500"
       />
     </div>

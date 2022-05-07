@@ -1,100 +1,156 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import classNames from '@/helpers/classNames';
 import EditIcon from '@/icons/Fill/Edit.svg';
 import Modals from '../Modals';
 import BookingNotes from '../Modals/template/BookingNotes';
 import { Actions } from '../ListData/components';
+import usePutQuery from '@/hooks/usePutQuery';
+import { useQueryClient } from 'react-query';
+import useToast from '@/hooks/useToast';
 
-const EditTextInput = () => {
-  const [isAccept, setIsAccept] = useState(false);
-  const [isDecline, setIsDecline] = useState(false);
+const EditTextInput = ({ present, note, orderID }) => {
+  const queryClient = useQueryClient();
+  const { notify } = useToast();
+  const [isPresent, setIsPresent] = useState(present);
   const [showModal, setShowModal] = useState(false);
-  const [data, setData] = useState(null);
-  const [canEdit, setCanEdit] = useState(false);
-  console.log('data', data);
+  const [notes, setNotes] = useState(note === 'undefined' ? '' : note);
+  const editRef = useRef(false);
+  const presentMutation = usePutQuery('/book/present');
 
-  const handleCanEdit = () => {
-    setCanEdit(true);
+  const handleEditNote = () => {
     setShowModal(true);
+    editRef.current = true;
   };
   const onChange = (e) => {
-    setData(e.target.value);
+    setNotes(e.target.value);
   };
   const handleOpenModal = () => {
-    setCanEdit(true);
     setShowModal(true);
   };
   const handleCloseModal = () => {
-    setCanEdit(false);
     setShowModal(false);
-    // setIsAccept(undefined);
   };
 
   const handleAcceptStudent = () => {
-    // setCanEdit(true);
-    setIsAccept(1);
+    setIsPresent(1);
+    presentMutation.mutate(
+      {
+        order_id: orderID,
+        present: 1,
+      },
+      {
+        onSuccess: (res) => {
+          console.log('res mutate', res);
+
+          notify('success', `Edit Note ${res}`);
+        },
+        onError: (res) => {
+          console.log('res', res);
+          notify('error', 'Edit Not Failed!');
+        },
+        onSettled: () => {
+          queryClient.invalidateQueries(['ongoing', 'table']);
+        },
+      }
+    );
   };
 
-  const handleDeclineStudent = () => {};
+  const handleDeclineStudent = () => {
+    setIsPresent(0);
+    setShowModal(true);
+  };
 
-  if (isAccept === undefined)
+  const handleSubmitModal = () => {
+    console.log('234', editRef.current, present, isPresent);
+    presentMutation.mutate(
+      {
+        order_id: orderID,
+        note: notes,
+        present: editRef.current ? present : isPresent,
+      },
+      {
+        onSuccess: (res) => {
+          console.log('res mutate', res);
+
+          notify('success', `Edit Note ${res}`);
+        },
+        onError: (res) => {
+          console.log('res', res);
+          notify('error', 'Edit Not Failed!');
+        },
+        onSettled: () => {
+          queryClient.invalidateQueries(['ongoing', 'table']);
+        },
+      }
+    );
+    setShowModal(false);
+  };
+
+  if (isPresent === undefined && present === null)
     return (
       <>
         <Actions
           handleAcceptStudent={handleAcceptStudent}
-          handleOpenModal={handleOpenModal}
-          setIsAccept={setIsAccept}
+          handleDeclineStudent={handleDeclineStudent}
         />
         {showModal && (
           <Modals
-            // data={data}
+            // notes={notes}
             setShowModal={setShowModal}
             handleCloseModal={handleCloseModal}
           >
             <BookingNotes
-              value={data}
+              value={notes}
               onChange={onChange}
-              onSubmit={handleCloseModal}
+              onSubmit={handleSubmitModal}
             />
           </Modals>
         )}
       </>
     );
 
+  console.log('note', note);
   return (
     <>
-      <div
-        className={classNames(
-          data ? 'flex' : 'hidden',
-          'space-x-2 items-center justify-between'
-        )}
-      >
-        <p className="text-gray-500 text-md-3 font-medium line-clamp-3">
-          {data}
-        </p>
-        <span onClick={handleOpenModal}>
-          <EditIcon className="w-6" fill="#AFB7C4" />
-        </span>
-      </div>
-      <button
-        className={classNames(
-          canEdit || data ? 'hidden' : 'flex',
-          'font-medium text-md-3 text-info-300'
-        )}
-        onClick={handleOpenModal}
-      >
-        Add New Booking Notes
-      </button>
+      {isPresent === 0 || present === 0 ? (
+        <p className="text-md-3 font-medium text-danger-600">{note}</p>
+      ) : (
+        <>
+          <div
+            className={classNames(
+              note !== 'undefined' ? 'flex' : 'hidden',
+              'space-x-2 items-center justify-between'
+            )}
+          >
+            <p className="text-gray-500 text-md-3 font-medium line-clamp-3">
+              {note}
+            </p>
+            <span onClick={handleEditNote}>
+              <EditIcon className="w-6" fill="#AFB7C4" />
+            </span>
+          </div>
+          <button
+            className={classNames(
+              note !== 'undefined' ? 'hidden' : 'flex',
+              'font-medium text-md-3 text-info-300'
+            )}
+            onClick={handleOpenModal}
+          >
+            Add New Booking Notes
+          </button>
+        </>
+      )}
+
       {showModal && (
         <Modals
-          // data={data}
+          // notes={notes}
           setShowModal={setShowModal}
           handleCloseModal={handleCloseModal}
         >
           <BookingNotes
-            value={data}
+            value={notes}
             onChange={onChange}
-            onSubmit={handleCloseModal}
+            onSubmit={handleSubmitModal}
           />
         </Modals>
       )}

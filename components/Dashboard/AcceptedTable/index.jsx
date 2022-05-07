@@ -15,6 +15,7 @@ const AcceptedTable = ({ page }) => {
   );
 
   if (isFetching) return <LoadingModal />;
+  console.log('data', data);
   return data.map((item) => (
     <ListItem
       key={item.order_id}
@@ -29,7 +30,7 @@ const AcceptedTable = ({ page }) => {
     >
       <Chip
         isDisabled
-        title={`Accepted By ${item.accepted_by}`}
+        title={`Accepted By ${item.handle_by}`}
         width="w-large-chip text-md-3"
         type="accept"
       />
