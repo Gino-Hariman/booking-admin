@@ -15,7 +15,7 @@ const AcceptedTable = ({ page }) => {
   );
 
   if (isFetching) return <LoadingModal />;
-  console.log('data', data);
+
   return data.map((item) => (
     <ListItem
       key={item.order_id}

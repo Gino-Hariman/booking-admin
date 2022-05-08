@@ -9,7 +9,13 @@ import LocationIcon from '@/icons/Fill/Location.svg';
 import MajorIcon from '@/icons/Fill/Major.svg';
 import { dateFormat } from '@/utils/dateTimeConfig';
 
-const ListData = ({ title, children, handleNext, handlePrev }) => {
+const ListData = ({
+  leftBtnDisabled,
+  title,
+  children,
+  handleNext,
+  handlePrev,
+}) => {
   return (
     <div className="rounded-5 shadow-sm py-10 px-12 bg-shade-FG">
       <h2 className="mb-2 text-lg-3 font-semibold text-primary-900">{title}</h2>
@@ -30,7 +36,11 @@ const ListData = ({ title, children, handleNext, handlePrev }) => {
         </>
       </TableFilter>
       <div className="flex flex-1 flex-col">{children}</div>
-      <Pagination handleNext={handleNext} handlePrev={handlePrev} />
+      <Pagination
+        isDisabled={leftBtnDisabled}
+        handleNext={handleNext}
+        handlePrev={handlePrev}
+      />
     </div>
   );
 };

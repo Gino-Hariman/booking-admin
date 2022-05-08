@@ -3,7 +3,6 @@ import { PlusCircleIcon, MinusCircleIcon } from '@heroicons/react/outline';
 import { useState } from 'react';
 
 const Counter = ({ name, ref, getValues, setValue }) => {
-  console.log('getValues', getValues(name));
   const [num, setNum] = useState(0);
   const checkIsDisabled = () => {
     return getValues(name) === 1;
@@ -17,7 +16,6 @@ const Counter = ({ name, ref, getValues, setValue }) => {
     });
   };
   const add = () => {
-    console.log('test');
     setValue(name, getValues(name) + 1, {
       shouldValidate: true,
       shouldDirty: true,

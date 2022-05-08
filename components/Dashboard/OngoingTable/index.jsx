@@ -18,7 +18,6 @@ const OngoingTable = ({ page }) => {
   );
   if (isFetching) return <LoadingModal />;
 
-  console.log('data on', data);
   return data.map((item) => (
     <EditListItem
       key={item.order_id}

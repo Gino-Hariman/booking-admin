@@ -5,7 +5,6 @@ const { default: BookTimeItem } = require('./BookTimeItem');
 const BookTimeList = ({ data }) => {
   const { selected, handleSelect, handleSelectAllClick } = useBookTime();
 
-  console.log('selected', selected);
   return (
     <div className="space-y-7">
       <BookTimeItem

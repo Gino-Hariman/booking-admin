@@ -1,10 +1,5 @@
-import {
-  useFilters,
-  useGlobalFilter,
-  usePagination,
-  useSortBy,
-  useTable,
-} from 'react-table';
+import useTables from '@/hooks/useTable';
+
 import Pagination from '../ListData/Pagination';
 import TableHeader from './TableHeaders';
 
@@ -12,44 +7,17 @@ const TableList = ({
   tableTitle,
   columns,
   data,
+  pageNumber,
   addPath,
   btnTitle,
   tableHeaderChild,
   handleChangeStatus = () => {},
   hasHeader = true,
+  handleNextPage,
+  handlePrevPage,
 }) => {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    prepareRow,
-    page, // Instead of using 'rows', we'll use page,
-    // which has only the rows for the active page
-
-    // The rest of these things are super handy, too ;)
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
-
-    state,
-    preGlobalFilteredRows,
-    setGlobalFilter,
-  } = useTable(
-    {
-      columns,
-      data,
-    },
-    useFilters, // useFilters!
-    useGlobalFilter,
-    useSortBy,
-    usePagination, // new,
-    handleChangeStatus
-  );
+  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, page } =
+    useTables(columns, data);
   return (
     <div className="mt-4 rounded-6 shadow bg-shade-FG p-12 flex flex-col">
       <TableHeader
@@ -126,7 +94,11 @@ const TableList = ({
             </table>
           </div>
         </div>
-        <Pagination />
+        <Pagination
+          isDisabled={pageNumber === 0}
+          handleNext={handleNextPage}
+          handlePrev={handlePrevPage}
+        />
       </div>
     </div>
   );

@@ -13,18 +13,13 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const { notify } = useToast();
   const loginMutation = usePostQuery('/login');
-  console.log(user, '123');
 
   useEffect(() => {
     async function loadUserFromCookies() {
       const token = Cookies.get('token');
       if (token) {
-        console.log("Got a token in the cookies, let's see if it is valid");
-        // instance.defaults.headers.Authorization = `Bearer ${token}`;
         instance.defaults.headers['x-admin-auth'] = token;
-        // const { data: user } = await instance.get('users/me');
         setUser(Cookies.get('name'));
-        // setUser('testing Mario');
       }
       setLoading(false);
     }

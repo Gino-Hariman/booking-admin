@@ -3,7 +3,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import DataForm from './DataForm';
 import { Button } from '../Buttons';
-import usePostQuery from '@/hooks/usePostQuery';
 import useToast from '@/hooks/useToast';
 import { useAuth } from '@/context/AuthenticationContext';
 
@@ -32,7 +31,6 @@ const LoginForm = () => {
   // const mutation = usePostQuery('/admin/login');
 
   const onSubmit = (data) => {
-    console.log('data', data);
     login(data);
     // mutation.mutate(data, {
     //   onSuccess: (res) => {
