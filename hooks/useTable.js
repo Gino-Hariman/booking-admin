@@ -19,18 +19,6 @@ const useTables = (columns, data) => {
     // which has only the rows for the active page
 
     // The rest of these things are super handy, too ;)
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
-
-    preGlobalFilteredRows,
-    setGlobalFilter,
-    state: { pageIndex },
   } = useTable(
     {
       columns: columns,
@@ -50,11 +38,6 @@ const useTables = (columns, data) => {
     headerGroups,
     prepareRow,
     page,
-    canPreviousPage,
-    canNextPage,
-    pageIndex,
-    nextPage,
-    previousPage,
   };
 };
 
