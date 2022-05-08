@@ -40,12 +40,9 @@ const EditTextInput = ({ present, note, orderID }) => {
       },
       {
         onSuccess: (res) => {
-          console.log('res mutate', res);
-
           notify('success', `Edit Note ${res}`);
         },
         onError: (res) => {
-          console.log('res', res);
           notify('error', 'Edit Not Failed!');
         },
         onSettled: () => {
@@ -61,7 +58,6 @@ const EditTextInput = ({ present, note, orderID }) => {
   };
 
   const handleSubmitModal = () => {
-    console.log('234', editRef.current, present, isPresent);
     presentMutation.mutate(
       {
         order_id: orderID,
@@ -70,12 +66,9 @@ const EditTextInput = ({ present, note, orderID }) => {
       },
       {
         onSuccess: (res) => {
-          console.log('res mutate', res);
-
           notify('success', `Edit Note ${res}`);
         },
         onError: (res) => {
-          console.log('res', res);
           notify('error', 'Edit Not Failed!');
         },
         onSettled: () => {
@@ -109,7 +102,6 @@ const EditTextInput = ({ present, note, orderID }) => {
       </>
     );
 
-  console.log('note', note);
   return (
     <>
       {isPresent === 0 || present === 0 ? (

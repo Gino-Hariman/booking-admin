@@ -50,12 +50,6 @@ const Breadcrumbs = () => {
           </a>
         </li> */}
         {breadcrumbs.map((breadcrumb, i) => {
-          console.log(
-            'last',
-            breadcrumb.breadcrumb,
-            i === breadcrumbs.length - 1
-          );
-
           return (
             <>
               {i > 0 ? <div>{'/'}</div> : null}

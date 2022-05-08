@@ -1,33 +1,22 @@
 import ListData from '@/components/ListData';
 import { useDashboardTab } from '@/context/DashboardTabContext';
+import useFilter from '@/hooks/useFilter';
 import AdminLayout from '@/layout/AdminLayout';
 import DashboardLayout from '@/layout/DashboardLayout';
-import { useEffect, useState } from 'react';
 import * as DashboardTable from '../../components/Dashboard/index';
 
 const Dashboard = () => {
-  const [page, setPage] = useState(0);
   const { selectedTab, handleSelectTab } = useDashboardTab();
   const Comp = DashboardTable[selectedTab.compName];
-  useEffect(() => {
-    setPage(0);
-  }, [selectedTab]);
-
-  const handleNext = () => {
-    setPage((prev) => prev + 1);
-  };
-
-  const handlePrev = () => {
-    if (page === 0) return;
-    setPage((prev) => prev - 1);
-  };
+  const { page, handleNextPage, handlePrevPage } = useFilter();
 
   return (
     <DashboardLayout selectedItem={selectedTab} handleSelect={handleSelectTab}>
       <ListData
         title={selectedTab.title}
-        handleNext={handleNext}
-        handlePrev={handlePrev}
+        handleNext={handleNextPage}
+        handlePrev={handlePrevPage}
+        leftBtnDisabled={page === 0}
       >
         <Comp page={page} />
       </ListData>

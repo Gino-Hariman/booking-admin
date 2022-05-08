@@ -17,12 +17,12 @@ const Switch = ({ value, handleChangeStatus }) => {
             type="checkbox"
             id="toggleB"
             class="sr-only"
-            checked={value === 'Active'}
+            checked={value}
           />
           {/* <!-- line --> */}
           <div
             class={classNames(
-              value === 'Active' ? 'bg-success-500' : 'bg-gray-400',
+              value ? 'bg-success-500' : 'bg-gray-400',
               'block w-14 h-8 rounded-full'
             )}
           ></div>
@@ -31,7 +31,7 @@ const Switch = ({ value, handleChangeStatus }) => {
         </div>
         {/* <!-- label --> */}
         <div class="ml-3 text-gray-700 font-medium">
-          {value === 'Active' ? 'Active' : 'Deactive'}
+          {value ? 'Active' : 'Deactive'}
         </div>
       </label>
     </div>

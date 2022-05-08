@@ -34,8 +34,6 @@ const RequestTable = ({ page }) => {
       },
       {
         onSuccess: (res) => {
-          console.log('res mutate', res);
-
           notify('success', `Approve ${res}`);
         },
         onSettled: () => {

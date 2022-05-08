@@ -1,13 +1,17 @@
+import { LoadingModal } from '@/components/Loading';
 import Actions from '@/components/Tables/Contents/Actions';
 import ImageContent from '@/components/Tables/Contents/ImageContent';
 import Switch from '@/components/Tables/Contents/Switch';
 import TimeChip from '@/components/Tables/Contents/TimeChip';
 import TableList from '@/components/Tables/TableList';
+import useFilter from '@/hooks/useFilter';
+import useGetQuery from '@/hooks/useGetQuery';
 import AdminLayout from '@/layout/AdminLayout';
 import bookingSchedules from '@/_mocks/bookingSchedules';
 import loungeLocationTable from '@/_mocks/loungeLocationTable';
 import React from 'react';
 import { toast } from 'react-toastify';
+import TableLoungeLocation from './LoungeLocation';
 
 toast.configure();
 const LoungeLocation = () => {
@@ -19,14 +23,14 @@ const LoungeLocation = () => {
     () => [
       {
         Header: 'Lounge Name',
-        accessor: 'name',
+        accessor: 'name_location',
         // Cell: AvatarCell,
         // imgAccessor: 'imgUrl',
         // emailAccessor: 'email',
       },
       {
         Header: 'Lounge Detail',
-        accessor: 'detail',
+        accessor: 'spot_name',
       },
       {
         Header: 'Max Capacity',
@@ -35,11 +39,11 @@ const LoungeLocation = () => {
       },
       {
         Header: 'Status',
-        accessor: 'status',
+        accessor: 'active',
         // accessor: (rowData, rowIndex) => {
         //   return <Switch checked={checked} setChecked={setChecked} />;
         // },
-        id: 'status',
+        id: 'active',
         Cell: Switch,
       },
       // {
@@ -50,7 +54,7 @@ const LoungeLocation = () => {
       // },
       {
         Header: 'Lounge Photo',
-        accessor: 'imgUrl',
+        accessor: 'image',
         Cell: ImageContent,
         // Filter: SelectColumnFilter, // new
         // filter: 'includes',
@@ -90,23 +94,34 @@ const LoungeLocation = () => {
     []
   );
 
+  const { page: pageNumber, handleNextPage, handlePrevPage } = useFilter();
+
+  const { data: loungeData, isFetching: loungeFetching } = useGetQuery(
+    ['lounge-location', 'table', pageNumber],
+    `/location?page=${pageNumber}`
+  );
+  if (loungeFetching) return <LoadingModal />;
+
   return (
     <div>
-      <TableList
+      <TableLoungeLocation
         tableTitle="Lounge Location"
         btnTitle="+ Add New Lounge Location"
         columns={loungeLocationColumns}
-        data={loungeLocationTable}
+        data={loungeData}
         addPath="/lounge-location/add-new-lounge-location"
-        handleChangeStatus={handleChangeStatus}
+        pageNumber={pageNumber}
+        handleNextPage={handleNextPage}
+        handlePrevPage={handlePrevPage}
       />
+      {/* 
       <TableList
         tableTitle="Lounge Location"
         btnTitle="+ Custom New Booking Schedule"
         columns={bookingScheduleColumns}
         data={bookingSchedules}
         addPath="/lounge-location/custom-new-booking-schedule"
-      />
+      /> */}
     </div>
   );
 };
