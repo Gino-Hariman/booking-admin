@@ -38,15 +38,6 @@ const StudentList = () => {
     ],
     []
   );
-
-  const { page: pageNumber, handleNextPage, handlePrevPage } = useFilter();
-
-  const { data, isFetching } = useGetQuery(
-    ['booking-schedule', 'table', pageNumber],
-    `/students?page=${pageNumber}`
-  );
-  if (isFetching) return <LoadingModal />;
-
   return (
     <TableList
       tableHeaderChild={
