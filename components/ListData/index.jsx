@@ -22,7 +22,7 @@ const ListData = ({
 
       <TableFilter hasSearch>
         <>
-          <DatePicker placeholder={dayjs().format(dateFormat)} />
+          <DatePicker />
           <div>
             <Dropdowns
               placeholder="Location"

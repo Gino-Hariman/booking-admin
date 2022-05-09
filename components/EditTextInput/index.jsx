@@ -13,10 +13,10 @@ const EditTextInput = ({ present, note, orderID }) => {
   const { notify } = useToast();
   const [isPresent, setIsPresent] = useState(present);
   const [showModal, setShowModal] = useState(false);
-  const [notes, setNotes] = useState(note === 'undefined' ? '' : note);
+  const [notes, setNotes] = useState(note === null ? '' : note);
   const editRef = useRef(false);
   const presentMutation = usePutQuery('/book/present');
-
+  console.log('note', note);
   const handleEditNote = () => {
     setShowModal(true);
     editRef.current = true;
@@ -110,7 +110,7 @@ const EditTextInput = ({ present, note, orderID }) => {
         <>
           <div
             className={classNames(
-              note !== 'undefined' ? 'flex' : 'hidden',
+              note !== null ? 'flex' : 'hidden',
               'space-x-2 items-center justify-between'
             )}
           >
@@ -123,7 +123,7 @@ const EditTextInput = ({ present, note, orderID }) => {
           </div>
           <button
             className={classNames(
-              note !== 'undefined' ? 'hidden' : 'flex',
+              note !== null ? 'hidden' : 'flex',
               'font-medium text-md-3 text-info-300'
             )}
             onClick={handleOpenModal}
