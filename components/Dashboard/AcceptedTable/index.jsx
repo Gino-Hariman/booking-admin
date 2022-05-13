@@ -15,7 +15,6 @@ const AcceptedTable = ({ page }) => {
   );
 
   if (isFetching) return <LoadingModal />;
-
   return data.map((item) => (
     <ListItem
       key={item.order_id}
@@ -24,8 +23,8 @@ const AcceptedTable = ({ page }) => {
       location={item.name_location}
       studentName={item.nama}
       date={item.date}
-      time={`${item.start_time} - ${item.end_time}`}
-      major={item.prodi}
+      time={item.time}
+      major={item.program_name}
       studentClass={item.kelas}
     >
       <Chip

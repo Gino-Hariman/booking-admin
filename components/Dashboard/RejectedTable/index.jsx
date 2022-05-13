@@ -26,8 +26,8 @@ const RejectedTable = ({ page }) => {
       location={item.name_location}
       studentName={item.nama}
       date={item.date}
-      time={`${item.start_time} - ${item.end_time}`}
-      major={item.jurusan}
+      time={item.time}
+      major={item.program_name}
       studentClass={item.kelas}
     >
       <Chip

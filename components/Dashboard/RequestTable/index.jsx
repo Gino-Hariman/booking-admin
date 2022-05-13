@@ -55,6 +55,8 @@ const RequestTable = ({ page }) => {
       }
     );
   };
+
+  console.log('data444', data);
   return (
     <>
       {data.map((item) => (
@@ -65,8 +67,8 @@ const RequestTable = ({ page }) => {
           location={item.name_location}
           studentName={item.nama}
           date={item.date}
-          time={`${item.start_time} - ${item.end_time}`}
-          major={item.prodi}
+          time={item.time}
+          major={item.program_name}
           studentClass={item.kelas}
         >
           <>

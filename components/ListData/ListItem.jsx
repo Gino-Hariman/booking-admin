@@ -1,4 +1,10 @@
 import dayjs from 'dayjs';
+import TimeIcon from '@/icons/Outline/Time.svg';
+import NimIcon from '@/icons/Outline/Nim.svg';
+import MajorIcon from '@/icons/Outline/Major.svg';
+import ClassIcon from '@/icons/Outline/Class.svg';
+import CalendarIcon from '@/icons/Outline/Calendar.svg';
+import ItemInformation from './ItemInformation';
 
 const ListItem = ({
   id,
@@ -20,21 +26,14 @@ const ListItem = ({
           <span className="ml-1 font-normal text-gray-800">{studentName}</span>
         </h1>
         <div className="flex text-md-3 lg:space-x-8 text-gray-700 flex-col lg:flex-row">
-          <span>
-            <p>{dayjs(date).format('DD MMMM YYYY')}</p>
-          </span>
-          <span>
-            <p>{time}</p>
-          </span>
-          <span>
-            <p>{nim}</p>
-          </span>
-          <span>
-            <p>{major}</p>
-          </span>
-          <span>
-            <p>{studentClass}</p>
-          </span>
+          <ItemInformation
+            Icon={CalendarIcon}
+            title={dayjs(date).format('DD MMMM YYYY')}
+          />
+          <ItemInformation Icon={TimeIcon} title={time} />
+          <ItemInformation Icon={NimIcon} title={nim} />
+          {/* <ItemInformation Icon={MajorIcon} title={major} /> */}
+          <ItemInformation Icon={ClassIcon} title={studentClass} />
         </div>
       </div>
 
