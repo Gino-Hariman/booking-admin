@@ -32,7 +32,7 @@ const ListItem = ({
           />
           <ItemInformation Icon={TimeIcon} title={time} />
           <ItemInformation Icon={NimIcon} title={nim} />
-          {/* <ItemInformation Icon={MajorIcon} title={major} /> */}
+          <ItemInformation Icon={MajorIcon} title={major} />
           <ItemInformation Icon={ClassIcon} title={studentClass} />
         </div>
       </div>
