@@ -1,21 +1,23 @@
 import Chip from '@/components/Chip';
 import ListItem from '@/components/ListData/ListItem';
 import { LoadingModal } from '@/components/Loading';
+import spreadObject from '@/helpers/spreadObject';
+import UrlQueryBuilder from '@/helpers/UrlqueryBuilder';
 import useGetQuery from '@/hooks/useGetQuery';
 import usePutQuery from '@/hooks/usePutQuery';
 import useToast from '@/hooks/useToast';
 import Cookies from 'js-cookie';
 import { useQueryClient } from 'react-query';
 
-const RequestTable = ({ page }) => {
+const RequestTable = ({ filterState }) => {
   const queryClient = useQueryClient();
   const { notify } = useToast();
 
   const { data, isFetching } = useGetQuery(
-    ['request', 'table', page],
-    `/book/filtered?status=pending&page=${page}`,
+    ['request', 'table', ...spreadObject(filterState)],
+    UrlQueryBuilder(`/book/filtered`, filterState),
     {
-      // keepPreviousData: true,
+      keepPreviousData: true,
       onError: (err) => notify('error', 'Sorry, Something went wrong!'),
     }
   );
@@ -56,7 +58,6 @@ const RequestTable = ({ page }) => {
     );
   };
 
-  console.log('data444', data);
   return (
     <>
       {data.map((item) => (

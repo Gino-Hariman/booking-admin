@@ -3,7 +3,16 @@ import ChevronUp from '@/icons/Outline/Chevron Up.svg';
 import ChevronDown from '@/icons/Outline/Chevron Down.svg';
 import classNames from '@/helpers/classNames';
 
-const Dropdowns = ({ Icon, placeholder, datas, rounded = false }) => {
+const Dropdowns = ({
+  idItem,
+  valueItem,
+  Icon,
+  placeholder,
+  datas,
+  rounded = false,
+  handleSelectFilter,
+  loading = true,
+}) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState('');
   const handleClick = () => {
@@ -12,7 +21,8 @@ const Dropdowns = ({ Icon, placeholder, datas, rounded = false }) => {
 
   const handleSelect = (item) => {
     setOpen(false);
-    setSelected(item);
+    handleSelectFilter(idItem, item[idItem]);
+    setSelected(item[valueItem]);
   };
 
   return (
@@ -44,15 +54,29 @@ const Dropdowns = ({ Icon, placeholder, datas, rounded = false }) => {
             // tabIndex="0"
             className="absolute z-40 shadow-md w-full overflow-hidden mt-2 menu text-gray-700 bg-shade-FG rounded-3 "
           >
-            {datas.map((item) => (
+            {loading ? (
+              <p>laoding...</p>
+            ) : (
+              datas.map((item) => (
+                <li
+                  className="hover:bg-gray-300 cursor-pointer py-4 px-6"
+                  onClick={() => handleSelect(item)}
+                  key={item[idItem]}
+                >
+                  <a>{item[valueItem]}</a>
+                </li>
+              ))
+            )}
+
+            {/* {datas.map((item) => (
               <li
                 className="hover:bg-gray-300 cursor-pointer py-4 px-6"
-                onClick={() => handleSelect(item.title)}
-                key={item.id}
+                onClick={() => handleSelect(item)}
+                key={item[idItem]}
               >
-                <a>{item.title}</a>
+                <a>{item[valueItem]}</a>
               </li>
-            ))}
+            ))} */}
           </ul>
         )}
       </div>

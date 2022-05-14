@@ -50,7 +50,8 @@ const LoungeLocation = () => {
   return (
     <div>
       <TableLoungeLocation />
-      <TableBookingSchedule />
+      {/* <TableBookingSchedule /> */}
+
       {/* <TableLoungeLocation
         tableTitle="Lounge Location"
         btnTitle="+ Add New Lounge Location"

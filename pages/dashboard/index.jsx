@@ -8,17 +8,25 @@ import * as DashboardTable from '../../components/Dashboard/index';
 const Dashboard = () => {
   const { selectedTab, handleSelectTab } = useDashboardTab();
   const Comp = DashboardTable[selectedTab.compName];
-  const { page, handleNextPage, handlePrevPage } = useFilter();
 
+  const {
+    // page,
+    handleNextPage,
+    handlePrevPage,
+    filterState,
+    handleSelectFilter,
+  } = useFilter();
   return (
     <DashboardLayout selectedItem={selectedTab} handleSelect={handleSelectTab}>
       <ListData
         title={selectedTab.title}
         handleNext={handleNextPage}
         handlePrev={handlePrevPage}
-        leftBtnDisabled={page === 0}
+        leftBtnDisabled={filterState.page === 0}
+        filterState={filterState}
+        handleSelectFilter={handleSelectFilter}
       >
-        <Comp page={page} />
+        <Comp filterState={filterState} />
       </ListData>
     </DashboardLayout>
   );

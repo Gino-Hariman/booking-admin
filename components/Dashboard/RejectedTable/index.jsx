@@ -1,18 +1,17 @@
 import Chip from '@/components/Chip';
 import ListItem from '@/components/ListData/ListItem';
-import Loading, { LoadingModal } from '@/components/Loading';
+import { LoadingModal } from '@/components/Loading';
+import spreadObject from '@/helpers/spreadObject';
+import UrlQueryBuilder from '@/helpers/UrlqueryBuilder';
 import useGetQuery from '@/hooks/useGetQuery';
-import studentRequest from '@/_mocks/studentRequest';
-import { useState } from 'react';
 
-const RejectedTable = ({ page }) => {
-  const [counter, setCounter] = useState(0);
-
+const RejectedTable = ({ filterState }) => {
+  const query = { ...filterState, status: 'decline' };
   const { data, isFetching } = useGetQuery(
-    ['reject', 'table', page],
-    `/book/filtered?status=decline&page=${page}`,
+    ['reject', 'table', ...spreadObject(query)],
+    UrlQueryBuilder('/book/filtered', query),
     {
-      // keepPreviousData: true,
+      keepPreviousData: true,
       onError: (err) => console.log('Sorry!', err),
     }
   );

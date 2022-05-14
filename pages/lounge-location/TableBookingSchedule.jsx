@@ -42,6 +42,8 @@ const TableBookingSchedule = () => {
     ['booking-schedule', 'table', pageNumber],
     `/location/custom/location?page=${pageNumber}`
   );
+
+  console.log('123', data);
   if (isFetching) return <LoadingModal />;
 
   return (

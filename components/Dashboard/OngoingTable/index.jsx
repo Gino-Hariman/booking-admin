@@ -1,18 +1,22 @@
 import Chip from '@/components/Chip';
 import EditListItem from '@/components/ListData/EditListItem';
 import { LoadingModal } from '@/components/Loading';
+import spreadObject from '@/helpers/spreadObject';
+import UrlQueryBuilder from '@/helpers/UrlqueryBuilder';
 import useGetQuery from '@/hooks/useGetQuery';
-import studentRequest from '@/_mocks/studentRequest';
 import dayjs from 'dayjs';
 
-const OngoingTable = ({ page }) => {
+const OngoingTable = ({ filterState }) => {
+  const query = {
+    ...filterState,
+    status: 'approve',
+    date: dayjs().format('YYYY-MM-DD'),
+  };
   const { data, isFetching } = useGetQuery(
-    ['ongoing', 'table', page],
-    `/book/filtered?status=approve&date=${dayjs().format(
-      'YYYY-MM-DD'
-    )}&page=${page}`,
+    ['ongoing', 'table', ...spreadObject(query)],
+    UrlQueryBuilder(`/book/filtered`, query),
     {
-      // keepPreviousData: true,
+      keepPreviousData: true,
       onError: (err) => console.log('Sorry!', err),
     }
   );

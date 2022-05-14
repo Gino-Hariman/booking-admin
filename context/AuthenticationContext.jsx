@@ -33,11 +33,12 @@ export const AuthProvider = ({ children }) => {
         if (res.type === 'error') return notify('error', err.message);
         Cookies.set('name', res.admin_name);
         Cookies.set('adminID', res['id_admin']);
+        Cookies.set('role', res.role);
         Cookies.set('token', res.token);
-        // instance.defaults.headers['x-admin-auth'] = res.token;
         setUser(res.admin_name);
+        instance.defaults.headers['x-admin-auth'] = res.token;
         notify('success', 'Login Success!!');
-        window.location.pathname = '/dashboard';
+        router.replace('/dashboard');
         // return router;
       },
       onError: () => notify('error', 'Sorry, Something went wrong!'),
@@ -57,6 +58,7 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove('token');
     Cookies.remove('name');
     Cookies.remove('adminID');
+    Cookies.remove('role');
     setUser(null);
     delete instance.defaults.headers['x-admin-auth'];
     window.location.pathname = '/auth/login';
