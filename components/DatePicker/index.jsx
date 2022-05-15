@@ -1,4 +1,3 @@
-import { dateFormat } from '@/utils/dateTimeConfig';
 import dayjs from 'dayjs';
 import React, { useState } from 'react';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
@@ -6,20 +5,27 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
 const DatePicker = ({ handleSelectFilter }) => {
-  const [startDate, setStartDate] = useState(undefined);
-  const [endDate, setEndDate] = useState(undefined);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
   const [focusedInput, setFocusedInput] = useState(null);
+
   const handleDatesChange = ({ startDate: sDate, endDate: eDate }) => {
     setStartDate(sDate);
     setEndDate(eDate);
-    console.log('sa', sDate, eDate);
-    if (Boolean(sDate) && Boolean(eDate)) {
-      handleSelectFilter('start_date', dayjs(sDate).format(dateFormat));
-      handleSelectFilter('end_date', dayjs(eDate).format(dateFormat));
+
+    if (!sDate && !eDate) {
+      handleSelectFilter('start_date', undefined);
+      handleSelectFilter('end_date', undefined);
+    }
+    if (Boolean(sDate)) {
+      handleSelectFilter('start_date', dayjs(sDate).format('YYYY-MM-DD'));
+    }
+    if (Boolean(eDate)) {
+      handleSelectFilter('end_date', dayjs(eDate).format('YYYY-MM-DD'));
     }
   };
 
-  // console.log('startDate', dayjs(startDate).format(dateFormat));
+  // console.log('startDate', dayjs(startDate).format('YYYY-MM-DD'));
   // console.log('endDate', dayjs(endDate).format(dateFormat));
 
   return (

@@ -11,28 +11,28 @@ import RejectedIcon from '@/icons/Fill/Rejected.svg';
 
 const tabBarConfig = [
   {
-    id: 'student-request',
+    count_id: 'order_count',
     student: 75,
     title: 'Student Request',
     compName: 'RequestTable',
     icon: () => <RequestIcon width={48} />,
   },
   {
-    id: 'accept-student',
+    count_id: 'accept_count',
     student: 150,
     title: 'Accepted Students',
     compName: 'AcceptedTable',
     icon: () => <AcceptedIcon width={48} />,
   },
   {
-    id: 'reject-student',
+    count_id: 'decline_count',
     student: 200,
     title: 'Rejected Students',
     compName: 'RejectedTable',
     icon: () => <RejectedIcon width={48} />,
   },
   {
-    id: 'ongoing-student',
+    count_id: 'on_going_count',
     student: 25,
     title: 'Ongoing Booking',
     compName: 'OngoingTable',

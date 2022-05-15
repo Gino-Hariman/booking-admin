@@ -13,7 +13,7 @@ const EditTextInput = ({ present, note, orderID }) => {
   const { notify } = useToast();
   const [isPresent, setIsPresent] = useState(present);
   const [showModal, setShowModal] = useState(false);
-  const [notes, setNotes] = useState(note === 'undefined' ? '' : note);
+  const [notes, setNotes] = useState(!Boolean(note) ? '' : note);
   const editRef = useRef(false);
   const presentMutation = usePutQuery('/book/present');
 
@@ -46,7 +46,7 @@ const EditTextInput = ({ present, note, orderID }) => {
           notify('error', 'Edit Not Failed!');
         },
         onSettled: () => {
-          queryClient.invalidateQueries(['ongoing', 'table']);
+          queryClient.invalidateQueries(['ongoing-table']);
         },
       }
     );
@@ -72,14 +72,14 @@ const EditTextInput = ({ present, note, orderID }) => {
           notify('error', 'Edit Not Failed!');
         },
         onSettled: () => {
-          queryClient.invalidateQueries(['ongoing', 'table']);
+          queryClient.invalidateQueries(['ongoing-table']);
         },
       }
     );
     setShowModal(false);
   };
 
-  if (isPresent === undefined && present === null)
+  if (isPresent === 0 && present === 0)
     return (
       <>
         <Actions
@@ -88,7 +88,6 @@ const EditTextInput = ({ present, note, orderID }) => {
         />
         {showModal && (
           <Modals
-            // notes={notes}
             setShowModal={setShowModal}
             handleCloseModal={handleCloseModal}
           >
@@ -110,7 +109,7 @@ const EditTextInput = ({ present, note, orderID }) => {
         <>
           <div
             className={classNames(
-              note !== 'undefined' ? 'flex' : 'hidden',
+              !Boolean(note) ? 'flex' : 'hidden',
               'space-x-2 items-center justify-between'
             )}
           >
@@ -123,7 +122,7 @@ const EditTextInput = ({ present, note, orderID }) => {
           </div>
           <button
             className={classNames(
-              note !== 'undefined' ? 'hidden' : 'flex',
+              !Boolean(note) ? 'hidden' : 'flex',
               'font-medium text-md-3 text-info-300'
             )}
             onClick={handleOpenModal}

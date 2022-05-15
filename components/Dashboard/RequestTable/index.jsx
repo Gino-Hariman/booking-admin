@@ -2,7 +2,6 @@ import Chip from '@/components/Chip';
 import ListItem from '@/components/ListData/ListItem';
 import { LoadingModal } from '@/components/Loading';
 import spreadObject from '@/helpers/spreadObject';
-import UrlQueryBuilder from '@/helpers/UrlqueryBuilder';
 import useGetQuery from '@/hooks/useGetQuery';
 import usePutQuery from '@/hooks/usePutQuery';
 import useToast from '@/hooks/useToast';
@@ -14,10 +13,11 @@ const RequestTable = ({ filterState }) => {
   const { notify } = useToast();
 
   const { data, isFetching } = useGetQuery(
-    ['request', 'table', ...spreadObject(filterState)],
-    UrlQueryBuilder(`/book/filtered`, filterState),
+    ['request-table', ...spreadObject(filterState)],
+    '/book/filtered?status=pending',
     {
-      keepPreviousData: true,
+      params: filterState,
+      // keepPreviousData: true,
       onError: (err) => notify('error', 'Sorry, Something went wrong!'),
     }
   );
@@ -46,13 +46,18 @@ const RequestTable = ({ filterState }) => {
   };
 
   const handleReject = (id) => {
-    setCounter((prev) => prev + 1);
-
     declineMutation.mutate(
-      { order_id: id, accept_by: localStorage.getItem('name') },
+      {
+        order_id: id,
+        handle_by: Cookies.get('name'),
+        id_admin: Cookies.get('adminID'),
+      },
       {
         onSuccess: (res) => {
-          notify('error', `Decline ${res}`);
+          notify('success', `Decline ${res}`);
+        },
+        onSettled: () => {
+          queryClient.invalidateQueries('request');
         },
       }
     );

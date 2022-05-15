@@ -2,7 +2,6 @@ import Chip from '@/components/Chip';
 import EditListItem from '@/components/ListData/EditListItem';
 import { LoadingModal } from '@/components/Loading';
 import spreadObject from '@/helpers/spreadObject';
-import UrlQueryBuilder from '@/helpers/UrlqueryBuilder';
 import useGetQuery from '@/hooks/useGetQuery';
 import dayjs from 'dayjs';
 
@@ -12,21 +11,24 @@ const OngoingTable = ({ filterState }) => {
     status: 'approve',
     date: dayjs().format('YYYY-MM-DD'),
   };
+  console.log('today', dayjs().format('YYYY-MM-DD'));
 
   const { data, isFetching } = useGetQuery(
-    ['ongoing', 'table', ...spreadObject(query)],
-    UrlQueryBuilder(
-      `/book/filtered`,
-      filterState.start_date && filterState.end_date
-        ? { ...filterState, status: 'approve' }
-        : query
-    ),
+    ['ongoing-table', ...spreadObject(query)],
+
+    '/book/filtered',
     {
-      keepPreviousData: true,
+      params:
+        filterState.start_date && filterState.end_date
+          ? { ...filterState, status: 'approve' }
+          : query,
+      // keepPreviousData: true,
       onError: (err) => console.log('Sorry!', err),
     }
   );
   if (isFetching) return <LoadingModal />;
+
+  console.log('data ongoing', data);
 
   return data.map((item) => (
     <EditListItem

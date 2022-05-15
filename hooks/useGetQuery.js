@@ -6,7 +6,7 @@ const useGetQuery = (queryId = '1', path = '', config) => {
   return useQuery(
     queryId,
     async () => {
-      const { data } = await instance.get(path);
+      const { data } = await instance.get(path, { params: config?.params });
       return data;
     },
     {

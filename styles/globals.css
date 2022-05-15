@@ -162,6 +162,10 @@ p {
   }
 }
 
+.spinner {
+  border-top-color: transparent !important;
+}
+
 .DateRangePickerInput {
   position: relative !important;
   height: 56px !important;

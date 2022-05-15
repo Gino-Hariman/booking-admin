@@ -2,35 +2,13 @@ import { LoadingModal } from '@/components/Loading';
 import SwithModal from '@/components/Modals/template/SwitchModal';
 import useFilter from '@/hooks/useFilter';
 import useGetQuery from '@/hooks/useGetQuery';
-import usePostQuery from '@/hooks/usePostQuery';
-import useToast from '@/hooks/useToast';
-import { useRouter } from 'next/router';
+
 import React from 'react';
 import Actions from '../Contents/Actions';
 import ImageContent from '../Contents/ImageContent';
 import TableList from '../TableList';
 
 const TableLoungeLocation = () => {
-  const router = useRouter();
-  const { notify } = useToast();
-  const statusMutation = usePostQuery('/');
-
-  const handleChangeStatus = (value) => {
-    const data = value === 1 ? 0 : 1;
-
-    statusMutation.mutate(data, {
-      onSuccess: (res) => {
-        notify('success', 'Successfully change status');
-      },
-      onError: (err) => {
-        notify('error', 'Failed to change status!!');
-      },
-      // onSettled: () => {
-      //   router.reload();
-      // },
-    });
-  };
-
   const loungeLocationColumns = React.useMemo(
     () => [
       {
@@ -52,26 +30,20 @@ const TableLoungeLocation = () => {
       {
         Header: 'Status',
         accessor: 'active',
-        // accessor: (rowData, rowIndex) => {
-        //   return <Switch checked={checked} setChecked={setChecked} />;
-        // },
-        id: 'active',
-        accessor: (rowData, rowIndex) => {
+
+        Cell: ({ data, value, row }) => {
           return (
             <SwithModal
-              value={rowData.active}
-              handleSubmit={handleChangeStatus}
+              value={value}
+              data={data[row.index]}
+              modalTitle="If you do these changes, the system will not display the lounge location on the student lounge reservation website"
+              lBtnTitle={`Yes, ${value === 1 ? 'Disable' : 'Enable'} Location`}
+              rBtnTitle="No, Discard Changes"
             />
           );
         },
-        // Cell: SwithModal,
       },
-      // {
-      //   Header: 'Lounge Booking Schedule',
-      //   accessor: 'schedule',
-      //   id: 'schedule',
-      //   Cell: TimeChip,
-      // },
+
       {
         Header: 'Lounge Photo',
         accessor: 'image',
@@ -87,11 +59,11 @@ const TableLoungeLocation = () => {
     []
   );
 
-  const { page: pageNumber, handleNextPage, handlePrevPage } = useFilter();
+  const { filterState, handleNextPage, handlePrevPage } = useFilter();
 
   const { data, isFetching: loungeFetching } = useGetQuery(
-    ['lounge-location', 'table', pageNumber],
-    `/location?page=${pageNumber}`
+    ['lounge-location', 'table'],
+    `/location?page=${filterState.page}`
   );
   if (loungeFetching) return <LoadingModal />;
   console.log('data lougne', data);
@@ -102,7 +74,7 @@ const TableLoungeLocation = () => {
       addPath="/lounge-location/add-new-lounge-location"
       columns={loungeLocationColumns}
       data={data}
-      pageNumber={pageNumber}
+      pageNumber={filterState.page}
       handleNextPage={handleNextPage}
       handlePrevPage={handlePrevPage}
     />
