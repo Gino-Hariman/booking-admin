@@ -4,6 +4,7 @@ const Button = ({
   title,
   outlinedClass = 'outlined-btn',
   outlined = false,
+  isDisabled = false,
   onClick,
 }) => {
   return (
@@ -13,6 +14,7 @@ const Button = ({
         'rounded-full self-center duration-300 text-white shadow'
       )}
       type="submit"
+      isDisabled={isDisabled}
       onClick={onClick}
     >
       {title}

@@ -12,9 +12,15 @@ const OngoingTable = ({ filterState }) => {
     status: 'approve',
     date: dayjs().format('YYYY-MM-DD'),
   };
+
   const { data, isFetching } = useGetQuery(
     ['ongoing', 'table', ...spreadObject(query)],
-    UrlQueryBuilder(`/book/filtered`, query),
+    UrlQueryBuilder(
+      `/book/filtered`,
+      filterState.start_date && filterState.end_date
+        ? { ...filterState, status: 'approve' }
+        : query
+    ),
     {
       keepPreviousData: true,
       onError: (err) => console.log('Sorry!', err),

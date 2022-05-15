@@ -1,13 +1,37 @@
 import { LoadingModal } from '@/components/Loading';
+import SwithModal from '@/components/Modals/template/SwitchModal';
 import Actions from '@/components/Tables/Contents/Actions';
 import ImageContent from '@/components/Tables/Contents/ImageContent';
 import Switch from '@/components/Tables/Contents/Switch';
 import TableList from '@/components/Tables/TableList';
 import useFilter from '@/hooks/useFilter';
 import useGetQuery from '@/hooks/useGetQuery';
+import usePostQuery from '@/hooks/usePostQuery';
+import useToast from '@/hooks/useToast';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 const TableLoungeLocation = () => {
+  const router = useRouter();
+  const { notify } = useToast();
+  const statusMutation = usePostQuery('/');
+
+  const handleChangeStatus = (value) => {
+    const data = value === 1 ? 0 : 1;
+
+    statusMutation.mutate(data, {
+      onSuccess: (res) => {
+        notify('success', 'Successfully change status');
+      },
+      onError: (err) => {
+        notify('error', 'Failed to change status!!');
+      },
+      // onSettled: () => {
+      //   router.reload();
+      // },
+    });
+  };
+
   const loungeLocationColumns = React.useMemo(
     () => [
       {
@@ -33,7 +57,15 @@ const TableLoungeLocation = () => {
         //   return <Switch checked={checked} setChecked={setChecked} />;
         // },
         id: 'active',
-        Cell: Switch,
+        accessor: (rowData, rowIndex) => {
+          return (
+            <SwithModal
+              value={rowData.active}
+              handleSubmit={handleChangeStatus}
+            />
+          );
+        },
+        // Cell: SwithModal,
       },
       // {
       //   Header: 'Lounge Booking Schedule',
@@ -63,7 +95,7 @@ const TableLoungeLocation = () => {
     `/location?page=${pageNumber}`
   );
   if (loungeFetching) return <LoadingModal />;
-
+  console.log('data lougne', data);
   return (
     <TableList
       tableTitle="Lounge Location"

@@ -1,7 +1,7 @@
 import { XIcon } from '@heroicons/react/solid';
 import { Button } from '../Buttons';
 
-const Modals = ({ handleCloseModal, children }) => {
+const Modals = ({ title, handleCloseModal, children }) => {
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50">
@@ -10,9 +10,7 @@ const Modals = ({ handleCloseModal, children }) => {
           <div className=" rounded-5 shadow-lg relative flex flex-col w-[869px] bg-shade-FG">
             {/*header*/}
             <div className="flex items-start justify-between pt-8 px-12">
-              <h3 className="text-lg-3 text-shade-70 font-semibold">
-                Add New Booking Notes
-              </h3>
+              <h3 className="text-lg-3 text-shade-70 font-semibold">{title}</h3>
               <div
                 className="p-1 ml-auto border-0 text-black float-right text-3xl leading-none font-semibold cursor-pointer"
                 onClick={handleCloseModal}
