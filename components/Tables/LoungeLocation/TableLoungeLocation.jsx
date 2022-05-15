@@ -1,15 +1,14 @@
 import { LoadingModal } from '@/components/Loading';
 import SwithModal from '@/components/Modals/template/SwitchModal';
-import Actions from '@/components/Tables/Contents/Actions';
-import ImageContent from '@/components/Tables/Contents/ImageContent';
-import Switch from '@/components/Tables/Contents/Switch';
-import TableList from '@/components/Tables/TableList';
 import useFilter from '@/hooks/useFilter';
 import useGetQuery from '@/hooks/useGetQuery';
 import usePostQuery from '@/hooks/usePostQuery';
 import useToast from '@/hooks/useToast';
 import { useRouter } from 'next/router';
 import React from 'react';
+import Actions from '../Contents/Actions';
+import ImageContent from '../Contents/ImageContent';
+import TableList from '../TableList';
 
 const TableLoungeLocation = () => {
   const router = useRouter();

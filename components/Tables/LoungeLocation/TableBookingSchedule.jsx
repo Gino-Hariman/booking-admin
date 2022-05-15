@@ -1,12 +1,11 @@
 import { LoadingModal } from '@/components/Loading';
-import Actions from '@/components/Tables/Contents/Actions';
 
-import Switch from '@/components/Tables/Contents/Switch';
-import TimeChip from '@/components/Tables/Contents/TimeChip';
-import TableList from '@/components/Tables/TableList';
 import useFilter from '@/hooks/useFilter';
 import useGetQuery from '@/hooks/useGetQuery';
 import React from 'react';
+import Actions from '../Contents/Actions';
+import TimeChip from '../Contents/TimeChip';
+import TableList from '../TableList';
 
 const TableBookingSchedule = () => {
   const bookingScheduleColumns = React.useMemo(

@@ -2,13 +2,15 @@ import { LoadingModal } from '@/components/Loading';
 import Actions from '@/components/Tables/Contents/Actions';
 import ImageContent from '@/components/Tables/Contents/ImageContent';
 import TimeChip from '@/components/Tables/Contents/TimeChip';
+import {
+  TableBookingSchedule,
+  TableLoungeLocation,
+} from '@/components/Tables/LoungeLocation';
 
 import AdminLayout from '@/layout/AdminLayout';
 
 import React from 'react';
 import { toast } from 'react-toastify';
-import TableBookingSchedule from './TableBookingSchedule';
-import TableLoungeLocation from './TableLoungeLocation';
 
 toast.configure();
 const LoungeLocation = () => {
@@ -50,7 +52,7 @@ const LoungeLocation = () => {
   return (
     <div>
       <TableLoungeLocation />
-      {/* <TableBookingSchedule /> */}
+      <TableBookingSchedule />
 
       {/* <TableLoungeLocation
         tableTitle="Lounge Location"
