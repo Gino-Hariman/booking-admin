@@ -52,7 +52,7 @@ const LoungeLocation = () => {
   return (
     <div>
       <TableLoungeLocation />
-      <TableBookingSchedule />
+      {/* <TableBookingSchedule /> */}
 
       {/* <TableLoungeLocation
         tableTitle="Lounge Location"

@@ -75,6 +75,16 @@ a {
   .breadcrumb {
     @apply flex space-x-2;
   }
+  /* status text */
+  .status-processing {
+    @apply text-warning-500;
+  }
+  .status-accepted {
+    @apply text-success-500;
+  }
+  .status-decline {
+    @apply text-danger-500;
+  }
 }
 
 .header-right {

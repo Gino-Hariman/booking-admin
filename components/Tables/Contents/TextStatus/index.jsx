@@ -1,14 +1,31 @@
+import changeFieldText from '@/helpers/changeFieldText';
 import classNames from '@/helpers/classNames';
 
-const TextStatus = ({ value }) => {
+export const generateTextColorByText = (text) => {
+  switch (text) {
+    case 'pending':
+      return 'status-processing';
+    case 'approve':
+      return 'status-accepted';
+    case 'decline':
+      return 'status-decline';
+    default:
+      return '';
+  }
+};
+
+const TextStatus = ({ data }) => {
+  console.log('data', data);
+  const text = `${changeFieldText(data.order_status)} by ${data.nama}`;
+
   return (
     <p
       className={classNames(
-        value.includes('Accepted') ? 'text-success-500' : 'text-danger-500',
+        generateTextColorByText(data.order_status),
         'text-md-4 font-medium resize-none line-clamp-2'
       )}
     >
-      {value}
+      {text}
     </p>
   );
 };

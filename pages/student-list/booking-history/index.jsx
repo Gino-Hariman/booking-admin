@@ -1,8 +1,10 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { LoadingModal } from '@/components/Loading';
 import TextNote from '@/components/Tables/Contents/TextNote';
 import TextStatus from '@/components/Tables/Contents/TextStatus';
 import StudentDetail from '@/components/Tables/StudentDetail';
 import TableList from '@/components/Tables/TableList';
+import useGetQuery from '@/hooks/useGetQuery';
 import AdminLayout from '@/layout/AdminLayout';
 import bookingHistory from '@/_mocks/bookingHistory';
 import { useRouter } from 'next/router';
@@ -16,15 +18,30 @@ const BookingHistory = () => {
 
   const columns = React.useMemo(
     () => [
-      { Header: 'Booking ID', accessor: 'booking_id' },
-      { Header: 'Lounge Location', accessor: 'lounge_location' },
+      { Header: 'Booking ID', accessor: 'order_id' },
+      { Header: 'Lounge Location', accessor: 'name_location' },
       { Header: 'Date', accessor: 'date' },
       { Header: 'Time', accessor: 'time' },
-      { Header: 'Status', accessor: 'status', Cell: TextStatus },
+      {
+        Header: 'Status',
+        accessor: 'active',
+        Cell: ({ data, value, row }) => {
+          return <TextStatus data={data[row.index]} />;
+        },
+      },
       { Header: 'Note', accessor: 'note', Cell: TextNote },
     ],
     []
   );
+
+  const { data, isFetching } = useGetQuery(
+    ['student-list', 'history'],
+    `/book/report?nim=${nim}`
+  );
+
+  if (isFetching) return <LoadingModal />;
+
+  console.log('123', data);
 
   return (
     <>
@@ -35,7 +52,7 @@ const BookingHistory = () => {
         }
         tableTitle={`${name} Booking History`}
         columns={columns}
-        data={bookingHistory}
+        data={data}
         btnTitle="Download Student List"
       />
     </>
