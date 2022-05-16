@@ -1,8 +1,8 @@
-const { default: BookTimeList } = require('@/components/BookTimeList');
-const { default: bookTimeConfig } = require('@/utils/bookTimeConfig');
-const { default: FormField, FormLabel } = require('./FormField');
+import BookTimeList from '@/components/BookTimeList';
+import FormField, { FormLabel } from './FormField';
 
 const CheckboxField = ({
+  data,
   title,
   subTitle,
   register = () => {},
@@ -19,12 +19,7 @@ const CheckboxField = ({
       hasBorder={hasBorder}
       labelComp={<FormLabel title={title} subTitle={subTitle} />}
       Comp={
-        <BookTimeList
-          data={bookTimeConfig}
-          ref={r}
-          name={r?.anme}
-          setValue={setValue}
-        />
+        <BookTimeList data={data} ref={r} name={r?.name} setValue={setValue} />
       }
     />
   );

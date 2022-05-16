@@ -79,7 +79,7 @@ const EditTextInput = ({ present, note, orderID }) => {
     setShowModal(false);
   };
 
-  if (isPresent === 0 && present === 0)
+  if ((isPresent === 0 && present === null) || present === undefined)
     return (
       <>
         <Actions

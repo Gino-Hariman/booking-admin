@@ -2,12 +2,38 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 
 import PageForm from '@/components/Form/PageForm';
 import PageFormActions from '@/components/Form/PageFormActions';
+import usePostQuery from '@/hooks/usePostQuery';
+import useToast from '@/hooks/useToast';
 import AdminLayout from '@/layout/AdminLayout';
+import { FILE_SIZE, SUPPORTED_FORMATS } from '@/utils/imageConfig';
 import { yupResolver } from '@hookform/resolvers/yup';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
-const AddLoungeLocation = () => {
+export const getServerSideProps = async ({ req }) => {
+  const token = req.cookies.token;
+  const adminId = req.cookies.adminID;
+
+  if (!Boolean(adminId) && !Boolean(token)) {
+    return {
+      redirect: {
+        destination: '/auth/login',
+        permanent: false,
+      },
+    };
+  }
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_MAIN_HOST}/time`);
+
+  return {
+    props: { timeData: data },
+  };
+};
+
+const AddLoungeLocation = ({ timeData }) => {
+  const { notify } = useToast();
+  const router = useRouter();
   const {
     register,
     getValues,
@@ -18,24 +44,54 @@ const AddLoungeLocation = () => {
     resolver: yupResolver(
       Yup.object()
         .shape({
-          upload_photo: Yup.string().required('Photo Required'),
-          lounge_name: Yup.string().required('Lounge Name Required'),
-          lounge_detail: Yup.string().required('Lounge Detail Required'),
+          image: Yup.mixed()
+            .test('fileSize', 'The file is too large', (value) => {
+              if (!value) return true;
+              return value[0].size <= FILE_SIZE;
+            })
+            .test('fileFormat', 'Unsupported Format', (value) => {
+              if (!value) return true;
+              return SUPPORTED_FORMATS.includes(value[0].type);
+            }),
+
+          name_location: Yup.string().required('Lounge Name Required'),
+          spot_name: Yup.string().required('Lounge Detail Required'),
           max_capacity: Yup.number().min(1).required(),
+          times: Yup.string().required('Please select at least 1 time'),
         })
         .required()
     ),
     defaultValues: {
-      upload_photo: '',
-      lounge_name: '',
-      lounge_detail: '',
+      image: '',
+      name_location: '',
+      spot_name: '',
       max_capacity: 1,
+      times: '',
     },
     mode: 'onBlur',
   });
 
+  console.log('errors', errors);
+
+  const addLoungeMutation = usePostQuery('/location');
+
   const onSubmit = (data) => {
-    console.log('data', data);
+    const formData = new FormData();
+    Object.keys(data).forEach((key, index) => {
+      if (key === 'image') return formData.append(key, data[key][0]);
+      formData.set(key, data[key]);
+    });
+
+    addLoungeMutation.mutate(formData, {
+      onSuccess: (res) => {
+        console.log('res add', res);
+        notify('success', 'Successfully add Lounge Location');
+        router.push('/lounge-location');
+      },
+      onError: (err) => {
+        notify('error', 'Failed to add Lounge Location');
+      },
+    });
   };
 
   return (
@@ -48,20 +104,20 @@ const AddLoungeLocation = () => {
             title: 'Upload Photos',
             subTitle:
               'Please upload photos with minimum resolution 300 x 300 and max size of the picture is 1MB',
-            name: 'upload_photo',
+            name: 'image',
             type: 'UploadImageField',
             hasBorder: true,
           },
           {
             title: 'Input Lounge Name',
             placeholder: 'Ex. Aryaduta Lounge',
-            name: 'lounge_name',
+            name: 'name_location',
             type: 'InputField',
           },
           {
             title: 'Lounge Detail',
             placeholder: 'Ex. 5th Floor',
-            name: 'lounge_detail',
+            name: 'spot_name',
             type: 'InputField',
           },
           {
@@ -71,10 +127,11 @@ const AddLoungeLocation = () => {
             hasBorder: true,
           },
           {
+            data: timeData,
             title: 'Booking Time',
             subTitle:
               'Please select Default time that available for students to at Lounge',
-            name: 'booking_time',
+            name: 'times',
             type: 'CheckboxField',
           },
         ]}
@@ -83,7 +140,7 @@ const AddLoungeLocation = () => {
         register={register}
         errors={errors}
       >
-        <PageFormActions />
+        <PageFormActions handleAdd={handleSubmit(onSubmit)} />
       </PageForm>
     </>
   );

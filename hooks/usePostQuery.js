@@ -4,7 +4,9 @@ import { useMutation } from 'react-query';
 const usePostQuery = (path = '', config) => {
   return useMutation(
     async (formData) => {
-      const { data } = await instance.post(path, formData);
+      const { data } = await instance.post(path, formData, {
+        params: config?.params,
+      });
       return data;
     },
     {

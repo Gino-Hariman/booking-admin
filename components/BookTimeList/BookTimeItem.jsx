@@ -1,9 +1,10 @@
 import { CheckIcon } from '@heroicons/react/solid';
 
-const BookTimeItem = ({ title, isChecked, onClick }) => {
+const BookTimeItem = ({ ref, title, isChecked, onClick }) => {
   return (
     <div className="flex relative items-center">
       <input
+        ref={ref}
         checked={isChecked}
         className="absolute opacity-0 w-6 h-6 border rounded-sm bg-white  focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer"
         type="checkbox"
