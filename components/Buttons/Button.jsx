@@ -14,7 +14,7 @@ const Button = ({
         'rounded-full self-center duration-300 text-white shadow'
       )}
       type="submit"
-      isDisabled={isDisabled}
+      disabled={isDisabled}
       onClick={onClick}
     >
       {title}

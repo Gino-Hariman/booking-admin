@@ -12,7 +12,6 @@ const Dashboard = () => {
   const { handleNextPage, handlePrevPage, filterState, handleSelectFilter } =
     useFilter();
 
-  console.log('selectedTab', selectedTab);
   return (
     <DashboardLayout selectedItem={selectedTab} handleSelect={handleSelectTab}>
       <ListData

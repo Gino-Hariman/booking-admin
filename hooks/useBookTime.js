@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const useBookTime = () => {
   const [selected, setSelected] = useState([]);
@@ -7,14 +7,13 @@ const useBookTime = () => {
     if (event.target.checked) {
       const newSelecteds = datas.map((n) => n[item]);
 
-      return setSelected([newSelecteds]);
+      return setSelected(newSelecteds);
     }
     setSelected([]);
   };
 
-  const handleSelect = (event, item) => {
+  const handleSelect = (item) => {
     const selectedIndex = selected.indexOf(item);
-    console.log('test', selectedIndex, selected, item);
     let newSelected = [];
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, item);

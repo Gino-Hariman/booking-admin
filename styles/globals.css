@@ -103,7 +103,7 @@ input:checked ~ .dot {
 }
 
 input:checked + .checkbox {
-  @apply bg-info-500 border-info-500 !important;
+  @apply bg-primary-500 border-primary-500 !important;
 }
 input:checked + div .icon {
   @apply block font-bold text-shade-FG !important;

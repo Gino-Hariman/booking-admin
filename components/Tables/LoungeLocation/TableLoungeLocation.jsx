@@ -1,5 +1,6 @@
 import { LoadingModal } from '@/components/Loading';
 import SwithModal from '@/components/Modals/template/SwitchModal';
+import spreadObject from '@/helpers/spreadObject';
 import useFilter from '@/hooks/useFilter';
 import useGetQuery from '@/hooks/useGetQuery';
 
@@ -62,7 +63,7 @@ const TableLoungeLocation = () => {
   const { filterState, handleNextPage, handlePrevPage } = useFilter();
 
   const { data, isFetching: loungeFetching } = useGetQuery(
-    ['lounge-location', 'table'],
+    ['lounge-location-table', ...spreadObject(filterState)],
     `/location?page=${filterState.page}`
   );
   if (loungeFetching) return <LoadingModal />;

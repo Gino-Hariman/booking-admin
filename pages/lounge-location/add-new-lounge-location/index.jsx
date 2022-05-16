@@ -1,7 +1,8 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
-
+import { useState } from 'react';
 import PageForm from '@/components/Form/PageForm';
 import PageFormActions from '@/components/Form/PageFormActions';
+import { ConfirmModal } from '@/components/Loading';
 import usePostQuery from '@/hooks/usePostQuery';
 import useToast from '@/hooks/useToast';
 import AdminLayout from '@/layout/AdminLayout';
@@ -32,13 +33,15 @@ export const getServerSideProps = async ({ req }) => {
 };
 
 const AddLoungeLocation = ({ timeData }) => {
+  const [open, setOpen] = useState(false);
+
   const { notify } = useToast();
   const router = useRouter();
   const {
     register,
     getValues,
     setValue,
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
   } = useForm({
     resolver: yupResolver(
@@ -71,7 +74,7 @@ const AddLoungeLocation = ({ timeData }) => {
     mode: 'onBlur',
   });
 
-  console.log('errors', errors);
+  console.log('errors', errors, getValues());
 
   const addLoungeMutation = usePostQuery('/location');
 
@@ -140,7 +143,21 @@ const AddLoungeLocation = ({ timeData }) => {
         register={register}
         errors={errors}
       >
-        <PageFormActions handleAdd={handleSubmit(onSubmit)} />
+        <ConfirmModal
+          open={open}
+          setOpen={setOpen}
+          modalTitle="Sure to do these changes?"
+          modalContentTitle="If you do these changes, the system will not display the lounge location on the student lounge reservation website"
+          lBtnTitle={`Yes, Add New Location`}
+          rBtnTitle="No, Discard Changes"
+          handleSubmit={handleSubmit(onSubmit)}
+        >
+          <PageFormActions
+            isDisabled={!isValid}
+            handleCancel={() => router.back()}
+            handleAdd={() => setOpen(true)}
+          />
+        </ConfirmModal>
       </PageForm>
     </>
   );

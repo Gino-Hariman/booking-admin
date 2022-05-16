@@ -17,7 +17,7 @@ const RequestTable = ({ filterState }) => {
     '/book/filtered?status=pending',
     {
       params: filterState,
-      // keepPreviousData: true,
+      keepPreviousData: true,
       onError: (err) => notify('error', 'Sorry, Something went wrong!'),
     }
   );
