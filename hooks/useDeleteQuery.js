@@ -1,7 +1,7 @@
 import instance from '@/axios/instance';
 import { useMutation } from 'react-query';
 
-const usePostQuery = (path = '', config) => {
+const useDeleteQuery = (path = '', config) => {
   return useMutation(
     async (formData) => {
       const { data } = await instance.delete(path, formData);
@@ -13,4 +13,4 @@ const usePostQuery = (path = '', config) => {
   );
 };
 
-export default usePostQuery;
+export default useDeleteQuery;

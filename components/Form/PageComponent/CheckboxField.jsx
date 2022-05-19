@@ -1,8 +1,10 @@
 import BookTimeList from '@/components/BookTimeList';
+import EditBookTimeList from '@/components/BookTimeList/EditBookTimeList';
 import FormField, { FormLabel } from './FormField';
 
 const CheckboxField = ({
   data,
+  isEdit = false,
   title,
   subTitle,
   register = () => {},
@@ -12,7 +14,7 @@ const CheckboxField = ({
   hasBorder,
 }) => {
   const isError = errors && errors[name];
-
+  console.log('data', data);
   const r = register(name);
 
   return (
@@ -21,13 +23,23 @@ const CheckboxField = ({
       hasBorder={hasBorder}
       labelComp={<FormLabel title={title} subTitle={subTitle} />}
       Comp={
-        <BookTimeList
-          isError={isError}
-          data={data}
-          ref={r?.ref}
-          name={r?.name}
-          setValue={setValue}
-        />
+        isEdit ? (
+          <EditBookTimeList
+            isError={isError}
+            data={data}
+            ref={r?.ref}
+            name={r?.name}
+            setValue={setValue}
+          />
+        ) : (
+          <BookTimeList
+            isError={isError}
+            data={data}
+            ref={r?.ref}
+            name={r?.name}
+            setValue={setValue}
+          />
+        )
       }
     />
   );

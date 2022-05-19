@@ -28,8 +28,6 @@ const OngoingTable = ({ filterState }) => {
   );
   if (isFetching) return <LoadingModal />;
 
-  console.log('data ongoing', data);
-
   return data.map((item) => (
     <EditListItem
       key={item.order_id}
@@ -38,7 +36,7 @@ const OngoingTable = ({ filterState }) => {
       location={item.name_location}
       studentName={item.nama}
       date={item.date}
-      time={`${item.start_time} - ${item.end_time}`}
+      time={item.time}
       major={item.jurusan}
       studentClass={item.kelas}
       note={item.note}

@@ -1,4 +1,5 @@
 import { LoadingModal } from '@/components/Loading';
+import spreadObject from '@/helpers/spreadObject';
 
 import useFilter from '@/hooks/useFilter';
 import useGetQuery from '@/hooks/useGetQuery';
@@ -23,8 +24,8 @@ const TableBookingSchedule = () => {
       },
       {
         Header: 'Lounge Booking Schedules',
-        accessor: 'avail_time',
-        id: 'avail_time',
+        accessor: 'times',
+        // id: 'avail_time',
         Cell: TimeChip,
       },
       {
@@ -35,11 +36,11 @@ const TableBookingSchedule = () => {
     []
   );
 
-  const { page: pageNumber, handleNextPage, handlePrevPage } = useFilter();
+  const { filterState, handleNextPage, handlePrevPage } = useFilter();
 
   const { data, isFetching } = useGetQuery(
-    ['booking-schedule', 'table', pageNumber],
-    `/location/custom/location?page=${pageNumber}`
+    ['cutom', 'location', ...spreadObject(filterState)],
+    '/location/custom'
   );
 
   console.log('123', data);
@@ -52,7 +53,7 @@ const TableBookingSchedule = () => {
       columns={bookingScheduleColumns}
       addPath="/lounge-location/custom-new-booking-schedule"
       data={data}
-      pageNumber={pageNumber}
+      pageNumber={filterState.page}
       handleNextPage={handleNextPage}
       handlePrevPage={handlePrevPage}
     />

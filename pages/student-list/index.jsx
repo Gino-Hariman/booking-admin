@@ -7,7 +7,6 @@ import TableList from '@/components/Tables/TableList';
 import AdminLayout from '@/layout/AdminLayout';
 import studentList from '@/_mocks/studentList';
 import React from 'react';
-import acceptedBy from '@/_mocks/acceptedBy';
 import useGetQuery from '@/hooks/useGetQuery';
 import useFilter from '@/hooks/useFilter';
 import { LoadingModal } from '@/components/Loading';

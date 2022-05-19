@@ -16,7 +16,7 @@ const EditTextInput = ({ present, note, orderID }) => {
   const [notes, setNotes] = useState(!Boolean(note) ? '' : note);
   const editRef = useRef(false);
   const presentMutation = usePutQuery('/book/present');
-
+  console.log('note', note, present);
   const handleEditNote = () => {
     setShowModal(true);
     editRef.current = true;
@@ -43,7 +43,7 @@ const EditTextInput = ({ present, note, orderID }) => {
           notify('success', `Edit Note ${res}`);
         },
         onError: (res) => {
-          notify('error', 'Edit Not Failed!');
+          notify('error', 'Edit Note Failed!');
         },
         onSettled: () => {
           queryClient.invalidateQueries(['ongoing-table']);
@@ -79,7 +79,7 @@ const EditTextInput = ({ present, note, orderID }) => {
     setShowModal(false);
   };
 
-  if ((isPresent === 0 && present === null) || present === undefined)
+  if (present === null || present === undefined)
     return (
       <>
         <Actions
@@ -101,6 +101,8 @@ const EditTextInput = ({ present, note, orderID }) => {
       </>
     );
 
+  console.log('note', note);
+
   return (
     <>
       {isPresent === 0 || present === 0 ? (
@@ -109,7 +111,7 @@ const EditTextInput = ({ present, note, orderID }) => {
         <>
           <div
             className={classNames(
-              !Boolean(note) ? 'flex' : 'hidden',
+              Boolean(note) ? 'flex' : 'hidden',
               'space-x-2 items-center justify-between'
             )}
           >
@@ -122,7 +124,7 @@ const EditTextInput = ({ present, note, orderID }) => {
           </div>
           <button
             className={classNames(
-              !Boolean(note) ? 'hidden' : 'flex',
+              Boolean(note) ? 'hidden' : 'flex',
               'font-medium text-md-3 text-info-300'
             )}
             onClick={handleOpenModal}

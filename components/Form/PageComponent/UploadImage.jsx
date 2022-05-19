@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { VideoCameraIcon } from '@heroicons/react/outline';
 
-const UploadImage = ({ ref, onBlur, name, onChange, getValues, setValue }) => {
-  const [preview, setPreview] = useState(null);
+const UploadImage = ({ ref, onBlur, name, defaultImage, setValue }) => {
+  const [preview, setPreview] = useState(defaultImage);
 
   const onFileChange = (event) => {
     const i = event.target.files;
@@ -14,12 +14,12 @@ const UploadImage = ({ ref, onBlur, name, onChange, getValues, setValue }) => {
   return (
     <div>
       {preview ? (
-        <img width={'250px'} alt="sdf" src={preview} />
+        <img className="max-w-[140px] h-[140px] " alt="sdf" src={preview} />
       ) : (
         <div className="overflow-hidden border rounded-2 border-shade-BD relative w-[140px] h-[140px]">
           <button className="bg-indigo hover:bg-gray-100 text-gray-400 w-full h-full flex flex-col justify-center items-center">
             <VideoCameraIcon className="w-6 h-6 text-gray-500" />
-            <span className=" text-md-3 font-medium">Add Phone</span>
+            <span className=" text-md-3 font-medium">Add Photo</span>
           </button>
           <input
             ref={ref}

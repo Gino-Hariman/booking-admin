@@ -4,6 +4,8 @@ import TextNote from '@/components/Tables/Contents/TextNote';
 import TextStatus from '@/components/Tables/Contents/TextStatus';
 import StudentDetail from '@/components/Tables/StudentDetail';
 import TableList from '@/components/Tables/TableList';
+import spreadObject from '@/helpers/spreadObject';
+import useFilter from '@/hooks/useFilter';
 import useGetQuery from '@/hooks/useGetQuery';
 import AdminLayout from '@/layout/AdminLayout';
 import bookingHistory from '@/_mocks/bookingHistory';
@@ -12,6 +14,7 @@ import React from 'react';
 
 const BookingHistory = () => {
   const router = useRouter();
+  const { filterState, handleNextPage, handlePrevPage } = useFilter();
   const {
     query: { name, nim, major, kelas },
   } = router;
@@ -35,8 +38,9 @@ const BookingHistory = () => {
   );
 
   const { data, isFetching } = useGetQuery(
-    ['student-list', 'history'],
-    `/book/report?nim=${nim}`
+    ['student-list', 'history', ...spreadObject(filterState)],
+    `/book/report?nim=${nim}`,
+    { params: { page: filterState.page } }
   );
 
   if (isFetching) return <LoadingModal />;
@@ -54,6 +58,9 @@ const BookingHistory = () => {
         columns={columns}
         data={data}
         btnTitle="Download Student List"
+        pageNumber={filterState.page}
+        handleNextPage={handleNextPage}
+        handlePrevPage={handlePrevPage}
       />
     </>
   );

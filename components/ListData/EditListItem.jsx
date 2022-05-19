@@ -14,6 +14,7 @@ const EditListItem = ({
   note,
   children,
 }) => {
+  console.log('time', time);
   return (
     <div className="grid xl:grid-cols-5 lg:space-x-6 items-center border-b-2 border-black-20 py-6 space-y-4">
       <div className="col-span-3 space-y-2">
@@ -26,7 +27,7 @@ const EditListItem = ({
         </h1>
         <div className="flex text-md-3 lg:space-x-8 text-gray-700 flex-col lg:flex-row">
           <span>
-            <p>{dayjs(date).format('DD MMMM YYYY')}</p>
+            <p>{date}</p>
           </span>
           <span>
             <p>{time}</p>

@@ -5,7 +5,24 @@ import AdminLayout from '@/layout/AdminLayout';
 import DashboardLayout from '@/layout/DashboardLayout';
 import * as DashboardTable from '../../components/Dashboard/index';
 
-const Dashboard = () => {
+export const getServerSideProps = ({ req }) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/auth/login',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
+
+const Dashboard = ({}) => {
   const { selectedTab, handleSelectTab } = useDashboardTab();
   const Comp = DashboardTable[selectedTab.compName];
 

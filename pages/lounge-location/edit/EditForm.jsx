@@ -1,42 +1,12 @@
-import Breadcrumbs from '@/components/Breadcrumbs';
-import { useState } from 'react';
 import PageForm from '@/components/Form/PageForm';
 import PageFormActions from '@/components/Form/PageFormActions';
-import { ConfirmModal } from '@/components/Loading';
-import usePostQuery from '@/hooks/usePostQuery';
-import useToast from '@/hooks/useToast';
-import AdminLayout from '@/layout/AdminLayout';
-import { FILE_SIZE, SUPPORTED_FORMATS } from '@/utils/imageConfig';
-import { yupResolver } from '@hookform/resolvers/yup';
-import axios from 'axios';
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
-export const getServerSideProps = async ({ req }) => {
-  const token = req.cookies.token;
-  const adminId = req.cookies.adminID;
-
-  if (!Boolean(adminId) && !Boolean(token)) {
-    return {
-      redirect: {
-        destination: '/auth/login',
-        permanent: false,
-      },
-    };
-  }
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_MAIN_HOST}/time`);
-
-  return {
-    props: { timeData: data },
-  };
-};
-
-const AddLoungeLocation = ({ timeData }) => {
-  const [open, setOpen] = useState(false);
-
-  const { notify } = useToast();
-  const router = useRouter();
+import React from 'react';
+import { FILE_SIZE, SUPPORTED_FORMATS } from '@/utils/imageConfig';
+const EditForm = ({ data, timeData }) => {
   const {
     register,
     getValues,
@@ -65,16 +35,14 @@ const AddLoungeLocation = ({ timeData }) => {
         .required()
     ),
     defaultValues: {
-      image: '',
-      name_location: '',
-      spot_name: '',
-      max_capacity: 1,
-      times: '',
+      image: data.image,
+      name_location: data.name_location,
+      spot_name: data.spot_name,
+      max_capacity: data.max_capacity,
+      times: data.times,
     },
     mode: 'onBlur',
   });
-
-  const addLoungeMutation = usePostQuery('/location');
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -94,12 +62,10 @@ const AddLoungeLocation = ({ timeData }) => {
       },
     });
   };
-
   return (
     <>
-      <Breadcrumbs />
       <PageForm
-        formTitle="Add New Lounge Location"
+        formTitle="Edit Lounge Location"
         forms={[
           {
             title: 'Upload Photos',
@@ -128,8 +94,9 @@ const AddLoungeLocation = ({ timeData }) => {
             hasBorder: true,
           },
           {
-            data: timeData,
+            data: data.times,
             title: 'Booking Time',
+            isEdit: true,
             subTitle:
               'Please select Default time that available for students to at Lounge',
             name: 'times',
@@ -141,26 +108,13 @@ const AddLoungeLocation = ({ timeData }) => {
         register={register}
         errors={errors}
       >
-        {/* <ConfirmModal
-          open={open}
-          setOpen={setOpen}
-          modalTitle="Sure to do these changes?"
-          modalContentTitle="If you do these changes, the system will not display the lounge location on the student lounge reservation website"
-          lBtnTitle={`Yes, Add New Location`}
-          rBtnTitle="No, Discard Changes"
-          handleSubmit={handleSubmit(onSubmit)}
-        > */}
         <PageFormActions
           isDisabled={!isValid}
           handleCancel={() => router.back()}
           handleAdd={handleSubmit(onSubmit)}
         />
-        {/* </ConfirmModal> */}
       </PageForm>
     </>
   );
 };
-
-AddLoungeLocation.layout = AdminLayout;
-
-export default AddLoungeLocation;
+export default EditForm;

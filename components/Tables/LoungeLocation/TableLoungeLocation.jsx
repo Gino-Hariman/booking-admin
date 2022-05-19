@@ -54,7 +54,11 @@ const TableLoungeLocation = () => {
       },
       {
         id: 'actions',
-        Cell: Actions,
+        Cell: ({ data, value, row }) => {
+          return (
+            <Actions data={data[row.index]} deletePath={`/location/delete`} />
+          );
+        },
       },
     ],
     []

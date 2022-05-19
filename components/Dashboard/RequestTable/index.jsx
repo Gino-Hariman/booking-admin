@@ -1,16 +1,22 @@
 import Chip from '@/components/Chip';
 import ListItem from '@/components/ListData/ListItem';
 import { LoadingModal } from '@/components/Loading';
+import Modals from '@/components/Modals';
 import spreadObject from '@/helpers/spreadObject';
 import useGetQuery from '@/hooks/useGetQuery';
 import usePutQuery from '@/hooks/usePutQuery';
 import useToast from '@/hooks/useToast';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useQueryClient } from 'react-query';
 
 const RequestTable = ({ filterState }) => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const { notify } = useToast();
+  const [showModal, setShowModal] = useState(false);
+  const [notes, setNotes] = useState('');
 
   const { data, isFetching } = useGetQuery(
     ['request-table', ...spreadObject(filterState)],
@@ -24,8 +30,17 @@ const RequestTable = ({ filterState }) => {
 
   const acceptMutation = usePutQuery('/book/approve');
   const declineMutation = usePutQuery('/book/decline');
+  const onChange = (e) => {
+    setNotes(e.target.value);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
-  if (isFetching) return <LoadingModal />;
+  const handleDecline = () => {
+    setIsPresent(0);
+    setShowModal(true);
+  };
 
   const handleAccept = (id) => {
     acceptMutation.mutate(
@@ -37,6 +52,7 @@ const RequestTable = ({ filterState }) => {
       {
         onSuccess: (res) => {
           notify('success', `Approve ${res}`);
+          router.reload();
         },
         onSettled: () => {
           queryClient.invalidateQueries('request');
@@ -45,7 +61,7 @@ const RequestTable = ({ filterState }) => {
     );
   };
 
-  const handleReject = (id) => {
+  const handleSubmitNote = (id) => {
     declineMutation.mutate(
       {
         order_id: id,
@@ -62,6 +78,8 @@ const RequestTable = ({ filterState }) => {
       }
     );
   };
+
+  if (isFetching) return <LoadingModal />;
 
   return (
     <>
@@ -88,8 +106,22 @@ const RequestTable = ({ filterState }) => {
               title="Reject"
               width="w-normal-chip text-md-4"
               type="reject"
-              onClick={() => handleReject(item.order_id)}
+              onClick={handleDecline}
             />
+
+            {showModal && (
+              <Modals
+                // notes={notes}
+                setShowModal={setShowModal}
+                handleCloseModal={handleCloseModal}
+              >
+                <BookingNotes
+                  value={notes}
+                  onChange={onChange}
+                  onSubmit={() => handleSubmitNote(item.order_id)}
+                />
+              </Modals>
+            )}
           </>
         </ListItem>
       ))}

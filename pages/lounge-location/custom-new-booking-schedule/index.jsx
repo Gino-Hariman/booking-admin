@@ -8,8 +8,29 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import dayjs from 'dayjs';
 import { dateFormat } from '@/utils/dateTimeConfig';
+import useGetQuery from '@/hooks/useGetQuery';
+import axios from 'axios';
 
-const CustomNewBookingSchedule = () => {
+export const getServerSideProps = async ({ req }) => {
+  const token = req.cookies.token;
+  const adminId = req.cookies.adminID;
+
+  if (!Boolean(adminId) && !Boolean(token)) {
+    return {
+      redirect: {
+        destination: '/auth/login',
+        permanent: false,
+      },
+    };
+  }
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_MAIN_HOST}/time`);
+
+  return {
+    props: { timeData: data },
+  };
+};
+
+const CustomNewBookingSchedule = ({ timeData }) => {
   const {
     register,
     getValues,
@@ -35,6 +56,7 @@ const CustomNewBookingSchedule = () => {
   const onSubmit = (data) => {
     console.log('data', data);
   };
+
   return (
     <>
       <Breadcrumbs />
@@ -61,10 +83,11 @@ const CustomNewBookingSchedule = () => {
             hasBorder: true,
           },
           {
+            data: timeData,
             title: 'Booking Time',
             subTitle:
               'Please select Default time that available for students to at Lounge',
-            name: 'booking_time',
+            name: 'times',
             type: 'CheckboxField',
           },
         ]}

@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 export const getServerSideProps = ({ req }) => {
   const user = req.cookies.token;
+  console.log('user', user);
   if (!user) {
     return {
       redirect: {
@@ -13,18 +14,17 @@ export const getServerSideProps = ({ req }) => {
         permanent: false,
       },
     };
-  } else {
-    return {
-      redirect: {
-        destination: '/admin',
-        permanent: false,
-      },
-    };
   }
-
   return {
-    props: {},
+    redirect: {
+      destination: '/dashboard',
+      permanent: false,
+    },
   };
+
+  // return {
+  //   props: {},
+  // };
 };
 
 export default function Home() {

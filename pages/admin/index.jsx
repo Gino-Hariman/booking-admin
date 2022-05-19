@@ -10,13 +10,16 @@ import Switch from '@/components/Tables/Contents/Switch';
 import { Button } from '@/components/Buttons';
 import Modals from '@/components/Modals';
 import AddNewAdmin from '@/components/Modals/template/AddNewAdmin';
+import useGetQuery from '@/hooks/useGetQuery';
+import { LoadingModal } from '@/components/Loading';
+import SwithModal from '@/components/Modals/template/SwitchModal';
 
 const Admin = () => {
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState(null);
   const columns = React.useMemo(
     () => [
-      { Header: 'Name', accessor: 'name' },
+      // { Header: 'Name', accessor: '' },
       { Header: 'Username', accessor: 'username' },
       {
         Header: 'Password',
@@ -24,18 +27,35 @@ const Admin = () => {
       },
       {
         Header: 'Last Login',
-        accessor: 'last_login',
-        Cell: (item) => {
-          const { date, time } = item.cell.value;
-          return <LastLogin date={date} time={time} />;
+        accessor: 'access_date',
+        Cell: ({ data, value, row }) => {
+          console.log('data', data[row.index]);
+          // console.log('item.cell.value', item.cell.value);
+          // const { access_date, access_time } = item.cell.value;
+          return (
+            <LastLogin
+              date={data[row.index].access_date}
+              time={data[row.index].access_time}
+            />
+          );
         },
       },
-      {
-        Header: 'Status',
-        accessor: 'status',
-        id: 'status',
-        Cell: Switch,
-      },
+      // {
+      //   Header: 'Status',
+      //   accessor: 'active',
+      //   id: 'active',
+      //   Cell: ({ data, value, row }) => {
+      //     return (
+      //       <SwithModal
+      //         value={value}
+      //         data={data[row.index]}
+      //         modalTitle="If you do these changes, the system will not display the lounge location on the student lounge reservation website"
+      //         lBtnTitle={`Yes, ${value === 1 ? 'Disable' : 'Enable'} Location`}
+      //         rBtnTitle="No, Discard Changes"
+      //       />
+      //     );
+      //   },
+      // },
       {
         id: 'actions',
         Cell: Actions,
@@ -60,6 +80,9 @@ const Admin = () => {
     []
   );
 
+  const { data: dataAdmin, isFetching } = useGetQuery();
+  if (isFetching) return <LoadingModal />;
+
   const handleOpenModal = () => {
     setShowModal(true);
   };
@@ -80,7 +103,7 @@ const Admin = () => {
         }
         tableTitle="Admin"
         columns={columns}
-        data={adminData}
+        data={dataAdmin}
       />
       {showModal && (
         <Modals setShowModal={setShowModal} handleCloseModal={handleCloseModal}>

@@ -2,7 +2,7 @@ import useBookTime from '@/hooks/useBookTime';
 import { useEffect } from 'react';
 import BookTimeItem from './BookTimeItem';
 
-const BookTimeList = ({ data, ref, onBlur, name, setValue }) => {
+const EditBookTimeList = ({ data, ref, onBlur, name, setValue }) => {
   const { selected, handleSelect, handleSelectAllClick } = useBookTime();
 
   const handleSelectTime = (id) => {
@@ -44,4 +44,4 @@ const BookTimeList = ({ data, ref, onBlur, name, setValue }) => {
   );
 };
 
-export default BookTimeList;
+export default EditBookTimeList;
