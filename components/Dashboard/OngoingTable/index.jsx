@@ -1,4 +1,5 @@
 import Chip from '@/components/Chip';
+import EmptyList from '@/components/EmptyState/EmptyList';
 import EditListItem from '@/components/ListData/EditListItem';
 import { LoadingModal } from '@/components/Loading';
 import spreadObject from '@/helpers/spreadObject';
@@ -11,7 +12,6 @@ const OngoingTable = ({ filterState }) => {
     status: 'approve',
     date: dayjs().format('YYYY-MM-DD'),
   };
-  console.log('today', dayjs().format('YYYY-MM-DD'));
 
   const { data, isFetching } = useGetQuery(
     ['ongoing-table', ...spreadObject(query)],
@@ -27,6 +27,8 @@ const OngoingTable = ({ filterState }) => {
     }
   );
   if (isFetching) return <LoadingModal />;
+  console.log('000', data);
+  if (!Boolean(data.length)) return <EmptyList title="Ongoing Booking" />;
 
   return data.map((item) => (
     <EditListItem

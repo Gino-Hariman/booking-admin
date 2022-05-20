@@ -1,4 +1,5 @@
 import Chip from '@/components/Chip';
+import EmptyList from '@/components/EmptyState/EmptyList';
 import ListItem from '@/components/ListData/ListItem';
 import { LoadingModal } from '@/components/Loading';
 import Modals from '@/components/Modals';
@@ -80,6 +81,8 @@ const RequestTable = ({ filterState }) => {
   };
 
   if (isFetching) return <LoadingModal />;
+
+  if (!Boolean(data.length)) return <EmptyList title="Student Request" />;
 
   return (
     <>

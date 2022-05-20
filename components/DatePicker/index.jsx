@@ -4,7 +4,13 @@ import { DateRangePicker, SingleDatePicker } from 'react-dates';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
-const DatePicker = ({ handleSelectFilter }) => {
+const DatePicker = ({
+  name,
+  single,
+  handleSelectFilter = () => {},
+  handleSelectDate = () => {},
+  selectedDate = '',
+}) => {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const [focusedInput, setFocusedInput] = useState(null);
@@ -25,17 +31,25 @@ const DatePicker = ({ handleSelectFilter }) => {
     }
   };
 
-  // console.log('startDate', dayjs(startDate).format('YYYY-MM-DD'));
-  // console.log('endDate', dayjs(endDate).format(dateFormat));
-
-  return (
+  return single ? (
+    <SingleDatePicker
+      date={selectedDate}
+      numberOfMonths={1}
+      onDateChange={(date) => handleSelectDate(date)}
+      id={name}
+      focused={focusedInput}
+      showClearDates
+      showDefaultInputIcon
+      onFocusChange={({ focused }) => setFocusedInput(focused)}
+      // displayFormat="YYYY-MM-DD"
+    />
+  ) : (
     <DateRangePicker
       showDefaultInputIcon
       showClearDates
       reopenPickerOnClearDates
-      id="date"
       startDate={startDate}
-      startDateId="tata-start-date"
+      startDateId={name}
       endDate={endDate}
       endDateId="tata-end-date"
       onDatesChange={handleDatesChange}

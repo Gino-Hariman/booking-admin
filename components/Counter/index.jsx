@@ -1,9 +1,7 @@
 import classNames from '@/helpers/classNames';
 import { PlusCircleIcon, MinusCircleIcon } from '@heroicons/react/outline';
-import { useState } from 'react';
 
 const Counter = ({ name, ref, getValues, setValue }) => {
-  const [num, setNum] = useState(0);
   const checkIsDisabled = () => {
     return getValues(name) === 1;
   };

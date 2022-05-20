@@ -10,12 +10,11 @@ const useFilter = () => {
 
   useEffect(() => {
     setFilterState({ page: 0 });
-  }, [selectedTab.title]);
+  }, [selectedTab.title, Object.keys(filterState).length]);
 
   const requestSearch = (event) => {
     setSearched(event.target.value);
   };
-
   const handleNextPage = () => {
     handleSelectFilter('page', (filterState.page += 1));
   };

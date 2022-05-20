@@ -1,35 +1,36 @@
-import DatePicker from '@/components/DatePicker';
-import DateList from '@/components/DatePicker/DayList';
-import { CustomDateField } from '../components';
+import Counter from '@/components/Counter';
+import { LoadingSpinner } from '@/components/Loading';
+import classNames from '@/helpers/classNames';
 import FormField, { FormLabel } from './FormField';
 
-const DateField = ({
+const CustomCounterField = ({
   title,
   register = () => {},
-  placeholder,
   name,
   errors,
   setValue,
+  getValues,
   hasBorder,
 }) => {
   const isError = errors && errors[name];
 
   const r = register(name);
+
   return (
     <FormField
       hasBorder={hasBorder}
       labelComp={<FormLabel title={title} />}
-      errorMessage={errors[name]?.message}
       Comp={
-        <CustomDateField
-          name={r?.name}
-          r={r}
-          placeholder={placeholder}
+        <Counter
+          name={name}
+          ref={r}
+          getValues={getValues}
           setValue={setValue}
         />
       }
+      errorMessage={errors[name]?.message}
     />
   );
 };
 
-export default DateField;
+export default CustomCounterField;

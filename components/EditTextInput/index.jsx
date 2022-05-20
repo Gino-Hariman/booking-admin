@@ -101,8 +101,6 @@ const EditTextInput = ({ present, note, orderID }) => {
       </>
     );
 
-  console.log('note', note);
-
   return (
     <>
       {isPresent === 0 || present === 0 ? (

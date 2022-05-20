@@ -1,10 +1,10 @@
 import Chip from '@/components/Chip';
+import EmptyList from '@/components/EmptyState/EmptyList';
 import ListItem from '@/components/ListData/ListItem';
 import { LoadingModal } from '@/components/Loading';
 import spreadObject from '@/helpers/spreadObject';
 import UrlQueryBuilder from '@/helpers/UrlqueryBuilder';
 import useGetQuery from '@/hooks/useGetQuery';
-import studentRequest from '@/_mocks/studentRequest';
 
 const AcceptedTable = ({ filterState }) => {
   const query = { ...filterState, status: 'approve' };
@@ -18,6 +18,8 @@ const AcceptedTable = ({ filterState }) => {
     }
   );
   if (isFetching) return <LoadingModal />;
+
+  if (!Boolean(data.length)) return <EmptyList title="Accepted Student" />;
   return data.map((item) => (
     <ListItem
       key={item.order_id}

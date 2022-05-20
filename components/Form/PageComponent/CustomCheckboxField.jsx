@@ -1,9 +1,9 @@
-import BookTimeList from '@/components/BookTimeList';
+import CustomTimeList from '@/components/BookTimeList/CustomBookTimeList';
+import { LoadingSpinner } from '@/components/Loading';
 import FormField, { FormLabel } from './FormField';
 
-const CheckboxField = ({
+const CustomCheckboxField = ({
   data,
-  isEdit = false,
   title,
   subTitle,
   register = () => {},
@@ -11,10 +11,15 @@ const CheckboxField = ({
   errors,
   setValue,
   hasBorder,
+  getValues,
+  loading,
 }) => {
   const isError = errors && errors[name];
-  console.log('data', data);
   const r = register(name);
+
+  if (!getValues().id_location) return <></>;
+
+  if (loading) return <LoadingSpinner />;
 
   return (
     <FormField
@@ -22,9 +27,9 @@ const CheckboxField = ({
       hasBorder={hasBorder}
       labelComp={<FormLabel title={title} subTitle={subTitle} />}
       Comp={
-        <BookTimeList
+        <CustomTimeList
           isError={isError}
-          data={data}
+          data={data?.times}
           ref={r?.ref}
           name={r?.name}
           setValue={setValue}
@@ -34,4 +39,4 @@ const CheckboxField = ({
   );
 };
 
-export default CheckboxField;
+export default CustomCheckboxField;

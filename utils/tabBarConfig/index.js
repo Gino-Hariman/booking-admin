@@ -20,14 +20,14 @@ const tabBarConfig = [
   {
     count_id: 'accept_count',
     student: 150,
-    title: 'Accepted Students',
+    title: 'Accepted Student',
     compName: 'AcceptedTable',
     icon: () => <AcceptedIcon width={48} />,
   },
   {
     count_id: 'decline_count',
     student: 200,
-    title: 'Rejected Students',
+    title: 'Rejected Student',
     compName: 'RejectedTable',
     icon: () => <RejectedIcon width={48} />,
   },

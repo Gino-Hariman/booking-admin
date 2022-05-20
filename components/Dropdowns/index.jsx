@@ -6,11 +6,13 @@ import classNames from '@/helpers/classNames';
 const Dropdowns = ({
   idItem,
   valueItem,
+  name = '',
   Icon,
   placeholder,
   datas,
   rounded = false,
-  handleSelectFilter,
+  handleSelectFilter = () => {},
+  setValue = () => {},
   loading = true,
 }) => {
   const [open, setOpen] = useState(false);
@@ -18,13 +20,15 @@ const Dropdowns = ({
   const handleClick = () => {
     setOpen((prev) => !prev);
   };
-
   const handleSelect = (item) => {
     setOpen(false);
     handleSelectFilter(idItem, item[idItem]);
+    setValue(name, item[idItem], {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
     setSelected(item[valueItem]);
   };
-
   return (
     <div>
       <div className="w-full box-border relative h-[56px] min-w-[200px]">
@@ -55,7 +59,7 @@ const Dropdowns = ({
             className="absolute z-40 shadow-md w-full overflow-hidden mt-2 menu text-gray-700 bg-shade-FG rounded-3 "
           >
             {loading ? (
-              <p>laoding...</p>
+              <p className="py-2 px-4">Loading...</p>
             ) : (
               datas.map((item) => (
                 <li

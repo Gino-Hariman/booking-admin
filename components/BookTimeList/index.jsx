@@ -13,6 +13,7 @@ const BookTimeList = ({ data, ref, onBlur, name, setValue }) => {
     if (selected.length > 0) {
       setValue(name, selected.join(), {
         shouldValidate: true,
+        shouldDirty: true,
       });
     }
   }, [selected.length]);
@@ -24,7 +25,7 @@ const BookTimeList = ({ data, ref, onBlur, name, setValue }) => {
         onClick={(event) => handleSelectAllClick(event, data, ['id_time'])}
       />
 
-      <div class="grid grid-rows-5 grid-flow-col gap-7 ">
+      <div class="grid grid-rows-5 grid-flow-col gap-7 md:gap-x-20 place-content-start">
         {data.map((item) => {
           const isItemSelected = selected.indexOf(item.id_time) !== -1;
 

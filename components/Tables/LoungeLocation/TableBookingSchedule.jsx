@@ -48,7 +48,7 @@ const TableBookingSchedule = () => {
 
   return (
     <TableList
-      tableTitle="Lounge Location"
+      tableTitle="Custom Lounge Schedule"
       btnTitle="+ Custom New Booking Schedule"
       columns={bookingScheduleColumns}
       addPath="/lounge-location/custom-new-booking-schedule"

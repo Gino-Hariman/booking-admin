@@ -1,4 +1,5 @@
 import Chip from '@/components/Chip';
+import EmptyList from '@/components/EmptyState/EmptyList';
 import ListItem from '@/components/ListData/ListItem';
 import { LoadingModal } from '@/components/Loading';
 import spreadObject from '@/helpers/spreadObject';
@@ -17,6 +18,9 @@ const RejectedTable = ({ filterState }) => {
   );
 
   if (isFetching) return <LoadingModal />;
+
+  if (!Boolean(data.length)) return <EmptyList title="Rejected Student" />;
+
   return data.map((item) => (
     <ListItem
       key={item.order_id}

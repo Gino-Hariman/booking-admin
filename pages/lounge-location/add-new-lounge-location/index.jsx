@@ -2,7 +2,6 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import { useState } from 'react';
 import PageForm from '@/components/Form/PageForm';
 import PageFormActions from '@/components/Form/PageFormActions';
-import { ConfirmModal } from '@/components/Loading';
 import usePostQuery from '@/hooks/usePostQuery';
 import useToast from '@/hooks/useToast';
 import AdminLayout from '@/layout/AdminLayout';
