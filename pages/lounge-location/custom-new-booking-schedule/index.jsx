@@ -112,7 +112,7 @@ const CustomNewBookingSchedule = ({ timeData }) => {
             loading: loungeDetailFetch,
             title: 'Disabled Time',
             subTitle:
-              'Please select Default time to disabled the time for student to at lounge',
+              'Please select Default time that available for students to at Lounge',
             name: 'id_location_time_list',
             type: 'CustomCheckboxField',
           },

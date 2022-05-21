@@ -6,7 +6,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import React from 'react';
 import { FILE_SIZE, SUPPORTED_FORMATS } from '@/utils/imageConfig';
+import { useRouter } from 'next/router';
+
 const EditForm = ({ data, timeData }) => {
+  const router = useRouter();
   const {
     register,
     getValues,
