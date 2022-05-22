@@ -48,7 +48,7 @@ const RequestTable = ({ filterState }) => {
       {
         order_id: id,
         handle_by: Cookies.get('name'),
-        id_admin: Cookies.get('adminID'),
+        // id_admin: Cookies.get('adminID'),
       },
       {
         onSuccess: (res) => {
@@ -67,7 +67,7 @@ const RequestTable = ({ filterState }) => {
       {
         order_id: id,
         handle_by: Cookies.get('name'),
-        id_admin: Cookies.get('adminID'),
+        // id_admin: Cookies.get('adminID'),
       },
       {
         onSuccess: (res) => {

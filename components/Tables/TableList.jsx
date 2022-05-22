@@ -9,10 +9,9 @@ const TableList = ({
   columns,
   data,
   pageNumber,
-  addPath,
+  onHeaderButtonClick,
   btnTitle,
   tableHeaderChild,
-  handleChangeStatus = () => {},
   hasHeader = true,
   handleNextPage,
   handlePrevPage,
@@ -23,10 +22,10 @@ const TableList = ({
   return (
     <div className="mt-4 rounded-6 shadow bg-shade-FG p-12 flex flex-col">
       <TableHeader
+        onHeaderButtonClick={onHeaderButtonClick}
         hasHeader={hasHeader}
         title={tableTitle}
         btnTitle={btnTitle}
-        addPath={addPath}
       >
         {tableHeaderChild}
       </TableHeader>

@@ -1,6 +1,4 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
-import PageForm from '@/components/Form/PageForm';
-import PageFormActions from '@/components/Form/PageFormActions';
 import { LoadingModal } from '@/components/Loading';
 import useGetQuery from '@/hooks/useGetQuery';
 import AdminLayout from '@/layout/AdminLayout';
@@ -10,9 +8,8 @@ import EditForm from './EditForm';
 
 export const getServerSideProps = async ({ req }) => {
   const token = req.cookies.token;
-  const adminId = req.cookies.adminID;
 
-  if (!Boolean(adminId) && !Boolean(token)) {
+  if (!Boolean(token)) {
     return {
       redirect: {
         destination: '/auth/login',

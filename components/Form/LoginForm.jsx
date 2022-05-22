@@ -3,12 +3,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import DataForm from './DataForm';
 import { Button } from '../Buttons';
-import useToast from '@/hooks/useToast';
 import { useAuth } from '@/context/AuthenticationContext';
 
 const LoginForm = () => {
-  const { notify } = useToast();
-  const { isAuthenticated, user, login } = useAuth();
+  const { login } = useAuth();
   const {
     register,
     formState: { errors },
@@ -28,19 +26,8 @@ const LoginForm = () => {
     },
   });
 
-  // const mutation = usePostQuery('/admin/login');
-
   const onSubmit = (data) => {
     login(data);
-    // mutation.mutate(data, {
-    //   onSuccess: (res) => {
-    //     notify('success', res.verify);
-    //     localStorage.setItem('name', res.name);
-    //     localStorage.setItem('role', res.permission);
-    //   },
-    //   onError: (err) => notify('error', err.error),
-    // });
-    // mutation.mutate();
   };
 
   return (

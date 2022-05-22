@@ -1,24 +1,18 @@
-import DatePicker from '@/components/DatePicker';
-import Dropdowns from '@/components/Dropdowns';
-import { TableFilter } from '@/components/ListData/components';
 import TextNote from '@/components/Tables/Contents/TextNote';
 import TextStatus from '@/components/Tables/Contents/TextStatus';
 import StudentDetail from '@/components/Tables/StudentDetail';
 import TableList from '@/components/Tables/TableList';
 import AdminLayout from '@/layout/AdminLayout';
-import { dateFormat } from '@/utils/dateTimeConfig';
 import reportData from '@/_mocks/reportData';
-import LocationIcon from '@/icons/Fill/Location.svg';
-import MajorIcon from '@/icons/Fill/Major.svg';
-import dayjs from 'dayjs';
 import React from 'react';
-import majorData from '@/_mocks/majorData';
-import locationData from '@/_mocks/locationData';
-import acceptedBy from '@/_mocks/acceptedBy';
 import { useRouter } from 'next/router';
+import useTableButton from '@/hooks/useTableButton';
+import useFilter from '@/hooks/useFilter';
 
 const AdminHistory = () => {
   const router = useRouter();
+  const { handleDownload } = useTableButton();
+  const { filterState, handleNextPage, handlePrevPage } = useFilter();
   const {
     query: { name },
   } = router;
@@ -44,11 +38,15 @@ const AdminHistory = () => {
   );
   return (
     <TableList
+      onHeaderButtonClick={handleDownload}
       hasHeader={false}
       tableTitle={`${name} Booking History`}
       columns={columns}
       data={reportData}
       btnTitle="Download Report"
+      handleNextPage={handleNextPage}
+      handlePrevPage={handlePrevPage}
+      emptyTitle="Report"
     />
   );
 };

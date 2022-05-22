@@ -19,10 +19,12 @@ import useGetQuery from '@/hooks/useGetQuery';
 import { LoadingModal } from '@/components/Loading';
 import useFilter from '@/hooks/useFilter';
 import spreadObject from '@/helpers/spreadObject';
+import useTableButton from '@/hooks/useTableButton';
 
 const Report = () => {
   const { filterState, handleNextPage, handlePrevPage, handleSelectFilter } =
     useFilter();
+  const { handleDownload } = useTableButton();
   const columns = React.useMemo(
     () => [
       { Header: 'Booking ID', accessor: 'order_id' },
@@ -130,6 +132,7 @@ const Report = () => {
         </TableFilter>
       }
       tableTitle="Report"
+      onHeaderButtonClick={handleDownload}
       columns={columns}
       data={data}
       btnTitle="Download Report"

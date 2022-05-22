@@ -7,12 +7,14 @@ import TableList from '@/components/Tables/TableList';
 import spreadObject from '@/helpers/spreadObject';
 import useFilter from '@/hooks/useFilter';
 import useGetQuery from '@/hooks/useGetQuery';
+import useTableButton from '@/hooks/useTableButton';
 import AdminLayout from '@/layout/AdminLayout';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 const BookingHistory = () => {
   const router = useRouter();
+  const { handleDownload } = useTableButton();
   const { filterState, handleNextPage, handlePrevPage } = useFilter();
   const {
     query: { name, nim, major, kelas },
@@ -48,6 +50,7 @@ const BookingHistory = () => {
     <>
       <Breadcrumbs />
       <TableList
+        onHeaderButtonClick={handleDownload}
         tableHeaderChild={
           <StudentDetail isHeader nim={nim} major={major} kelas={kelas} />
         }

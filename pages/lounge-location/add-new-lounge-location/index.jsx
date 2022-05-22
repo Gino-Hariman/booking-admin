@@ -14,9 +14,8 @@ import * as Yup from 'yup';
 
 export const getServerSideProps = async ({ req }) => {
   const token = req.cookies.token;
-  const adminId = req.cookies.adminID;
 
-  if (!Boolean(adminId) && !Boolean(token)) {
+  if (!Boolean(token)) {
     return {
       redirect: {
         destination: '/auth/login',

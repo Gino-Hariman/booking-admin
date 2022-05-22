@@ -5,14 +5,15 @@ import MajorIcon from '@/icons/Fill/Major.svg';
 
 import TableList from '@/components/Tables/TableList';
 import AdminLayout from '@/layout/AdminLayout';
-import studentList from '@/_mocks/studentList';
 import React from 'react';
 import useGetQuery from '@/hooks/useGetQuery';
 import useFilter from '@/hooks/useFilter';
 import { LoadingModal } from '@/components/Loading';
 import spreadObject from '@/helpers/spreadObject';
+import useTableButton from '@/hooks/useTableButton';
 
 const StudentList = () => {
+  const { handleDownload } = useTableButton();
   const { filterState, handleSelectFilter, handleNextPage, handlePrevPage } =
     useFilter();
   const columns = React.useMemo(
@@ -68,6 +69,7 @@ const StudentList = () => {
 
   return (
     <TableList
+      onHeaderButtonClick={handleDownload}
       tableHeaderChild={
         <TableFilter>
           <Dropdowns
