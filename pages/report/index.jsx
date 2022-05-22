@@ -26,23 +26,32 @@ const Report = () => {
   const columns = React.useMemo(
     () => [
       { Header: 'Booking ID', accessor: 'order_id' },
-      { Header: 'Student Name', accessor: 'nama' },
+      { Header: 'Student Name', accessor: 'name' },
       {
         Header: 'Student Data',
         accessor: 'student_data',
         Cell: ({ data, value, row }) => {
-          const { nim, major, kelas } = data[row.index];
-          return <StudentDetail nim={nim} major={major} kelas={kelas} />;
+          const { nim, program, class: kelas } = data[row.index];
+          console.log('data[row.index]', data[row.index]);
+          return <StudentDetail nim={nim} major={program} kelas={kelas} />;
         },
       },
-      { Header: 'Lounge Location', accessor: 'name_location' },
+      {
+        Header: 'Lounge Location',
+        accessor: 'location',
+        Cell: ({ value }) => {
+          return (
+            <p className="text-md-4 font-medium text-gray-700">{`${value.name_location} - ${value.spot_name}`}</p>
+          );
+        },
+      },
       { Header: 'Date', accessor: 'date' },
       { Header: 'Time', accessor: 'time' },
       {
         Header: 'status',
-        accessor: 'active',
-        Cell: ({ data, value, row }) => {
-          return <TextStatus data={data[row.index]} />;
+        accessor: 'status',
+        Cell: ({ value }) => {
+          return <TextStatus data={value} />;
         },
       },
       { Header: 'Note', accessor: 'note', Cell: TextNote },
@@ -127,6 +136,7 @@ const Report = () => {
       pageNumber={filterState.page}
       handleNextPage={handleNextPage}
       handlePrevPage={handlePrevPage}
+      emptyTitle="Report"
     />
   );
 };

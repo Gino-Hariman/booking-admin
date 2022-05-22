@@ -6,19 +6,18 @@ import EditIcon from '@/icons/Outline/Edit.svg';
 import TrashIcon from '@/icons/Outline/Trash.svg';
 import { useRouter } from 'next/router';
 
-const Actions = ({ data, deletePath }) => {
+const Actions = ({ data, deletePath, editFormPath }) => {
   const router = useRouter();
   const mutation = usePostQuery(deletePath);
   const { notify } = useToast();
-  console.log('ddataa234', data.id_location);
 
   const handleEdit = () => {
-    router.push(`/lounge-location/edit/${data.id_location}`);
+    router.push(editFormPath);
   };
-  console.log('data.id_location', data.id_location);
+
   const handleDelete = () => {
     mutation.mutate(
-      { id_location: data.id_location },
+      { id_location: data.id_location, date: data.date },
       {
         onSuccess: () => {
           notify('success', 'Success, to remove!!');

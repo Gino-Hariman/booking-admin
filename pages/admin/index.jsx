@@ -26,6 +26,10 @@ const Admin = () => {
         accessor: 'password',
       },
       {
+        Header: 'Role',
+        accessor: 'permission',
+      },
+      {
         Header: 'Last Login',
         accessor: 'access_date',
         Cell: ({ data, value, row }) => {
@@ -40,22 +44,22 @@ const Admin = () => {
           );
         },
       },
-      // {
-      //   Header: 'Status',
-      //   accessor: 'active',
-      //   id: 'active',
-      //   Cell: ({ data, value, row }) => {
-      //     return (
-      //       <SwithModal
-      //         value={value}
-      //         data={data[row.index]}
-      //         modalTitle="If you do these changes, the system will not display the lounge location on the student lounge reservation website"
-      //         lBtnTitle={`Yes, ${value === 1 ? 'Disable' : 'Enable'} Location`}
-      //         rBtnTitle="No, Discard Changes"
-      //       />
-      //     );
-      //   },
-      // },
+      {
+        Header: 'Status',
+        accessor: 'active',
+
+        Cell: ({ data, value, row }) => {
+          return (
+            <SwithModal
+              value={value}
+              data={data[row.index]}
+              modalTitle="If you do these changes, the system will not display the lounge location on the student lounge reservation website"
+              lBtnTitle={`Yes, ${value === 1 ? 'Disable' : 'Enable'} Location`}
+              rBtnTitle="No, Discard Changes"
+            />
+          );
+        },
+      },
       {
         id: 'actions',
         Cell: Actions,

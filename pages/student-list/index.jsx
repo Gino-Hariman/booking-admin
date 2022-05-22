@@ -65,7 +65,7 @@ const StudentList = () => {
   );
 
   if (isFetching) return <LoadingModal />;
-  console.log('adfdata', data);
+
   return (
     <TableList
       tableHeaderChild={
@@ -88,6 +88,7 @@ const StudentList = () => {
       columns={columns}
       data={data}
       btnTitle="Download Student List"
+      emptyTitle="Student List"
     />
   );
 };

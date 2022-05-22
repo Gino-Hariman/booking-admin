@@ -6,12 +6,21 @@ import usePutQuery from '@/hooks/usePutQuery';
 import useToast from '@/hooks/useToast';
 import { useRouter } from 'next/router';
 
-const SwithModal = ({ data, value, modalTitle, lBtnTitle, rBtnTitle }) => {
+const SwithModal = ({
+  data,
+  value,
+  modalTitle,
+  lBtnTitle,
+  rBtnTitle,
+  isLocation = false,
+}) => {
   const router = useRouter();
   const { notify } = useToast();
   const [open, setOpen] = useState(false);
   const statusMutation = usePutQuery(
-    value === 1 ? '/location/deactive' : '/location/active'
+    value === 1
+      ? `${isLocation ? '/location' : ''}/deactive`
+      : `${isLocation ? '/location' : ''}/active`
   );
 
   const handleOpen = () => {
@@ -24,13 +33,19 @@ const SwithModal = ({ data, value, modalTitle, lBtnTitle, rBtnTitle }) => {
 
   const handleSubmit = () => {
     statusMutation.mutate(
-      { id_location: data.id_location },
+      { id_location: data.id_location, id_admin: data.id_admin },
       {
         onSuccess: (res) => {
           console.log('res status', res);
-          notify('success', 'Successfully change status');
+
           handleClose();
-          if (res === 'success') router.reload();
+          if (res.type === 'success') {
+            notify(
+              'success',
+              res?.message ? res.message : 'Successfully change status'
+            );
+            router.reload();
+          }
         },
         onError: (err) => {
           console.log('errr status', err);

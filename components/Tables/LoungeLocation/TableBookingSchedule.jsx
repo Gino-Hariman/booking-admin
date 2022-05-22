@@ -30,7 +30,17 @@ const TableBookingSchedule = () => {
       },
       {
         id: 'actions',
-        Cell: Actions,
+        Cell: ({ data, value, row }) => {
+          return (
+            <Actions
+              data={data[row.index]}
+              editFormPath={`/lounge-location/edit-custom-lounge-location/${
+                data[row.index].id_location
+              }`}
+              deletePath={`/location/custom/delete`}
+            />
+          );
+        },
       },
     ],
     []

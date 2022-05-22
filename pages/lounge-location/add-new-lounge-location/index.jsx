@@ -40,6 +40,7 @@ const AddLoungeLocation = ({ timeData }) => {
     register,
     getValues,
     setValue,
+    reset,
     formState: { errors, isValid },
     handleSubmit,
   } = useForm({
@@ -86,6 +87,7 @@ const AddLoungeLocation = ({ timeData }) => {
       onSuccess: (res) => {
         console.log('res add', res);
         notify('success', 'Successfully add Lounge Location');
+        reset();
         router.push('/lounge-location');
       },
       onError: (err) => {
@@ -153,6 +155,7 @@ const AddLoungeLocation = ({ timeData }) => {
           isDisabled={!isValid}
           handleCancel={() => router.back()}
           handleAdd={handleSubmit(onSubmit)}
+          btnTitle="Add New"
         />
         {/* </ConfirmModal> */}
       </PageForm>

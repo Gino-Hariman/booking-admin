@@ -7,9 +7,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { FILE_SIZE, SUPPORTED_FORMATS } from '@/utils/imageConfig';
 import { useRouter } from 'next/router';
+import usePutQuery from '@/hooks/usePutQuery';
+import useToast from '@/hooks/useToast';
 
 const EditForm = ({ data, timeData }) => {
   const router = useRouter();
+  const { notify } = useToast();
   const {
     register,
     getValues,
@@ -23,12 +26,13 @@ const EditForm = ({ data, timeData }) => {
           image: Yup.mixed()
             .test('fileSize', 'The file is too large', (value) => {
               if (!value) return true;
-              return value[0].size <= FILE_SIZE;
+              return value[0]?.size <= FILE_SIZE;
             })
             .test('fileFormat', 'Unsupported Format', (value) => {
               if (!value) return true;
-              return SUPPORTED_FORMATS.includes(value[0].type);
+              return SUPPORTED_FORMATS.includes(value[0]?.type);
             }),
+          // .notRequired(),
 
           name_location: Yup.string().required('Lounge Name Required'),
           spot_name: Yup.string().required('Lounge Detail Required'),
@@ -38,7 +42,9 @@ const EditForm = ({ data, timeData }) => {
         .required()
     ),
     defaultValues: {
-      image: data.image,
+      // image: data.image,
+      active: 1,
+      id_location: router.query.id,
       name_location: data.name_location,
       spot_name: data.spot_name,
       max_capacity: data.max_capacity,
@@ -47,18 +53,31 @@ const EditForm = ({ data, timeData }) => {
     mode: 'onBlur',
   });
 
-  const onSubmit = (data) => {
-    const formData = new FormData();
-    Object.keys(data).forEach((key, index) => {
-      if (key === 'image') return formData.append(key, data[key][0]);
-      formData.set(key, data[key]);
-    });
+  const editLoungeMutation = usePutQuery('/location');
 
-    addLoungeMutation.mutate(formData, {
+  console.log('1245', getValues(), data.image);
+
+  const onSubmit = (dataSubmit) => {
+    const formData = new FormData();
+    Object.keys(dataSubmit).forEach((key, index) => {
+      if (key === 'image' && typeof dataSubmit[key] === 'object') {
+        console.log('masuk');
+        return formData.append(key, dataSubmit[key][0]);
+      }
+
+      if (key === 'image' && dataSubmit[key] === undefined) {
+        console.log('lol', data.image);
+        return formData.append('image', data.image);
+      }
+
+      return formData.set(key, dataSubmit[key]);
+    });
+    console.log('data123', formData, dataSubmit);
+    editLoungeMutation.mutate(formData, {
       onSuccess: (res) => {
         console.log('res add', res);
         notify('success', 'Successfully add Lounge Location');
-        router.push('/lounge-location');
+        // router.push('/lounge-location');
       },
       onError: (err) => {
         notify('error', 'Failed to add Lounge Location');
@@ -71,6 +90,7 @@ const EditForm = ({ data, timeData }) => {
         formTitle="Edit Lounge Location"
         forms={[
           {
+            previewURL: data.image,
             title: 'Upload Photos',
             subTitle:
               'Please upload photos with minimum resolution 300 x 300 and max size of the picture is 1MB',
@@ -115,6 +135,7 @@ const EditForm = ({ data, timeData }) => {
           isDisabled={!isValid}
           handleCancel={() => router.back()}
           handleAdd={handleSubmit(onSubmit)}
+          btnTitle="Save"
         />
       </PageForm>
     </>

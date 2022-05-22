@@ -1,6 +1,11 @@
 import { Button } from '../Buttons';
 
-const PageFormActions = ({ handleCancel, handleAdd, isDisabled }) => {
+const PageFormActions = ({
+  handleCancel,
+  handleAdd,
+  isDisabled,
+  btnTitle = 'Add New',
+}) => {
   return (
     <div className="flex flex-col mx-auto md:flex-row space-x-4 md:max-w-pagination max-w-xs mt-16">
       <Button
@@ -9,7 +14,7 @@ const PageFormActions = ({ handleCancel, handleAdd, isDisabled }) => {
         title="Cancel"
         onClick={handleCancel}
       />
-      <Button title="Add New" onClick={handleAdd} isDisabled={isDisabled} />
+      <Button title={btnTitle} onClick={handleAdd} isDisabled={isDisabled} />
     </div>
   );
 };

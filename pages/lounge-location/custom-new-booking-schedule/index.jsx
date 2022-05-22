@@ -52,7 +52,7 @@ const CustomNewBookingSchedule = ({ timeData }) => {
       },
     }
   );
-  console.log('getValues', getValues());
+
   const { data: locationData, isFetching: locationFetch } = useGetQuery(
     ['simple', 'location'],
     '/location/all',
@@ -75,6 +75,10 @@ const CustomNewBookingSchedule = ({ timeData }) => {
         notify('error', 'Sorry, Something went wrong!');
       },
     });
+  };
+
+  const handleBack = () => {
+    router.back();
   };
 
   return (
@@ -122,7 +126,11 @@ const CustomNewBookingSchedule = ({ timeData }) => {
         register={register}
         errors={errors}
       >
-        <PageFormActions handleAdd={handleSubmit(onSubmit)} />
+        <PageFormActions
+          handleCancel={handleBack}
+          handleAdd={handleSubmit(onSubmit)}
+          btnTitle="Add New"
+        />
       </PageForm>
     </>
   );

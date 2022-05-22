@@ -3,6 +3,17 @@ import { useState, useEffect } from 'react';
 const useBookTime = () => {
   const [selected, setSelected] = useState([]);
 
+  const handleDefaultSelect = (datas, item) => {
+    const newSelected = datas.map((n) => {
+      if (!Boolean(n[item])) {
+        return;
+      }
+      return n[item];
+    });
+
+    setSelected(newSelected);
+  };
+
   const handleSelectAllClick = (event, datas, item) => {
     if (event.target.checked) {
       const newSelecteds = datas.map((n) => n[item]);
@@ -30,7 +41,7 @@ const useBookTime = () => {
     setSelected(newSelected);
   };
 
-  return { selected, handleSelect, handleSelectAllClick };
+  return { selected, handleSelect, handleSelectAllClick, handleDefaultSelect };
 };
 
 export default useBookTime;

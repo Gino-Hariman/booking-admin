@@ -40,6 +40,7 @@ const TableLoungeLocation = () => {
               modalTitle="If you do these changes, the system will not display the lounge location on the student lounge reservation website"
               lBtnTitle={`Yes, ${value === 1 ? 'Disable' : 'Enable'} Location`}
               rBtnTitle="No, Discard Changes"
+              isLocation
             />
           );
         },
@@ -56,7 +57,13 @@ const TableLoungeLocation = () => {
         id: 'actions',
         Cell: ({ data, value, row }) => {
           return (
-            <Actions data={data[row.index]} deletePath={`/location/delete`} />
+            <Actions
+              data={data[row.index]}
+              editFormPath={`/lounge-location/edit-lounge-location/${
+                data[row.index].id_location
+              }`}
+              deletePath={`/location/delete`}
+            />
           );
         },
       },

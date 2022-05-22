@@ -8,7 +8,6 @@ import spreadObject from '@/helpers/spreadObject';
 import useFilter from '@/hooks/useFilter';
 import useGetQuery from '@/hooks/useGetQuery';
 import AdminLayout from '@/layout/AdminLayout';
-import bookingHistory from '@/_mocks/bookingHistory';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -45,8 +44,6 @@ const BookingHistory = () => {
 
   if (isFetching) return <LoadingModal />;
 
-  console.log('123', data);
-
   return (
     <>
       <Breadcrumbs />
@@ -61,6 +58,7 @@ const BookingHistory = () => {
         pageNumber={filterState.page}
         handleNextPage={handleNextPage}
         handlePrevPage={handlePrevPage}
+        emptyTitle="Booking History"
       />
     </>
   );
