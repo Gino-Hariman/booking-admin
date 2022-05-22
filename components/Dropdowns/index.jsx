@@ -29,6 +29,7 @@ const Dropdowns = ({
     });
     setSelected(item[valueItem]);
   };
+
   return (
     <div>
       <div className="w-full box-border relative h-[56px] min-w-[200px]">

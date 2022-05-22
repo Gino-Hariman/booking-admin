@@ -3,54 +3,82 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/Buttons';
+import roleConfig from '@/utils/roleConfig';
+import usePostQuery from '@/hooks/usePostQuery';
+import useToast from '@/hooks/useToast';
+import { useRouter } from 'next/router';
 
 const AddNewAdmin = ({}) => {
+  const router = useRouter();
+  const { notify } = useToast();
   const {
     register,
-    formState: { errors },
+    getValues,
+    setValue,
+    reset,
+    formState: { errors, isValid },
     handleSubmit,
   } = useForm({
     resolver: yupResolver(
       yup.object().shape({
-        name: yup.string().required('Student Name Required'),
-        username: yup.string().required(),
-        password: yup.string().when('changePassword', {
-          is: true,
-          then: yup.string().min(6).max(32).required(),
-          otherwise: yup.string(),
-        }),
+        username: yup.string().required('Username Required'),
+        permission: yup.string().required('Role is required'),
+        password: yup
+          .string()
+          .when('changePassword', {
+            is: true,
+            then: yup.string().min(3).max(32).required(),
+            otherwise: yup.string(),
+          })
+          .required('Password is required'),
         confirmPassword: yup
           .string()
           .oneOf([yup.ref('password'), null], 'Password must match'),
       })
     ),
     defaultValues: {
-      name: '',
       username: '',
       password: '',
-      confirmPassword: '',
     },
     mode: 'onBlur',
   });
 
-  const onSubmit = () => {
-    console.log('submit');
+  const addAdminMutation = usePostQuery('/add');
+
+  const onSubmit = (data) => {
+    console.log('data admin', data);
+    addAdminMutation.mutate(data, {
+      onSuccess: () => {
+        notify('success', 'Successfully add admin');
+        reset();
+        router.reload9();
+      },
+      onError: (err) => {
+        notify('error', 'Sorry, something went wrong!');
+      },
+    });
   };
+
+  console.log('errors123', errors, getValues());
   return (
     <div className="relative flex-auto mb-4">
       <DataForm
         forms={[
           {
-            label: 'Admin Name',
-            name: 'name',
-            placeholder: 'admin name',
-            type: 'TextInput',
-          },
-          {
             label: 'Admin Username',
             name: 'username',
             placeholder: 'admin username',
             type: 'TextInput',
+          },
+          {
+            label: 'Role',
+            loading: false,
+            name: 'permission',
+            placeholder: 'Select Role',
+            data: roleConfig,
+            idItem: 'name_role',
+            valueItem: 'name_role',
+            type: 'DropdownField',
           },
           {
             label: 'Password',
@@ -65,11 +93,17 @@ const AddNewAdmin = ({}) => {
             type: 'PassInput',
           },
         ]}
+        getValues={getValues}
+        setValue={setValue}
         register={register}
         errors={errors}
       />
       <div className="flex items-center justify-center mt-12">
-        <Button title="Continue" onClick={handleSubmit(onSubmit)} />
+        <Button
+          isDisabled={!isValid}
+          title="Continue"
+          onClick={handleSubmit(onSubmit)}
+        />
       </div>
     </div>
   );

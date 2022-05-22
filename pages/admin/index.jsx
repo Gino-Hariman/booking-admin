@@ -2,11 +2,9 @@ import TableList from '@/components/Tables/TableList';
 import AdminLayout from '@/layout/AdminLayout';
 
 import React, { useState } from 'react';
-import adminData from '@/_mocks/adminData';
 import LastLogin from '@/components/Tables/LastLogin';
 import Actions from '@/components/Tables/Contents/Actions';
 import TextLink from '@/components/Tables/Contents/Actions/TextLink';
-import Switch from '@/components/Tables/Contents/Switch';
 import { Button } from '@/components/Buttons';
 import Modals from '@/components/Modals';
 import AddNewAdmin from '@/components/Modals/template/AddNewAdmin';
@@ -16,7 +14,6 @@ import SwithModal from '@/components/Modals/template/SwitchModal';
 
 const Admin = () => {
   const [showModal, setShowModal] = useState(false);
-  const [data, setData] = useState(null);
   const columns = React.useMemo(
     () => [
       // { Header: 'Name', accessor: '' },
@@ -32,10 +29,8 @@ const Admin = () => {
       {
         Header: 'Last Login',
         accessor: 'access_date',
-        Cell: ({ data, value, row }) => {
+        Cell: ({ data, row }) => {
           console.log('data', data[row.index]);
-          // console.log('item.cell.value', item.cell.value);
-          // const { access_date, access_time } = item.cell.value;
           return (
             <LastLogin
               date={data[row.index].access_date}
@@ -94,10 +89,6 @@ const Admin = () => {
     setShowModal(false);
   };
 
-  const handleAddAdmin = () => {
-    console.log('test add admin');
-  };
-
   return (
     <>
       <TableList
@@ -110,7 +101,11 @@ const Admin = () => {
         data={dataAdmin}
       />
       {showModal && (
-        <Modals setShowModal={setShowModal} handleCloseModal={handleCloseModal}>
+        <Modals
+          title="Add New Admin"
+          setShowModal={setShowModal}
+          handleCloseModal={handleCloseModal}
+        >
           <AddNewAdmin />
         </Modals>
       )}

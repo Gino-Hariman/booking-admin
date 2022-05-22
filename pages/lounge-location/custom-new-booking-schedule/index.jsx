@@ -62,6 +62,8 @@ const CustomNewBookingSchedule = ({ timeData }) => {
     }
   );
 
+  console.log('locationData', locationData);
+
   const customLoungeMutation = usePostQuery('/location/custom');
 
   const onSubmit = (data) => {
@@ -88,7 +90,7 @@ const CustomNewBookingSchedule = ({ timeData }) => {
         formTitle="Add New Custom Lounge Schedule"
         forms={[
           {
-            title: 'id_location',
+            title: 'Lounge Locatioin',
             loading: locationFetch,
             name: 'id_location',
             placeholder: 'Select Location',

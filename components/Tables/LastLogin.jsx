@@ -5,7 +5,7 @@ const Item = ({ Icon, title }) => {
   return (
     <div className="flex w-[160px] items-center space-x-2">
       <Icon className="w-6 h-6 text-gray-700" />
-      <p className="text-md-3 text-gray-700">{title}</p>
+      <p className="text-md-3 text-gray-700">{Boolean(title) ? title : '-'}</p>
     </div>
   );
 };

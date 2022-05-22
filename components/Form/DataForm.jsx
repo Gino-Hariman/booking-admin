@@ -1,6 +1,13 @@
 import * as Form from './components';
 
-const DataForm = ({ forms = [], register, control, errors }) => {
+const DataForm = ({
+  forms = [],
+  register,
+  control,
+  errors,
+  getValues,
+  setValue,
+}) => {
   return (
     <>
       {forms.map((form) => {
@@ -11,6 +18,8 @@ const DataForm = ({ forms = [], register, control, errors }) => {
             register={register}
             errors={errors}
             control={control}
+            getValues={getValues}
+            setValue={setValue}
             {...form}
           />
         );
