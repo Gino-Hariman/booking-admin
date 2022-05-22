@@ -8,12 +8,27 @@ const useFilter = () => {
   const [filterState, setFilterState] = useState({ page: 0 });
   const { selectedTab } = useDashboardTab();
 
+  // for search
+  const [term, setTerm] = useState('');
+  const [debouncedTerm, setDebouncedTerm] = useState(term);
+
+  // update 'term' value after 1 second from the last update of 'debouncedTerm'
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTerm(debouncedTerm);
+      setFilterState((prev) => ({ ...prev, page: 0, student: debouncedTerm }));
+      console.log('lol');
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [debouncedTerm]);
+
   useEffect(() => {
     setFilterState({ page: 0 });
-  }, [selectedTab.title, Object.keys(filterState).length]);
+  }, [selectedTab.title]);
 
   const requestSearch = (event) => {
-    setSearched(event.target.value);
+    // setFilterState((prev) => ({ ...prev, student: event.target.value }));
+    setDebouncedTerm(event.target.value);
   };
   const handleNextPage = () => {
     handleSelectFilter('page', (filterState.page += 1));
@@ -25,7 +40,7 @@ const useFilter = () => {
   };
 
   const handleSelectFilter = (id, value) => {
-    setFilterState((prev) => ({ ...prev, [id]: value }));
+    setFilterState((prev) => ({ ...prev, page: 0, [id]: value }));
   };
 
   return {

@@ -61,14 +61,15 @@ const Admin = () => {
       },
       {
         id: 'admin_history',
-        Cell: (item) => {
+        Cell: ({ data, row }) => {
           return (
             <TextLink
               title="Admin History"
               path={{
                 pathname: '/admin/admin-history',
                 query: {
-                  name: item.cell.row.original.name,
+                  id_admin: data[row.index].id_admin,
+                  // name: item.cell.row.original.name,
                 },
               }}
             />

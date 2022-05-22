@@ -25,10 +25,10 @@ function MyApp({ Component, pageProps }) {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        refetchOnWindowFocus: true,
-        refetchOnmount: true,
-        refetchOnReconnect: true,
-        retry: true,
+        refetchOnWindowFocus: false,
+        refetchOnmount: false,
+        refetchOnReconnect: false,
+        retry: false,
         staleTime: 5 * 60 * 1000,
       },
     },

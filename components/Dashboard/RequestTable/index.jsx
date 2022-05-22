@@ -21,14 +21,15 @@ const RequestTable = ({ filterState }) => {
 
   const { data, isFetching } = useGetQuery(
     ['request-table', ...spreadObject(filterState)],
-    '/book/filtered?status=pending',
+    `/book/filtered?status=pending`,
     {
       params: filterState,
-      keepPreviousData: true,
+      // keepPreviousData: true,
       onError: (err) => notify('error', 'Sorry, Something went wrong!'),
     }
   );
 
+  console.log('filterState', filterState);
   const acceptMutation = usePutQuery('/book/approve');
   const declineMutation = usePutQuery('/book/decline');
   const onChange = (e) => {
@@ -82,7 +83,7 @@ const RequestTable = ({ filterState }) => {
 
   if (isFetching) return <LoadingModal />;
 
-  if (!Boolean(data.length)) return <EmptyList title="Student Request" />;
+  // if (Boolean(data.length === 0)) return <EmptyList title="Student Request" />;
 
   return (
     <>

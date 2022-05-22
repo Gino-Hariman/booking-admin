@@ -26,8 +26,13 @@ const Dashboard = ({}) => {
   const { selectedTab, handleSelectTab } = useDashboardTab();
   const Comp = DashboardTable[selectedTab.compName];
 
-  const { handleNextPage, handlePrevPage, filterState, handleSelectFilter } =
-    useFilter();
+  const {
+    handleNextPage,
+    handlePrevPage,
+    filterState,
+    handleSelectFilter,
+    requestSearch,
+  } = useFilter();
 
   return (
     <DashboardLayout selectedItem={selectedTab} handleSelect={handleSelectTab}>
@@ -38,6 +43,7 @@ const Dashboard = ({}) => {
         leftBtnDisabled={filterState.page === 0}
         filterState={filterState}
         handleSelectFilter={handleSelectFilter}
+        requestSearch={requestSearch}
       >
         <Comp filterState={filterState} />
       </ListData>

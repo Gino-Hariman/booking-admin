@@ -1,4 +1,3 @@
-import DatePicker from '@/components/DatePicker';
 import Dropdowns from '@/components/Dropdowns';
 import { TableFilter } from '@/components/ListData/components';
 import TextNote from '@/components/Tables/Contents/TextNote';
@@ -20,6 +19,7 @@ import { LoadingModal } from '@/components/Loading';
 import useFilter from '@/hooks/useFilter';
 import spreadObject from '@/helpers/spreadObject';
 import useTableButton from '@/hooks/useTableButton';
+import DatePicker from '@/components/DatePicker';
 
 const Report = () => {
   const { filterState, handleNextPage, handlePrevPage, handleSelectFilter } =
@@ -60,9 +60,9 @@ const Report = () => {
     ],
     []
   );
-  console.log('filterState', filterState);
+
   const { data, isFetching } = useGetQuery(
-    ['all', 'report', ...spreadObject(filterState)],
+    ['all-report', ...spreadObject(filterState)],
     '/book/report',
     {
       params: filterState,
@@ -70,7 +70,7 @@ const Report = () => {
   );
 
   const { data: locationData, isFetching: locationFetch } = useGetQuery(
-    ['simple', 'location'],
+    ['simple-location'],
     '/location/all',
     {
       onSuccess: (res) => console.log('res123', res),
@@ -78,7 +78,7 @@ const Report = () => {
     }
   );
   const { data: majorData, isFetching: majorFetch } = useGetQuery(
-    ['simple', 'major'],
+    ['simple-major'],
     '/program',
     {
       onSuccess: (res) => console.log('res123', res),
@@ -86,7 +86,7 @@ const Report = () => {
     }
   );
   const { data: admin, isFetching: adminFetch } = useGetQuery(
-    ['simple', 'admin'],
+    ['simple-admin'],
     '/',
     {
       onSuccess: (res) => console.log('res123', res),
@@ -99,8 +99,11 @@ const Report = () => {
     <TableList
       tableHeaderChild={
         <TableFilter>
+          <DatePicker
+            handleSelectFilter={handleSelectFilter}
+            placeholder={dayjs().format(dateFormat)}
+          />
           <div className="flex my-4 xl:my-0 xl:space-x-4 flex-wrap">
-            <DatePicker placeholder={dayjs().format(dateFormat)} />
             <Dropdowns
               placeholder="Location"
               Icon={LocationIcon}

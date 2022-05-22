@@ -8,46 +8,69 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import useTableButton from '@/hooks/useTableButton';
 import useFilter from '@/hooks/useFilter';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import useGetQuery from '@/hooks/useGetQuery';
+import { LoadingModal } from '@/components/Loading';
+import spreadObject from '@/helpers/spreadObject';
 
 const AdminHistory = () => {
   const router = useRouter();
   const { handleDownload } = useTableButton();
   const { filterState, handleNextPage, handlePrevPage } = useFilter();
   const {
-    query: { name },
+    query: { id_admin },
   } = router;
   const columns = React.useMemo(
     () => [
-      { Header: 'Booking ID', accessor: 'booking_id' },
-      { Header: 'Student Name', accessor: 'student_name' },
+      { Header: 'Booking ID', accessor: 'order_id' },
+      { Header: 'Student Name', accessor: 'nama' },
       {
         Header: 'Student Data',
         accessor: 'student_data',
-        Cell: (item) => {
-          const { nim, major, kelas } = item.cell.value;
-          return <StudentDetail nim={nim} major={major} kelas={kelas} />;
+        Cell: ({ data, value, row }) => {
+          console.log('data22', data[row.index]);
+          const { nim, program_name, kelas } = data[row.index];
+          return <StudentDetail nim={nim} major={program_name} kelas={kelas} />;
         },
       },
-      { Header: 'Lounge Location', accessor: 'lounge_location' },
+      { Header: 'Lounge Location', accessor: 'name_location' },
       { Header: 'Date', accessor: 'date' },
       { Header: 'Time', accessor: 'time' },
-      { Header: 'status', accessor: 'status', Cell: TextStatus },
+      {
+        Header: 'status',
+        accessor: 'status',
+        Cell: ({ data, row }) => {
+          return <TextStatus data={data[row.index]} />;
+        },
+      },
       { Header: 'note', accessor: 'note', Cell: TextNote },
     ],
     []
   );
+
+  const { data, isFetching } = useGetQuery(
+    ['admin-history', ...spreadObject(filterState)],
+    `book/filtered?id_admin=${id_admin}`,
+    {
+      params: filterState,
+    }
+  );
+  if (isFetching) return <LoadingModal />;
   return (
-    <TableList
-      onHeaderButtonClick={handleDownload}
-      hasHeader={false}
-      tableTitle={`${name} Booking History`}
-      columns={columns}
-      data={reportData}
-      btnTitle="Download Report"
-      handleNextPage={handleNextPage}
-      handlePrevPage={handlePrevPage}
-      emptyTitle="Report"
-    />
+    <>
+      <Breadcrumbs />
+      <TableList
+        onHeaderButtonClick={handleDownload}
+        hasHeader={false}
+        tableTitle="Admin History"
+        columns={columns}
+        data={data}
+        pageNumber={filterState.page}
+        handleNextPage={handleNextPage}
+        handlePrevPage={handlePrevPage}
+        emptyTitle="Admin History"
+      />
+    </>
   );
 };
 
