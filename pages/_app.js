@@ -1,5 +1,5 @@
 import DashboardTabProvider from '@/context/DashboardTabContext';
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 // import { QueryClient, QueryClientProvider } from 'react-query';
 import { Slide, ToastContainer } from 'react-toastify';
@@ -22,6 +22,7 @@ function MyFallbackComponent({ error, resetErrorBoundary }) {
 }
 
 function MyApp({ Component, pageProps }) {
+  const [showChild, setShowChild] = useState(false);
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -40,11 +41,21 @@ function MyApp({ Component, pageProps }) {
     });
 
   useEffect(() => {
+    setShowChild(true);
+
     const jssStyle = document.querySelector('#jss-server-side');
     if (jssStyle) {
       jssStyle.parentElement.removeChild(jssStyle);
     }
   }, []);
+
+  if (!showChild) {
+    return null;
+  }
+
+  if (typeof window === 'undefined') {
+    return <></>;
+  }
 
   return (
     <ErrorBoundary FallbackComponent={MyFallbackComponent}>
