@@ -20,25 +20,21 @@ const AddNewAdmin = ({}) => {
     handleSubmit,
   } = useForm({
     resolver: yupResolver(
-      yup.object().shape({
-        username: yup.string().required('Username Required'),
-        permission: yup.string().required('Role is required'),
-        password: yup
-          .string()
-          .when('changePassword', {
-            is: true,
-            then: yup.string().min(3).max(32).required(),
-            otherwise: yup.string(),
-          })
-          .required('Password is required'),
-        confirmPassword: yup
-          .string()
-          .oneOf([yup.ref('password'), null], 'Password must match'),
-      })
+      yup
+        .object()
+        .shape({
+          username: yup.string().required('Username Required'),
+          permission: yup.string().required('Role is required'),
+          password: yup.string().min(3).max(32).required(),
+          confirmPassword: yup
+            .string()
+            .oneOf([yup.ref('password'), null], 'Password must match'),
+        })
+        .required()
     ),
     defaultValues: {
-      username: '',
-      password: '',
+      // username: '',
+      // password: '',
     },
     mode: 'onBlur',
   });
@@ -48,10 +44,12 @@ const AddNewAdmin = ({}) => {
   const onSubmit = (data) => {
     console.log('data admin', data);
     addAdminMutation.mutate(data, {
-      onSuccess: () => {
-        notify('success', 'Successfully add admin');
-        reset();
-        router.reload9();
+      onSuccess: (res) => {
+        if (res.type === 'success') {
+          notify('success', 'Successfully add admin');
+          reset();
+          return router.reload();
+        }
       },
       onError: (err) => {
         notify('error', 'Sorry, something went wrong!');
@@ -88,7 +86,7 @@ const AddNewAdmin = ({}) => {
           },
           {
             label: 'Confirm Password',
-            name: 'confirm_password',
+            name: 'confirmPassword',
             placeholder: 'confirmation password',
             type: 'PassInput',
           },

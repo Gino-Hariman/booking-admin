@@ -3,6 +3,7 @@ import EmptyList from '@/components/EmptyState/EmptyList';
 import ListItem from '@/components/ListData/ListItem';
 import { LoadingModal } from '@/components/Loading';
 import Modals from '@/components/Modals';
+import BookingNotes from '@/components/Modals/template/BookingNotes';
 import spreadObject from '@/helpers/spreadObject';
 import useGetQuery from '@/hooks/useGetQuery';
 import usePutQuery from '@/hooks/usePutQuery';

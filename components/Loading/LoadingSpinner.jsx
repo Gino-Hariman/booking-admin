@@ -25,7 +25,7 @@ const LoadingSpinner = ({ size = 50 }) => {
     // </div>
 
     <div className="py-4 flex text-center items-center justify-center">
-      <div class="spinner w-10 h-10 border-4 border-primary-500 border-solid rounded-full animate-spin" />
+      <div className="spinner w-10 h-10 border-4 border-primary-500 border-solid rounded-full animate-spin" />
     </div>
   );
 };

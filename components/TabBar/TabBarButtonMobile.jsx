@@ -24,7 +24,7 @@ const TabBarButtonMobile = ({ options }) => {
         className="form-select block w-full p-3 border border-gray-300 rounded text-gray-600 appearance-none bg-transparent relative z-10"
       >
         {options.map((item) => (
-          <option id={item.id} className="text-sm text-gray-600">
+          <option key={item.id} id={item.id} className="text-sm text-gray-600">
             {item.title}{' '}
           </option>
         ))}

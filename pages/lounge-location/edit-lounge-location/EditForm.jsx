@@ -42,7 +42,7 @@ const EditForm = ({ data, timeData }) => {
         .required()
     ),
     defaultValues: {
-      // image: data.image,
+      image: data?.image,
       active: 1,
       id_location: router.query.id,
       name_location: data.name_location,
@@ -53,9 +53,9 @@ const EditForm = ({ data, timeData }) => {
     mode: 'onBlur',
   });
 
-  const editLoungeMutation = usePutQuery('/location');
+  console.log('data1235', data);
 
-  console.log('1245', getValues(), data.image);
+  const editLoungeMutation = usePutQuery('/location');
 
   const onSubmit = (dataSubmit) => {
     const formData = new FormData();
@@ -66,8 +66,7 @@ const EditForm = ({ data, timeData }) => {
       }
 
       if (key === 'image' && dataSubmit[key] === undefined) {
-        console.log('lol', data.image);
-        return formData.append('image', data.image);
+        return formData.append('image', data?.image);
       }
 
       return formData.set(key, dataSubmit[key]);
@@ -75,9 +74,11 @@ const EditForm = ({ data, timeData }) => {
     console.log('data123', formData, dataSubmit);
     editLoungeMutation.mutate(formData, {
       onSuccess: (res) => {
-        console.log('res add', res);
-        notify('success', 'Successfully add Lounge Location');
-        // router.push('/lounge-location');
+        if (res.type === 'success') {
+          notify('success', res.message);
+
+          return router.push('/lounge-location');
+        }
       },
       onError: (err) => {
         notify('error', 'Failed to add Lounge Location');

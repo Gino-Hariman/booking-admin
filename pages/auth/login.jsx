@@ -4,9 +4,9 @@ import LoginLayout from '@/layout/LoginLayout';
 
 const Login = () => {
   return (
-    <Container>
-      <LoginForm />
-    </Container>
+    // <Container>
+    <LoginForm />
+    // </Container>
   );
 };
 

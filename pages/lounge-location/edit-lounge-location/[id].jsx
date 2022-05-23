@@ -28,11 +28,11 @@ const EditLoungeLocation = ({ timeData }) => {
   const router = useRouter();
   const { data, isFetching } = useGetQuery(
     ['lounge-location', 'default'],
-    `/location/detail/edit`,
+    `/location/detail`,
     { params: { id_location: router.query.id } }
   );
-
   if (isFetching) return <LoadingModal />;
+  console.log('data', data);
   return (
     <>
       <Breadcrumbs />

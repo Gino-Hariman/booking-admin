@@ -13,10 +13,10 @@ const NavItem = ({ title, icon, path = '', isActive = false }) => {
             'relative flex items-center pr-6 py-4'
           )}
         >
-          <span class="inline-flex justify-center items-center ml-4">
+          <span className="inline-flex justify-center items-center ml-4">
             {getIcon(icon, 24, isActive)}
           </span>
-          <span class="ml-2 text-sm tracking-wide truncate">{title}</span>
+          <span className="ml-2 text-sm tracking-wide truncate">{title}</span>
         </a>
       </Link>
     </li>

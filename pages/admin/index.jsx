@@ -55,9 +55,25 @@ const Admin = () => {
           );
         },
       },
+      // {
+      //   id: 'actions',
+      //   Cell: Actions,
+      // },
       {
         id: 'actions',
-        Cell: Actions,
+        Cell: ({ data, row }) => {
+          console.log('data, ', data[row.index]);
+          return (
+            <Actions
+              hasEdit={false}
+              data={data[row.index]}
+              editFormPath={`/lounge-location/edit-lounge-location/${
+                data[row.index].id_location
+              }`}
+              deletePath={`/delete`}
+            />
+          );
+        },
       },
       {
         id: 'admin_history',

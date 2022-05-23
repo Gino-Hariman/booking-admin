@@ -14,7 +14,7 @@ const Sidebar = () => {
       <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between grow ">
         <SidebarContent />
         <button
-          class="mb-28 pl-5 hidden md:flex text-left text-xs"
+          className="mb-28 pl-5 hidden md:flex text-left text-xs"
           onClick={handleLogout}
         >
           <LogoutIcon className="w-6 h-6 mr-3" fill="#E92C2C" />

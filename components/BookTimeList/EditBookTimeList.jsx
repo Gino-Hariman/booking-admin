@@ -31,7 +31,7 @@ const EditBookTimeList = ({ data, ref, onBlur, name, setValue }) => {
         onClick={(event) => handleSelectAllClick(event, data, ['id_time'])}
       />
 
-      <div class="grid grid-rows-5 grid-flow-col gap-7 md:gap-x-20 place-content-start">
+      <div className="grid grid-rows-5 grid-flow-col gap-7 md:gap-x-20 place-content-start">
         {data.map((item) => {
           const isItemSelected = selected.indexOf(item.id_time) !== -1;
 

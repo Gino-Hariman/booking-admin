@@ -31,6 +31,7 @@ const TableBookingSchedule = () => {
         Cell: ({ data, row }) => {
           return (
             <Actions
+              hasEdit={false}
               data={data[row.index]}
               editFormPath={`/lounge-location/edit-custom-lounge-location/${
                 data[row.index].id_location
