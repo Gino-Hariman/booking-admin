@@ -1,5 +1,5 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
-import { LoadingModal } from '@/components/Loading';
+import RenderResult from '@/components/RenderResult';
 import TextNote from '@/components/Tables/Contents/TextNote';
 import TextStatus from '@/components/Tables/Contents/TextStatus';
 import StudentDetail from '@/components/Tables/StudentDetail';
@@ -23,14 +23,24 @@ const BookingHistory = () => {
   const columns = React.useMemo(
     () => [
       { Header: 'Booking ID', accessor: 'order_id' },
-      { Header: 'Lounge Location', accessor: 'name_location' },
+      {
+        Header: 'Lounge Location',
+        accessor: 'location',
+        Cell: ({ data, value, row }) => {
+          // console.log('data[row.index]', value, data[row.index]);
+          const { name_location, spot_name } = value;
+          return (
+            <p data={data[row.index]}>{`${name_location} - ${spot_name}`}</p>
+          );
+        },
+      },
       { Header: 'Date', accessor: 'date' },
       { Header: 'Time', accessor: 'time' },
       {
         Header: 'Status',
-        accessor: 'active',
+        accessor: 'status',
         Cell: ({ data, value, row }) => {
-          return <TextStatus data={data[row.index]} />;
+          return <TextStatus data={value} />;
         },
       },
       { Header: 'Note', accessor: 'note', Cell: TextNote },
@@ -38,31 +48,37 @@ const BookingHistory = () => {
     []
   );
 
-  const { data, isFetching } = useGetQuery(
+  const { data, isFetching, isError, isSuccess } = useGetQuery(
     ['student-list', 'history', ...spreadObject(filterState)],
     `/book/report?nim=${nim}`,
     { params: { page: filterState.page } }
   );
 
-  if (isFetching) return <LoadingModal />;
-
   return (
     <>
       <Breadcrumbs />
-      <TableList
-        onHeaderButtonClick={handleDownload}
-        tableHeaderChild={
-          <StudentDetail isHeader nim={nim} major={major} kelas={kelas} />
-        }
-        tableTitle={`${name} Booking History`}
-        columns={columns}
-        data={data}
-        btnTitle="Download Student List"
-        pageNumber={filterState.page}
-        handleNextPage={handleNextPage}
-        handlePrevPage={handlePrevPage}
-        emptyTitle="Booking History"
-      />
+      {
+        <RenderResult
+          state={{ isFetching, isError, isSuccess }}
+          data={data}
+          checkEmpty={false}
+        >
+          <TableList
+            onHeaderButtonClick={handleDownload}
+            tableHeaderChild={
+              <StudentDetail isHeader nim={nim} major={major} kelas={kelas} />
+            }
+            tableTitle={`${name} Booking History`}
+            columns={columns}
+            data={data}
+            btnTitle="Download Student List"
+            pageNumber={filterState.page}
+            handleNextPage={handleNextPage}
+            handlePrevPage={handlePrevPage}
+            emptyTitle="Booking History"
+          />
+        </RenderResult>
+      }
     </>
   );
 };

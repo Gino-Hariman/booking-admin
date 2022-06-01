@@ -2,13 +2,14 @@ import classNames from '@/helpers/classNames';
 import { useState } from 'react';
 
 const TabBarButton = ({ id, student, title, activeTab, Icon, onClick }) => {
+  console.log('activeTab', activeTab);
   const style = () => {
     switch (activeTab) {
       case 'Student Request':
         return 'student-request';
-      case 'Accepted Students':
+      case 'Accepted Student':
         return 'accept-student';
-      case 'Rejected Students':
+      case 'Rejected Student':
         return 'reject-student';
       case 'Ongoing Booking':
         return 'ongoing-student';

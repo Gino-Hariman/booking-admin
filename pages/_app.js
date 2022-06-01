@@ -22,18 +22,19 @@ function MyFallbackComponent({ error, resetErrorBoundary }) {
 }
 
 function MyApp({ Component, pageProps }) {
-  const [showChild, setShowChild] = useState(false);
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        refetchOnmount: false,
-        refetchOnReconnect: false,
-        retry: false,
-        staleTime: 5 * 60 * 1000,
-      },
-    },
-  });
+  // const [showChild, setShowChild] = useState(false);
+  const [queryClient] = useState(() => new QueryClient());
+  // const queryClient = new QueryClient({
+  //   defaultOptions: {
+  //     queries: {
+  //       refetchOnWindowFocus: false,
+  //       refetchOnmount: false,
+  //       refetchOnReconnect: false,
+  //       retry: false,
+  //       // staleTime: 5 * 60 * 1000,
+  //     },
+  //   },
+  // });
   const Layout =
     Component.layout ||
     (({ children }) => {
@@ -41,7 +42,7 @@ function MyApp({ Component, pageProps }) {
     });
 
   useEffect(() => {
-    setShowChild(true);
+    // setShowChild(true);
 
     const jssStyle = document.querySelector('#jss-server-side');
     if (jssStyle) {
@@ -49,13 +50,13 @@ function MyApp({ Component, pageProps }) {
     }
   }, []);
 
-  if (!showChild) {
-    return null;
-  }
+  // if (!showChild) {
+  //   return null;
+  // }
 
-  if (typeof window === 'undefined') {
-    return <></>;
-  }
+  // if (typeof window === 'undefined') {
+  //   return <></>;
+  // }
 
   return (
     <ErrorBoundary FallbackComponent={MyFallbackComponent}>
@@ -83,7 +84,7 @@ function MyApp({ Component, pageProps }) {
           </ProtectedRoutes>
         </AuthProvider>
 
-        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+        {/* <ReactQueryDevtools initialIsOpen={false} position="bottom-right" /> */}
       </QueryClientProvider>
     </ErrorBoundary>
   );

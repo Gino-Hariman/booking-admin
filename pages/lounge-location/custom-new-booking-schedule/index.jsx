@@ -1,6 +1,5 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
 import AdminLayout from '@/layout/AdminLayout';
-import PageForm from '@/components/Form/PageForm';
 import PageFormActions from '@/components/Form/PageFormActions';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,6 +10,7 @@ import useGetQuery from '@/hooks/useGetQuery';
 import usePostQuery from '@/hooks/usePostQuery';
 import useToast from '@/hooks/useToast';
 import { useRouter } from 'next/router';
+import PageForm from '@/components/Form/PageForm';
 
 const CustomNewBookingSchedule = ({ timeData }) => {
   const { notify } = useToast();
@@ -61,8 +61,6 @@ const CustomNewBookingSchedule = ({ timeData }) => {
       onError: (err) => console.log('er123', er),
     }
   );
-
-  console.log('locationData', locationData);
 
   const customLoungeMutation = usePostQuery('/location/custom');
 

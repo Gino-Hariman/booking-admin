@@ -3,32 +3,34 @@ import { useState, useEffect } from 'react';
 
 const useFilter = () => {
   const [rowsPerPage, setRowPerPage] = useState(3);
-  const [searched, setSearched] = useState('');
   const [order, setOrder] = useState();
   const [filterState, setFilterState] = useState({ page: 0 });
   const { selectedTab } = useDashboardTab();
 
-  // for search
-  const [term, setTerm] = useState('');
-  const [debouncedTerm, setDebouncedTerm] = useState(term);
+  const [searchValue, setSearchValue] = useState('');
 
-  // update 'term' value after 1 second from the last update of 'debouncedTerm'
+  const [debouncedValue, setDebouncedValue] = useState(searchValue);
+
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setTerm(debouncedTerm);
-      setFilterState((prev) => ({ ...prev, page: 0, student: debouncedTerm }));
-      console.log('lol');
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [debouncedTerm]);
+    const handler = setTimeout(() => {
+      setDebouncedValue(searchValue);
+    }, 800);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchValue, 800]);
+
+  useEffect(() => {
+    setFilterState((prev) => ({ ...prev, page: 0, student: debouncedValue }));
+  }, [debouncedValue]);
 
   useEffect(() => {
     setFilterState({ page: 0 });
   }, [selectedTab.title]);
 
   const requestSearch = (event) => {
-    // setFilterState((prev) => ({ ...prev, student: event.target.value }));
-    setDebouncedTerm(event.target.value);
+    setSearchValue(event.target.value);
   };
   const handleNextPage = () => {
     handleSelectFilter('page', (filterState.page += 1));
@@ -45,7 +47,7 @@ const useFilter = () => {
 
   return {
     filterState,
-    searched,
+    searched: debouncedValue,
     requestSearch,
     handleNextPage,
     handlePrevPage,

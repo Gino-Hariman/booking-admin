@@ -88,6 +88,7 @@ const EditTextInput = ({ present, note, orderID }) => {
         />
         {showModal && (
           <Modals
+            title={'Add Reject Messages'}
             setShowModal={setShowModal}
             handleCloseModal={handleCloseModal}
           >
@@ -134,6 +135,7 @@ const EditTextInput = ({ present, note, orderID }) => {
 
       {showModal && (
         <Modals
+          title={'Add Notes'}
           // notes={notes}
           setShowModal={setShowModal}
           handleCloseModal={handleCloseModal}

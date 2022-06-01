@@ -1,9 +1,8 @@
 import Chip from '@/components/Chip';
-import EmptyList from '@/components/EmptyState/EmptyList';
 import ListItem from '@/components/ListData/ListItem';
-import { LoadingModal } from '@/components/Loading';
 import Modals from '@/components/Modals';
 import BookingNotes from '@/components/Modals/template/BookingNotes';
+import RenderResult from '@/components/RenderResult';
 import spreadObject from '@/helpers/spreadObject';
 import useGetQuery from '@/hooks/useGetQuery';
 import usePutQuery from '@/hooks/usePutQuery';
@@ -20,12 +19,12 @@ const RequestTable = ({ filterState }) => {
   const [showModal, setShowModal] = useState(false);
   const [notes, setNotes] = useState('');
 
-  const { data, isFetching } = useGetQuery(
+  const { data, isFetching, isError, isSuccess } = useGetQuery(
     ['request-table', ...spreadObject(filterState)],
     `/book/filtered?status=pending`,
     {
       params: filterState,
-      // keepPreviousData: true,
+      keepPreviousData: true,
       onError: (err) => notify('error', 'Sorry, Something went wrong!'),
     }
   );
@@ -41,7 +40,7 @@ const RequestTable = ({ filterState }) => {
   };
 
   const handleDecline = () => {
-    setIsPresent(0);
+    // setIsPresent(0);
     setShowModal(true);
   };
 
@@ -82,13 +81,13 @@ const RequestTable = ({ filterState }) => {
     );
   };
 
-  if (isFetching) return <LoadingModal />;
-
-  // if (Boolean(data.length === 0)) return <EmptyList title="Student Request" />;
-
   return (
-    <>
-      {data.map((item) => (
+    <RenderResult
+      state={{ isFetching, isError, isSuccess }}
+      emptyTitle="Student Request"
+      data={data}
+    >
+      {data?.map((item) => (
         <ListItem
           key={item.order_id}
           id={item.order_id}
@@ -117,6 +116,7 @@ const RequestTable = ({ filterState }) => {
             {showModal && (
               <Modals
                 // notes={notes}
+                title="Add Reject Messages"
                 setShowModal={setShowModal}
                 handleCloseModal={handleCloseModal}
               >
@@ -130,7 +130,7 @@ const RequestTable = ({ filterState }) => {
           </>
         </ListItem>
       ))}
-    </>
+    </RenderResult>
   );
 };
 

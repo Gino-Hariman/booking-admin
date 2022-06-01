@@ -1,4 +1,5 @@
 import { LoadingModal } from '@/components/Loading';
+import RenderResult from '@/components/RenderResult';
 import spreadObject from '@/helpers/spreadObject';
 
 import useFilter from '@/hooks/useFilter';
@@ -47,26 +48,31 @@ const TableBookingSchedule = () => {
 
   const { filterState, handleNextPage, handlePrevPage } = useFilter();
 
-  const { data, isFetching } = useGetQuery(
+  const { data, isFetching, isError, isSuccess } = useGetQuery(
     ['cutom', 'location', ...spreadObject(filterState)],
     '/location/custom'
   );
 
-  if (isFetching) return <LoadingModal />;
-
   return (
-    <TableList
-      onHeaderButtonClick={() =>
-        handleAdd('/lounge-location/custom-new-booking-schedule')
-      }
-      tableTitle="Custom Lounge Schedule"
-      btnTitle="+ Custom New Booking Schedule"
-      columns={bookingScheduleColumns}
+    <RenderResult
+      state={{ isFetching, isError, isSuccess }}
       data={data}
-      pageNumber={filterState.page}
-      handleNextPage={handleNextPage}
-      handlePrevPage={handlePrevPage}
-    />
+      checkEmpty={false}
+    >
+      <TableList
+        onHeaderButtonClick={() =>
+          handleAdd('/lounge-location/custom-new-booking-schedule')
+        }
+        tableTitle="Custom Lounge Schedule"
+        btnTitle="+ Custom New Booking Schedule"
+        columns={bookingScheduleColumns}
+        data={data}
+        pageNumber={filterState.page}
+        emptyTitle="Custom Lounge Schedule"
+        handleNextPage={handleNextPage}
+        handlePrevPage={handlePrevPage}
+      />
+    </RenderResult>
   );
 };
 

@@ -75,7 +75,7 @@ const TableList = ({
                             <td
                               key={i}
                               {...cell.getCellProps()}
-                              className="px-2 py-10 text-md-4 font-medium text-gray-600"
+                              className="max-w-[200px] px-2 py-10 text-md-4 font-medium text-gray-600"
                               role="cell"
                             >
                               {cell.column.Cell.name === 'defaultRenderer' ? (

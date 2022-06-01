@@ -1,4 +1,3 @@
-import PageForm from '@/components/Form/PageForm';
 import PageFormActions from '@/components/Form/PageFormActions';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
@@ -9,6 +8,7 @@ import { FILE_SIZE, SUPPORTED_FORMATS } from '@/utils/imageConfig';
 import { useRouter } from 'next/router';
 import usePutQuery from '@/hooks/usePutQuery';
 import useToast from '@/hooks/useToast';
+import PageForm from '@/components/Form/PageForm';
 
 const EditForm = ({ data, timeData }) => {
   const router = useRouter();
@@ -45,10 +45,10 @@ const EditForm = ({ data, timeData }) => {
       image: data?.image,
       active: 1,
       id_location: router.query.id,
-      name_location: data.name_location,
-      spot_name: data.spot_name,
-      max_capacity: data.max_capacity,
-      times: data.times,
+      name_location: data?.name_location,
+      spot_name: data?.spot_name,
+      max_capacity: data?.max_capacity,
+      times: data?.times,
     },
     mode: 'onBlur',
   });
@@ -91,7 +91,7 @@ const EditForm = ({ data, timeData }) => {
         formTitle="Edit Lounge Location"
         forms={[
           {
-            previewURL: data.image,
+            previewURL: data?.image,
             title: 'Upload Photos',
             subTitle:
               'Please upload photos with minimum resolution 300 x 300 and max size of the picture is 1MB',

@@ -1,7 +1,7 @@
 export { default as UploadImageField } from './UploadImageField';
 export { default as InputField } from './InputField';
 export { default as CounterField } from './CounterField';
-export { default as CustomCounterField } from './customCounterField';
+export { default as CustomCounterField } from './CustomCounterField';
 export { default as CheckboxField } from './CheckboxField';
 export { default as CustomCheckboxField } from './CustomCheckboxField';
 export { default as DropdownField } from './DropdownField';

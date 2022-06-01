@@ -6,20 +6,16 @@ import StudentDetail from '@/components/Tables/StudentDetail';
 import TableList from '@/components/Tables/TableList';
 import AdminLayout from '@/layout/AdminLayout';
 import { dateFormat } from '@/utils/dateTimeConfig';
-import reportData from '@/_mocks/reportData';
 import LocationIcon from '@/icons/Fill/Location.svg';
 import MajorIcon from '@/icons/Fill/Major.svg';
 import dayjs from 'dayjs';
 import React from 'react';
-import majorData from '@/_mocks/majorData';
-import locationData from '@/_mocks/locationData';
-import acceptedBy from '@/_mocks/acceptedBy';
 import useGetQuery from '@/hooks/useGetQuery';
-import { LoadingModal } from '@/components/Loading';
 import useFilter from '@/hooks/useFilter';
 import spreadObject from '@/helpers/spreadObject';
 import useTableButton from '@/hooks/useTableButton';
 import DatePicker from '@/components/DatePicker';
+import RenderResult from '@/components/RenderResult';
 
 const Report = () => {
   const { filterState, handleNextPage, handlePrevPage, handleSelectFilter } =
@@ -61,7 +57,7 @@ const Report = () => {
     []
   );
 
-  const { data, isFetching } = useGetQuery(
+  const { data, isFetching, isError, isSuccess } = useGetQuery(
     ['all-report', ...spreadObject(filterState)],
     '/book/report',
     {
@@ -94,56 +90,61 @@ const Report = () => {
     }
   );
 
-  if (isFetching) return <LoadingModal />;
   return (
-    <TableList
-      tableHeaderChild={
-        <TableFilter>
-          <DatePicker
-            handleSelectFilter={handleSelectFilter}
-            placeholder={dayjs().format(dateFormat)}
-          />
-          <div className="flex my-4 xl:my-0 xl:space-x-4 flex-wrap">
-            <Dropdowns
-              placeholder="Location"
-              Icon={LocationIcon}
-              datas={locationData}
-              loading={locationFetch}
-              idItem="id_location"
-              valueItem="name_location"
-              handleSelectFilter={handleSelectFilter}
-            />
-            <Dropdowns
-              placeholder="Major"
-              Icon={MajorIcon}
-              datas={majorData}
-              loading={majorFetch}
-              idItem="id_program"
-              valueItem="program_name"
-              handleSelectFilter={handleSelectFilter}
-            />
-            <Dropdowns
-              placeholder="Accepted By"
-              // Icon={MajorIcon}
-              datas={admin}
-              loading={adminFetch}
-              idItem="id_admin"
-              valueItem="username"
-              handleSelectFilter={handleSelectFilter}
-            />
-          </div>
-        </TableFilter>
-      }
-      tableTitle="Report"
-      onHeaderButtonClick={handleDownload}
-      columns={columns}
+    <RenderResult
+      state={{ isFetching, isError, isSuccess }}
       data={data}
-      btnTitle="Download Report"
-      pageNumber={filterState.page}
-      handleNextPage={handleNextPage}
-      handlePrevPage={handlePrevPage}
-      emptyTitle="Report"
-    />
+      checkEmpty={false}
+    >
+      <TableList
+        tableHeaderChild={
+          <TableFilter>
+            <DatePicker
+              handleSelectFilter={handleSelectFilter}
+              placeholder={dayjs().format(dateFormat)}
+            />
+            <div className="flex my-4 xl:my-0 xl:space-x-4 flex-wrap">
+              <Dropdowns
+                placeholder="Location"
+                Icon={LocationIcon}
+                datas={locationData}
+                loading={locationFetch}
+                idItem="id_location"
+                valueItem="name_location"
+                handleSelectFilter={handleSelectFilter}
+              />
+              <Dropdowns
+                placeholder="Major"
+                Icon={MajorIcon}
+                datas={majorData}
+                loading={majorFetch}
+                idItem="id_program"
+                valueItem="program_name"
+                handleSelectFilter={handleSelectFilter}
+              />
+              <Dropdowns
+                placeholder="Accepted By"
+                // Icon={MajorIcon}
+                datas={admin}
+                loading={adminFetch}
+                idItem="id_admin"
+                valueItem="username"
+                handleSelectFilter={handleSelectFilter}
+              />
+            </div>
+          </TableFilter>
+        }
+        tableTitle="Report"
+        onHeaderButtonClick={handleDownload}
+        columns={columns}
+        data={data}
+        btnTitle="Download Report"
+        pageNumber={filterState.page}
+        handleNextPage={handleNextPage}
+        handlePrevPage={handlePrevPage}
+        emptyTitle="Report"
+      />
+    </RenderResult>
   );
 };
 

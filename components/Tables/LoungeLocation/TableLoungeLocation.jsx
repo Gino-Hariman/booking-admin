@@ -1,5 +1,5 @@
-import { LoadingModal } from '@/components/Loading';
 import SwithModal from '@/components/Modals/template/SwitchModal';
+import RenderResult from '@/components/RenderResult';
 import spreadObject from '@/helpers/spreadObject';
 import useFilter from '@/hooks/useFilter';
 import useGetQuery from '@/hooks/useGetQuery';
@@ -69,26 +69,31 @@ const TableLoungeLocation = () => {
 
   const { filterState, handleNextPage, handlePrevPage } = useFilter();
 
-  const { data, isFetching: loungeFetching } = useGetQuery(
+  const { data, isFetching, isError, isSuccess } = useGetQuery(
     ['lounge-location-table', ...spreadObject(filterState)],
     `/location?page=${filterState.page}`
   );
 
-  if (loungeFetching) return <LoadingModal />;
-
   return (
-    <TableList
-      onHeaderButtonClick={() =>
-        handleAdd('/lounge-location/add-new-lounge-location')
-      }
-      tableTitle="Lounge Location"
-      btnTitle="+ Add New Lounge Location"
-      columns={loungeLocationColumns}
+    <RenderResult
+      state={{ isFetching, isError, isSuccess }}
       data={data}
-      pageNumber={filterState.page}
-      handleNextPage={handleNextPage}
-      handlePrevPage={handlePrevPage}
-    />
+      checkEmpty={false}
+    >
+      <TableList
+        onHeaderButtonClick={() =>
+          handleAdd('/lounge-location/add-new-lounge-location')
+        }
+        tableTitle="Lounge Location"
+        btnTitle="+ Add New Lounge Location"
+        columns={loungeLocationColumns}
+        data={data}
+        pageNumber={filterState.page}
+        emptyTitle="Lounge Location"
+        handleNextPage={handleNextPage}
+        handlePrevPage={handlePrevPage}
+      />
+    </RenderResult>
   );
 };
 

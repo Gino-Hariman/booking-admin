@@ -3,7 +3,6 @@ import TextStatus from '@/components/Tables/Contents/TextStatus';
 import StudentDetail from '@/components/Tables/StudentDetail';
 import TableList from '@/components/Tables/TableList';
 import AdminLayout from '@/layout/AdminLayout';
-import reportData from '@/_mocks/reportData';
 import React from 'react';
 import { useRouter } from 'next/router';
 import useTableButton from '@/hooks/useTableButton';
@@ -12,6 +11,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import useGetQuery from '@/hooks/useGetQuery';
 import { LoadingModal } from '@/components/Loading';
 import spreadObject from '@/helpers/spreadObject';
+import RenderResult from '@/components/RenderResult';
 
 const AdminHistory = () => {
   const router = useRouter();
@@ -48,29 +48,34 @@ const AdminHistory = () => {
     []
   );
 
-  const { data, isFetching } = useGetQuery(
+  const { data, isFetching, isError, isSuccess } = useGetQuery(
     ['admin-history', ...spreadObject(filterState)],
     `book/filtered?id_admin=${id_admin}`,
     {
       params: filterState,
     }
   );
-  if (isFetching) return <LoadingModal />;
   return (
-    <>
-      <Breadcrumbs />
-      <TableList
-        onHeaderButtonClick={handleDownload}
-        hasHeader={false}
-        tableTitle="Admin History"
-        columns={columns}
-        data={data}
-        pageNumber={filterState.page}
-        handleNextPage={handleNextPage}
-        handlePrevPage={handlePrevPage}
-        emptyTitle="Admin History"
-      />
-    </>
+    <RenderResult
+      state={{ isFetching, isError, isSuccess }}
+      data={data}
+      checkEmpty={false}
+    >
+      <>
+        <Breadcrumbs />
+        <TableList
+          onHeaderButtonClick={handleDownload}
+          hasHeader={false}
+          tableTitle="Admin History"
+          columns={columns}
+          data={data}
+          pageNumber={filterState.page}
+          handleNextPage={handleNextPage}
+          handlePrevPage={handlePrevPage}
+          emptyTitle="Admin History"
+        />
+      </>
+    </RenderResult>
   );
 };
 

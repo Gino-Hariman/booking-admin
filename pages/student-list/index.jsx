@@ -8,9 +8,9 @@ import AdminLayout from '@/layout/AdminLayout';
 import React from 'react';
 import useGetQuery from '@/hooks/useGetQuery';
 import useFilter from '@/hooks/useFilter';
-import { LoadingModal } from '@/components/Loading';
 import spreadObject from '@/helpers/spreadObject';
 import useTableButton from '@/hooks/useTableButton';
+import RenderResult from '@/components/RenderResult';
 
 const StudentList = () => {
   const { handleDownload } = useTableButton();
@@ -55,7 +55,7 @@ const StudentList = () => {
     }
   );
 
-  const { data, isFetching } = useGetQuery(
+  const { data, isFetching, isError, isSuccess } = useGetQuery(
     ['student-list', ...spreadObject(filterState)],
     '/student/list',
     {
@@ -65,33 +65,37 @@ const StudentList = () => {
     }
   );
 
-  if (isFetching) return <LoadingModal />;
-
   return (
-    <TableList
-      onHeaderButtonClick={handleDownload}
-      tableHeaderChild={
-        <TableFilter>
-          <Dropdowns
-            placeholder="Major"
-            Icon={MajorIcon}
-            datas={majorData}
-            loading={majorFetch}
-            idItem="id_program"
-            valueItem="program_name"
-            handleSelectFilter={handleSelectFilter}
-          />
-        </TableFilter>
-      }
-      pageNumber={filterState.page}
-      handleNextPage={handleNextPage}
-      handlePrevPage={handlePrevPage}
-      tableTitle="Student List"
-      columns={columns}
+    <RenderResult
+      state={{ isFetching, isError, isSuccess }}
       data={data}
-      btnTitle="Download Student List"
-      emptyTitle="Student List"
-    />
+      checkEmpty={false}
+    >
+      <TableList
+        onHeaderButtonClick={handleDownload}
+        tableHeaderChild={
+          <TableFilter>
+            <Dropdowns
+              placeholder="Major"
+              Icon={MajorIcon}
+              datas={majorData}
+              loading={majorFetch}
+              idItem="id_program"
+              valueItem="program_name"
+              handleSelectFilter={handleSelectFilter}
+            />
+          </TableFilter>
+        }
+        pageNumber={filterState.page}
+        handleNextPage={handleNextPage}
+        handlePrevPage={handlePrevPage}
+        tableTitle="Student List"
+        columns={columns}
+        data={data}
+        btnTitle="Download Student List"
+        emptyTitle="Student List"
+      />
+    </RenderResult>
   );
 };
 

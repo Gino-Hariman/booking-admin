@@ -9,14 +9,16 @@ import { Button } from '@/components/Buttons';
 import Modals from '@/components/Modals';
 import AddNewAdmin from '@/components/Modals/template/AddNewAdmin';
 import useGetQuery from '@/hooks/useGetQuery';
-import { LoadingModal } from '@/components/Loading';
 import SwithModal from '@/components/Modals/template/SwitchModal';
+import RenderResult from '@/components/RenderResult';
+import useFilter from '@/hooks/useFilter';
+import spreadObject from '@/helpers/spreadObject';
 
 const Admin = () => {
   const [showModal, setShowModal] = useState(false);
+  const { filterState, handleNextPage, handlePrevPage } = useFilter();
   const columns = React.useMemo(
     () => [
-      // { Header: 'Name', accessor: '' },
       { Header: 'Username', accessor: 'username' },
       {
         Header: 'Password',
@@ -55,10 +57,7 @@ const Admin = () => {
           );
         },
       },
-      // {
-      //   id: 'actions',
-      //   Cell: Actions,
-      // },
+
       {
         id: 'actions',
         Cell: ({ data, row }) => {
@@ -96,8 +95,13 @@ const Admin = () => {
     []
   );
 
-  const { data: dataAdmin, isFetching } = useGetQuery();
-  if (isFetching) return <LoadingModal />;
+  const { data, isFetching, isSuccess, isError } = useGetQuery(
+    ['all-admin', ...spreadObject(filterState)],
+    '',
+    {
+      params: filterState,
+    }
+  );
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -107,26 +111,36 @@ const Admin = () => {
   };
 
   return (
-    <>
-      <TableList
-        hasHeader={false}
-        tableHeaderChild={
-          <Button outlined title="+ Add Admin" onClick={handleOpenModal} />
-        }
-        tableTitle="Admin"
-        columns={columns}
-        data={dataAdmin}
-      />
-      {showModal && (
-        <Modals
-          title="Add New Admin"
-          setShowModal={setShowModal}
-          handleCloseModal={handleCloseModal}
-        >
-          <AddNewAdmin />
-        </Modals>
-      )}
-    </>
+    <RenderResult
+      state={{ isFetching, isError, isSuccess }}
+      data={data}
+      checkEmpty={false}
+    >
+      <>
+        <TableList
+          hasHeader={false}
+          tableHeaderChild={
+            <Button outlined title="+ Add Admin" onClick={handleOpenModal} />
+          }
+          tableTitle="Admin"
+          columns={columns}
+          data={data}
+          pageNumber={filterState.page}
+          handleNextPage={handleNextPage}
+          handlePrevPage={handlePrevPage}
+          emptyTitle="Admin"
+        />
+        {showModal && (
+          <Modals
+            title="Add New Admin"
+            setShowModal={setShowModal}
+            handleCloseModal={handleCloseModal}
+          >
+            <AddNewAdmin />
+          </Modals>
+        )}
+      </>
+    </RenderResult>
   );
 };
 

@@ -41,7 +41,7 @@ const Dashboard = ({}) => {
         handleNext={handleNextPage}
         handlePrev={handlePrevPage}
         leftBtnDisabled={filterState.page === 0}
-        filterState={filterState}
+        // filterState={filterState}
         handleSelectFilter={handleSelectFilter}
         requestSearch={requestSearch}
       >
