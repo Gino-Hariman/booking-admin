@@ -39,7 +39,6 @@ const RequestTable = ({ filterState }) => {
   };
 
   const handleDecline = () => {
-    // setIsPresent(0);
     setShowModal(true);
   };
 
@@ -48,7 +47,6 @@ const RequestTable = ({ filterState }) => {
       {
         order_id: id,
         handle_by: Cookies.get('name'),
-        // id_admin: Cookies.get('adminID'),
       },
       {
         onSuccess: (res) => {
@@ -56,7 +54,7 @@ const RequestTable = ({ filterState }) => {
           router.reload();
         },
         onSettled: () => {
-          queryClient.invalidateQueries('request');
+          queryClient.invalidateQueries(['request-table']);
         },
       }
     );
@@ -76,7 +74,7 @@ const RequestTable = ({ filterState }) => {
           }
         },
         onSettled: () => {
-          queryClient.invalidateQueries('request');
+          queryClient.invalidateQueries(['request-table']);
         },
       }
     );

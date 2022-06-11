@@ -25,7 +25,7 @@ const OngoingTable = ({ filterState }) => {
       onError: (err) => console.log('Sorry!', err),
     }
   );
-
+  console.log('1data', data);
   return (
     <RenderResult
       state={{ isFetching, isError, isSuccess }}
