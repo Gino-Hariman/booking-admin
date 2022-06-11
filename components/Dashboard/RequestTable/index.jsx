@@ -29,7 +29,6 @@ const RequestTable = ({ filterState }) => {
     }
   );
 
-  console.log('filterState', filterState);
   const acceptMutation = usePutQuery('/book/approve');
   const declineMutation = usePutQuery('/book/decline');
   const onChange = (e) => {
@@ -67,12 +66,14 @@ const RequestTable = ({ filterState }) => {
     declineMutation.mutate(
       {
         order_id: id,
-        handle_by: Cookies.get('name'),
-        // id_admin: Cookies.get('adminID'),
+        note: notes,
       },
       {
         onSuccess: (res) => {
-          notify('success', `Decline ${res}`);
+          if (res.type === 'success') {
+            setShowModal(false);
+            return notify('success', res.message);
+          }
         },
         onSettled: () => {
           queryClient.invalidateQueries('request');

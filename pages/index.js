@@ -41,7 +41,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Table title={selectedItem} />
+      {/* <Table title={selectedItem} /> */}
     </div>
   );
 }

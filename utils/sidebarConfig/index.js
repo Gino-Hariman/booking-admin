@@ -7,47 +7,43 @@ import Cookies from 'js-cookie';
 
 import getIcon from '../getIcon';
 
-const sidebarConfig =
-  Cookies.get('role') === 'super'
-    ? [
-        {
-          id: 1,
-          title: 'Dashboard',
-          path: '/dashboard',
-          icon: DashboardIcon,
-        },
-        {
-          id: 2,
-          title: 'Lounge Location',
-          path: '/lounge-location',
-          icon: LocationIcon,
-        },
-        {
-          id: 3,
-          title: 'Student List',
-          path: '/student-list',
-          icon: StudentIcon,
-        },
-        {
-          id: 4,
-          title: 'Report',
-          path: '/report',
-          icon: ReportIcon,
-        },
-        {
-          id: 5,
-          title: 'Admin',
-          path: '/admin',
-          icon: AdminIcon,
-        },
-      ]
-    : [
-        {
-          id: 1,
-          title: 'Dashboard',
-          path: '/dashboard',
-          icon: DashboardIcon,
-        },
-      ];
-
-export default sidebarConfig;
+export const superAdminConfig = [
+  {
+    id: 1,
+    title: 'Dashboard',
+    path: '/dashboard',
+    icon: DashboardIcon,
+  },
+  {
+    id: 2,
+    title: 'Lounge Location',
+    path: '/lounge-location',
+    icon: LocationIcon,
+  },
+  {
+    id: 3,
+    title: 'Student List',
+    path: '/student-list',
+    icon: StudentIcon,
+  },
+  {
+    id: 4,
+    title: 'Report',
+    path: '/report',
+    icon: ReportIcon,
+  },
+  {
+    id: 5,
+    title: 'Admin',
+    path: '/admin',
+    icon: AdminIcon,
+  },
+];
+export const adminConfig = [
+  {
+    id: 1,
+    title: 'Dashboard',
+    path: '/dashboard',
+    icon: DashboardIcon,
+  },
+];

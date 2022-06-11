@@ -1,9 +1,14 @@
-import sidebarConfig from '@/utils/sidebarConfig';
+import { adminConfig, superAdminConfig } from '@/utils/sidebarConfig';
 import { useRouter } from 'next/router';
 import NavItem from './NavItem';
+import Cookies from 'js-cookie';
 
 const SidebarContent = () => {
   const router = useRouter();
+
+  const config =
+    Cookies.get('role') === 'admin' ? adminConfig : superAdminConfig;
+
   return (
     <ul className="flex flex-col py-4">
       <li className="px-5 hidden md:block">
@@ -14,7 +19,7 @@ const SidebarContent = () => {
         </div>
       </li>
 
-      {sidebarConfig.map((item) => (
+      {config.map((item) => (
         <NavItem
           key={item.id}
           title={item.title}
