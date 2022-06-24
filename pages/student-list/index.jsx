@@ -25,7 +25,6 @@ const StudentList = () => {
       {
         id: 'actions',
         Cell: (item) => {
-          console.log('item.cell.row.original', item.cell.row.original);
           return (
             <TextLink
               title="Booking History"
@@ -64,6 +63,8 @@ const StudentList = () => {
       onError: (err) => console.log('er123', er),
     }
   );
+
+  console.log('data', data);
 
   return (
     <RenderResult

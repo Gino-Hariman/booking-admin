@@ -7,9 +7,6 @@ import {
 } from 'react-table';
 
 const useTables = (columns, data) => {
-  const handleChangeStatus = () => {
-    console.log('changed12');
-  };
   const {
     getTableProps,
     getTableBodyProps,
@@ -28,8 +25,7 @@ const useTables = (columns, data) => {
     useFilters, // useFilters!
     useGlobalFilter,
     useSortBy,
-    usePagination, // new,
-    handleChangeStatus
+    usePagination // new,
   );
 
   return {

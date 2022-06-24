@@ -56,13 +56,10 @@ const EditTextInput = ({ present, note, orderID }) => {
       },
       {
         onSuccess: (res) => {
-          console.log('res', res);
           notify('success', `Successfully Reject Student`);
           queryClient.invalidateQueries(['ongoing-table']);
         },
         onError: (err) => {
-          console.log('err', err);
-
           notify('error', 'Sorry, something went wrong');
         },
       }

@@ -84,7 +84,6 @@ const AddLoungeLocation = ({ timeData }) => {
 
     addLoungeMutation.mutate(formData, {
       onSuccess: (res) => {
-        console.log('res add', res);
         notify('success', 'Successfully add Lounge Location');
         reset();
         router.push('/lounge-location');

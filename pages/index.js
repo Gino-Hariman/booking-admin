@@ -6,7 +6,6 @@ import { useState } from 'react';
 
 export const getServerSideProps = ({ req }) => {
   const user = req.cookies.token;
-  console.log('user', user);
   if (!user) {
     return {
       redirect: {

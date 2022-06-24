@@ -29,7 +29,6 @@ export const AuthProvider = ({ children }) => {
   const login = async (data) => {
     loginMutation.mutate(data, {
       onSuccess: (res) => {
-        console.log('res lgoin', res);
         if (res.type === 'error') notify('error', res.message);
         if (res.type === 'success') {
           Cookies.set('name', res.admin_name);

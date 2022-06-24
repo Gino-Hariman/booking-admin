@@ -65,7 +65,6 @@ const CustomNewBookingSchedule = ({ timeData }) => {
   const customLoungeMutation = usePostQuery('/location/custom');
 
   const onSubmit = (data) => {
-    console.log('data214', data);
     customLoungeMutation.mutate(data, {
       onSuccess: (res) => {
         notify('success', 'Successfully Add Custom Lounge Schedule');

@@ -15,7 +15,6 @@ const DropdownField = ({
   const isError = errors && errors[name];
 
   const r = register(name);
-  console.log('data locaiton', data);
   return (
     <FormField
       hasBorder={hasBorder}

@@ -19,9 +19,12 @@ const TableList = ({
 }) => {
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, page } =
     useTables(columns, data);
+
+  console.log('data124', data);
   return (
     <div className="mt-4 rounded-6 shadow bg-shade-FG p-12 flex flex-col">
       <TableHeader
+        tableData={data}
         onHeaderButtonClick={onHeaderButtonClick}
         hasHeader={hasHeader}
         title={tableTitle}

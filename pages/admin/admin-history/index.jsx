@@ -28,7 +28,6 @@ const AdminHistory = () => {
         Header: 'Student Data',
         accessor: 'student_data',
         Cell: ({ data, value, row }) => {
-          console.log('data22', data[row.index]);
           const { nim, program_name, kelas } = data[row.index];
           return <StudentDetail nim={nim} major={program_name} kelas={kelas} />;
         },

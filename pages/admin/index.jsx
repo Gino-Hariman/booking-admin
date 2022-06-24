@@ -32,7 +32,6 @@ const Admin = () => {
         Header: 'Last Login',
         accessor: 'access_date',
         Cell: ({ data, row }) => {
-          console.log('data', data[row.index]);
           return (
             <LastLogin
               date={data[row.index].access_date}
@@ -61,7 +60,6 @@ const Admin = () => {
       {
         id: 'actions',
         Cell: ({ data, row }) => {
-          console.log('data, ', data[row.index]);
           return (
             <Actions
               hasEdit={false}

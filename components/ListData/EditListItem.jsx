@@ -14,7 +14,6 @@ const EditListItem = ({
   note,
   children,
 }) => {
-  console.log('time', time);
   return (
     <div className="grid xl:grid-cols-5 lg:space-x-6 items-center border-b-2 border-black-20 py-6 space-y-4">
       <div className="col-span-3 space-y-2">

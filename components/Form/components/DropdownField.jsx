@@ -18,7 +18,6 @@ const DropdownField = ({
   const isError = errors && errors[name];
 
   const r = register(name);
-  console.log('data locaiton', data);
   return (
     <div key={name} className="mt-5">
       <label className="label">{label}</label>

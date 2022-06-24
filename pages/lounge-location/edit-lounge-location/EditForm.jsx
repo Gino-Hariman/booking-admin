@@ -53,15 +53,12 @@ const EditForm = ({ data, timeData }) => {
     mode: 'onBlur',
   });
 
-  console.log('data1235', data);
-
   const editLoungeMutation = usePutQuery('/location');
 
   const onSubmit = (dataSubmit) => {
     const formData = new FormData();
     Object.keys(dataSubmit).forEach((key, index) => {
       if (key === 'image' && typeof dataSubmit[key] === 'object') {
-        console.log('masuk');
         return formData.append(key, dataSubmit[key][0]);
       }
 
@@ -71,7 +68,6 @@ const EditForm = ({ data, timeData }) => {
 
       return formData.set(key, dataSubmit[key]);
     });
-    console.log('data123', formData, dataSubmit);
     editLoungeMutation.mutate(formData, {
       onSuccess: (res) => {
         if (res.type === 'success') {

@@ -27,7 +27,6 @@ const BookingHistory = () => {
         Header: 'Lounge Location',
         accessor: 'location',
         Cell: ({ data, value, row }) => {
-          // console.log('data[row.index]', value, data[row.index]);
           const { name_location, spot_name } = value;
           return (
             <p data={data[row.index]}>{`${name_location} - ${spot_name}`}</p>

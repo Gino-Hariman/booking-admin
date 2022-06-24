@@ -42,7 +42,6 @@ const AddNewAdmin = ({}) => {
   const addAdminMutation = usePostQuery('/add');
 
   const onSubmit = (data) => {
-    console.log('data admin', data);
     addAdminMutation.mutate(data, {
       onSuccess: (res) => {
         if (res.type === 'success') {

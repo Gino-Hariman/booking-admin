@@ -36,8 +36,6 @@ const SwithModal = ({
       { id_location: data.id_location, id_admin: data.id_admin },
       {
         onSuccess: (res) => {
-          console.log('res status', res);
-
           handleClose();
           if (res.type === 'success') {
             notify(
@@ -48,7 +46,6 @@ const SwithModal = ({
           }
         },
         onError: (err) => {
-          console.log('errr status', err);
           notify('error', 'Failed to change status!!');
         },
       }

@@ -30,7 +30,6 @@ const Report = () => {
         accessor: 'student_data',
         Cell: ({ data, value, row }) => {
           const { nim, program, class: kelas } = data[row.index];
-          console.log('data[row.index]', data[row.index]);
           return <StudentDetail nim={nim} major={program} kelas={kelas} />;
         },
       },

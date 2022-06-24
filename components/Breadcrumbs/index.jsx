@@ -54,11 +54,11 @@ const Breadcrumbs = () => {
             <>
               {i > 0 ? <div>{'/'}</div> : null}
               {checkLast(i) ? (
-                <p className="text-gray-700">
+                <p key={breadcrumb.breadcrumb} className="text-gray-700">
                   {convertBreadcrumb(breadcrumb.breadcrumb)}
                 </p>
               ) : (
-                <li key={breadcrumb.href}>
+                <li key={breadcrumb.breadcrumb}>
                   <Link href={breadcrumb.href}>
                     <a className="text-gray-400">
                       {convertBreadcrumb(breadcrumb.breadcrumb)}
