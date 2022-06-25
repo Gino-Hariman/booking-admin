@@ -11,7 +11,7 @@ const RenderResult = ({
   children,
 }) => {
   const { isFetching, isError, isSuccess } = state;
-
+  console.log('isFetching', isFetching);
   if (isFetching) {
     return <LoadingSpinner />;
   }

@@ -127,6 +127,7 @@ const Admin = () => {
           handleNextPage={handleNextPage}
           handlePrevPage={handlePrevPage}
           emptyTitle="Admin"
+          btnTitle="asdfdas"
         />
         {showModal && (
           <Modals

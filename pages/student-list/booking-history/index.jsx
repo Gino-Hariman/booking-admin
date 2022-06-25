@@ -9,6 +9,7 @@ import useFilter from '@/hooks/useFilter';
 import useGetQuery from '@/hooks/useGetQuery';
 import useTableButton from '@/hooks/useTableButton';
 import AdminLayout from '@/layout/AdminLayout';
+import BookingHistoryExport from '@/utils/DataExport/BookingHistoryExport';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -63,6 +64,9 @@ const BookingHistory = () => {
           checkEmpty={false}
         >
           <TableList
+            isNested
+            ExportComp={BookingHistoryExport}
+            downloadDataSet={data}
             onHeaderButtonClick={handleDownload}
             tableHeaderChild={
               <StudentDetail isHeader nim={nim} major={major} kelas={kelas} />

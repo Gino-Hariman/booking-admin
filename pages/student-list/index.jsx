@@ -11,6 +11,8 @@ import useFilter from '@/hooks/useFilter';
 import spreadObject from '@/helpers/spreadObject';
 import useTableButton from '@/hooks/useTableButton';
 import RenderResult from '@/components/RenderResult';
+import generateExcelLayout from '@/helpers/generateExcelLayout';
+import { LoadingModal, LoadingSpinner } from '@/components/Loading';
 
 const StudentList = () => {
   const { handleDownload } = useTableButton();
@@ -64,7 +66,7 @@ const StudentList = () => {
     }
   );
 
-  console.log('data', data);
+  if (isFetching) return <LoadingSpinner />;
 
   return (
     <RenderResult
@@ -73,6 +75,8 @@ const StudentList = () => {
       checkEmpty={false}
     >
       <TableList
+        downloadDataSet={generateExcelLayout(data, ['id_program'])}
+        hasHeader={data?.length !== 0}
         onHeaderButtonClick={handleDownload}
         tableHeaderChild={
           <TableFilter>

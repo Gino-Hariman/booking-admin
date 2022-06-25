@@ -16,6 +16,12 @@ import spreadObject from '@/helpers/spreadObject';
 import useTableButton from '@/hooks/useTableButton';
 import DatePicker from '@/components/DatePicker';
 import RenderResult from '@/components/RenderResult';
+import generateExcelLayout from '@/helpers/generateExcelLayout';
+import { LoadingModal } from '@/components/Loading';
+import ReactExport from 'react-data-export';
+import ReportExport from '@/utils/DataExport/reportExport';
+
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const Report = () => {
   const { filterState, handleNextPage, handlePrevPage, handleSelectFilter } =
@@ -89,6 +95,9 @@ const Report = () => {
     }
   );
 
+  console.log('ii', data);
+  if (isFetching) return <LoadingModal />;
+
   return (
     <RenderResult
       state={{ isFetching, isError, isSuccess }}
@@ -96,6 +105,10 @@ const Report = () => {
       checkEmpty={false}
     >
       <TableList
+        isNested
+        ExportComp={ReportExport}
+        downloadDataSet={data}
+        hasHeader={data?.length !== 0}
         tableHeaderChild={
           <TableFilter>
             <DatePicker

@@ -51,7 +51,7 @@ const DatePicker = ({
       startDate={startDate}
       startDateId={name}
       endDate={endDate}
-      endDateId="tata-end-date"
+      isOutsideRange={() => false}
       onDatesChange={handleDatesChange}
       focusedInput={focusedInput}
       onFocusChange={(focusedInput) => setFocusedInput(focusedInput)}

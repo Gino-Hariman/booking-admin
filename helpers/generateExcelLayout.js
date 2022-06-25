@@ -4,7 +4,15 @@ const generateExcelLayout = (data, except) => {
   };
   const columns = handleColumn().map((item) => ({
     title: item,
-    width: { wpx: 80 },
+    width: { wch: 25 },
+    style: {
+      fill: { patternType: 'solid', fgColor: { rgb: '1C2560' } },
+      font: {
+        sz: '14',
+        bold: true,
+        color: { rgb: 'E8E9EF' },
+      },
+    },
   }));
   const datas = data
     .map((item) =>
@@ -15,14 +23,11 @@ const generateExcelLayout = (data, except) => {
             ...obj,
             [key]: item[key],
           };
-        }, [])
+        }, {})
     )
     .map((item) =>
       Object.keys(item).map((a) => ({
         value: item[a],
-        style: {
-          fill: { patternType: 'solid', fgColor: { rgb: 'FF0000FF' } },
-        },
       }))
     );
 

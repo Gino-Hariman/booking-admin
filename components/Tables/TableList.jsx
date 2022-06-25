@@ -5,6 +5,7 @@ import Pagination from '../ListData/Pagination';
 import TableHeader from './TableHeaders';
 
 const TableList = ({
+  downloadDataSet,
   tableTitle,
   columns,
   data,
@@ -16,6 +17,8 @@ const TableList = ({
   handleNextPage,
   handlePrevPage,
   emptyTitle,
+  isNested = false,
+  ExportComp,
 }) => {
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, page } =
     useTables(columns, data);
@@ -24,7 +27,9 @@ const TableList = ({
   return (
     <div className="mt-4 rounded-6 shadow bg-shade-FG p-12 flex flex-col">
       <TableHeader
-        tableData={data}
+        isNested={isNested}
+        ExportComp={ExportComp}
+        downloadDataSet={downloadDataSet}
         onHeaderButtonClick={onHeaderButtonClick}
         hasHeader={hasHeader}
         title={tableTitle}

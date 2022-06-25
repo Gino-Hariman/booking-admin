@@ -5,7 +5,7 @@ const Button = ({
   outlinedClass = 'outlined-btn',
   outlined = false,
   isDisabled = false,
-  onClick,
+  onClick = () => {},
 }) => {
   return (
     <button
