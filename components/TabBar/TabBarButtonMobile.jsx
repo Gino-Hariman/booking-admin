@@ -1,7 +1,19 @@
+import { useDashboardTab } from '@/context/DashboardTabContext';
+import tabBarConfig from '@/utils/tabBarConfig';
+
 const TabBarButtonMobile = ({ options }) => {
+  const { handleSelectTab } = useDashboardTab();
+  const handleChange = (e) => {
+    const position = e.target.value;
+    handleSelectTab({
+      title: tabBarConfig[position]['title'],
+      compName: tabBarConfig[position]['compName'],
+    });
+  };
+
   return (
-    <div className="lg:hidden relative w-11/12 mx-auto bg-white rounded">
-      <div className="absolute inset-0 m-auto mr-4 z-0 w-6 h-6">
+    <div className="lg:hidden relative w-full mx-auto mb-6 bg-white ">
+      <div className="absolute inset-0 m-auto z-0 w-6 h-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="icon icon-tabler icon-tabler-selector"
@@ -20,12 +32,19 @@ const TabBarButtonMobile = ({ options }) => {
         </svg>
       </div>
       <select
+        onChange={handleChange}
+        onClick={() => console.log('sadfsdaf')}
         aria-label="Selected tab"
-        className="form-select block w-full p-3 border border-gray-300 rounded text-gray-600 appearance-none bg-transparent relative z-10"
+        className="form-select block w-full p-3 border rounded-2 overflow-hidden border-gray-300 text-gray-600 appearance-none bg-transparent relative z-10"
       >
-        {options.map((item) => (
-          <option key={item.id} id={item.id} className="text-sm text-gray-600">
-            {item.title}{' '}
+        {options.map((item, index) => (
+          <option
+            key={item.id}
+            id={item.id}
+            value={index}
+            className="text-sm text-gray-600"
+          >
+            {item.title}
           </option>
         ))}
       </select>

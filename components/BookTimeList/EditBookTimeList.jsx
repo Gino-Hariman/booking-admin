@@ -11,7 +11,7 @@ const EditBookTimeList = ({ data, ref, onBlur, name, setValue }) => {
   };
 
   useEffect(() => {
-    handleDefaultSelect(data, 'id_time');
+    handleDefaultSelect(data, 'id');
   }, []);
 
   useEffect(() => {
@@ -27,22 +27,22 @@ const EditBookTimeList = ({ data, ref, onBlur, name, setValue }) => {
     <div className="space-y-7">
       <BookTimeItem
         title="Select All"
-        isChecked={selected.length === data.length}
-        onClick={(event) => handleSelectAllClick(event, data, ['id_time'])}
+        isChecked={selected?.length === data?.length}
+        onClick={(event) => handleSelectAllClick(event, data, ['id'])}
       />
 
       <div className="grid grid-rows-5 grid-flow-col gap-7 md:gap-x-20 place-content-start">
-        {data.map((item) => {
-          const isItemSelected = selected.indexOf(item.id_time) !== -1;
+        {data?.map((item) => {
+          const isItemSelected = selected.indexOf(item.id) !== -1;
 
           return (
             <BookTimeItem
-              key={item.id_time}
+              key={item.id}
               ref={ref}
               onBlur={onBlur}
               isChecked={isItemSelected}
               title={item.time}
-              onClick={() => handleSelectTime(item.id_time)}
+              onClick={() => handleSelectTime(item.id)}
             />
           );
         })}

@@ -4,7 +4,7 @@ const useBookTime = () => {
   const [selected, setSelected] = useState([]);
 
   const handleDefaultSelect = (datas, item) => {
-    const newSelected = datas.map((n) => {
+    const newSelected = datas?.map((n) => {
       if (!Boolean(n[item])) {
         return;
       }

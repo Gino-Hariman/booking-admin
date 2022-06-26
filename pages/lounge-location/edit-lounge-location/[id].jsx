@@ -31,6 +31,7 @@ const EditLoungeLocation = ({ timeData }) => {
     `/location/detail`,
     { params: { id_location: router.query.id } }
   );
+
   if (isFetching) return <LoadingModal />;
 
   return (

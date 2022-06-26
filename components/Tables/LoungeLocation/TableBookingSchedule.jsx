@@ -1,3 +1,4 @@
+import { Button } from '@/components/Buttons';
 import { LoadingModal } from '@/components/Loading';
 import RenderResult from '@/components/RenderResult';
 import spreadObject from '@/helpers/spreadObject';
@@ -60,9 +61,19 @@ const TableBookingSchedule = () => {
       checkEmpty={false}
     >
       <TableList
-        onHeaderButtonClick={() =>
-          handleAdd('/lounge-location/custom-new-booking-schedule')
+        hasHeader={false}
+        tableHeaderChild={
+          <Button
+            outlined
+            title="+ Custom New Booking Schedule"
+            onClick={() =>
+              handleAdd('/lounge-location/custom-new-booking-schedule')
+            }
+          />
         }
+        // onHeaderButtonClick={() =>
+        //   handleAdd('/lounge-location/custom-new-booking-schedule')
+        // }
         tableTitle="Custom Lounge Schedule"
         btnTitle="+ Custom New Booking Schedule"
         columns={bookingScheduleColumns}

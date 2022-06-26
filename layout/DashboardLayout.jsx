@@ -5,7 +5,7 @@ import tabBarConfig from '@/utils/tabBarConfig';
 
 const DashboardLayout = ({ selectedItem, handleSelect, children }) => {
   const { data, isFetching } = useGetQuery(
-    ['book', 'count'],
+    ['book', 'count', 'student-count'],
     '/book/count?order_status=pending'
   );
 

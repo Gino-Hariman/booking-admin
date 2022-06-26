@@ -17,7 +17,7 @@ const EditForm = ({ data, timeData }) => {
     register,
     getValues,
     setValue,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
   } = useForm({
     resolver: yupResolver(
@@ -26,13 +26,13 @@ const EditForm = ({ data, timeData }) => {
           image: Yup.mixed()
             .test('fileSize', 'The file is too large', (value) => {
               if (!value) return true;
-              return value[0]?.size <= FILE_SIZE;
+              return value[0].size <= FILE_SIZE;
             })
             .test('fileFormat', 'Unsupported Format', (value) => {
               if (!value) return true;
-              return SUPPORTED_FORMATS.includes(value[0]?.type);
-            }),
-          // .notRequired(),
+              return SUPPORTED_FORMATS.includes(value[0].type);
+            })
+            .notRequired(),
 
           name_location: Yup.string().required('Lounge Name Required'),
           spot_name: Yup.string().required('Lounge Detail Required'),
@@ -81,6 +81,7 @@ const EditForm = ({ data, timeData }) => {
       },
     });
   };
+
   return (
     <>
       <PageForm
@@ -114,7 +115,7 @@ const EditForm = ({ data, timeData }) => {
             hasBorder: true,
           },
           {
-            data: data.times,
+            data: data?.times,
             title: 'Booking Time',
             isEdit: true,
             subTitle:
@@ -129,7 +130,13 @@ const EditForm = ({ data, timeData }) => {
         errors={errors}
       >
         <PageFormActions
-          isDisabled={!isValid}
+          isDisabled={
+            !(
+              errors &&
+              Object.keys(errors).length === 0 &&
+              Object.getPrototypeOf(errors) === Object.prototype
+            )
+          }
           handleCancel={() => router.back()}
           handleAdd={handleSubmit(onSubmit)}
           btnTitle="Save"

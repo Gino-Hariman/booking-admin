@@ -1,5 +1,4 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
-import { useState } from 'react';
 import PageFormActions from '@/components/Form/PageFormActions';
 import usePostQuery from '@/hooks/usePostQuery';
 import useToast from '@/hooks/useToast';
@@ -31,8 +30,6 @@ export const getServerSideProps = async ({ req }) => {
 };
 
 const AddLoungeLocation = ({ timeData }) => {
-  const [open, setOpen] = useState(false);
-
   const { notify } = useToast();
   const router = useRouter();
   const {
@@ -54,7 +51,8 @@ const AddLoungeLocation = ({ timeData }) => {
             .test('fileFormat', 'Unsupported Format', (value) => {
               if (!value) return true;
               return SUPPORTED_FORMATS.includes(value[0].type);
-            }),
+            })
+            .required('Image Required'),
 
           name_location: Yup.string().required('Lounge Name Required'),
           spot_name: Yup.string().required('Lounge Detail Required'),
@@ -64,7 +62,7 @@ const AddLoungeLocation = ({ timeData }) => {
         .required()
     ),
     defaultValues: {
-      image: '',
+      image: undefined,
       name_location: '',
       spot_name: '',
       max_capacity: 1,

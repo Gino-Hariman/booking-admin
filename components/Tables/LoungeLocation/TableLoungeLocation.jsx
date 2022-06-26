@@ -1,3 +1,4 @@
+import { Button } from '@/components/Buttons';
 import SwithModal from '@/components/Modals/template/SwitchModal';
 import RenderResult from '@/components/RenderResult';
 import spreadObject from '@/helpers/spreadObject';
@@ -81,8 +82,15 @@ const TableLoungeLocation = () => {
       checkEmpty={false}
     >
       <TableList
-        onHeaderButtonClick={() =>
-          handleAdd('/lounge-location/add-new-lounge-location')
+        hasHeader={false}
+        tableHeaderChild={
+          <Button
+            outlined
+            title="+ Add Lounge Location"
+            onClick={() =>
+              handleAdd('/lounge-location/add-new-lounge-location')
+            }
+          />
         }
         tableTitle="Lounge Location"
         btnTitle="+ Add New Lounge Location"

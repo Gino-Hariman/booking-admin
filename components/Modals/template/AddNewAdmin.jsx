@@ -56,7 +56,6 @@ const AddNewAdmin = ({}) => {
     });
   };
 
-  console.log('errors123', errors, getValues());
   return (
     <div className="relative flex-auto mb-4">
       <DataForm

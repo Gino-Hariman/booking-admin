@@ -23,18 +23,18 @@ function MyFallbackComponent({ error, resetErrorBoundary }) {
 
 function MyApp({ Component, pageProps }) {
   // const [showChild, setShowChild] = useState(false);
-  const [queryClient] = useState(() => new QueryClient());
-  // const queryClient = new QueryClient({
-  //   defaultOptions: {
-  //     queries: {
-  //       refetchOnWindowFocus: false,
-  //       refetchOnmount: false,
-  //       refetchOnReconnect: false,
-  //       retry: false,
-  //       // staleTime: 5 * 60 * 1000,
-  //     },
-  //   },
-  // });
+  // const [queryClient] = useState(() => new QueryClient());
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        refetchOnmount: false,
+        refetchOnReconnect: false,
+        retry: false,
+        // staleTime: 5 * 60 * 1000,
+      },
+    },
+  });
   const Layout =
     Component.layout ||
     (({ children }) => {

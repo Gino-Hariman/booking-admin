@@ -2,7 +2,6 @@ import classNames from '@/helpers/classNames';
 import { useState } from 'react';
 
 const TabBarButton = ({ id, student, title, activeTab, Icon, onClick }) => {
-  console.log('activeTab', activeTab);
   const style = () => {
     switch (activeTab) {
       case 'Student Request':

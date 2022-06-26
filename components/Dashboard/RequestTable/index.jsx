@@ -51,10 +51,11 @@ const RequestTable = ({ filterState }) => {
       {
         onSuccess: (res) => {
           notify('success', `Approve ${res}`);
-          router.reload();
         },
         onSettled: () => {
           queryClient.invalidateQueries(['request-table']);
+          queryClient.invalidateQueries(['book', 'count', 'student-count']);
+          // router.reload();
         },
       }
     );
@@ -75,6 +76,13 @@ const RequestTable = ({ filterState }) => {
         },
         onSettled: () => {
           queryClient.invalidateQueries(['request-table']);
+          queryClient.invalidateQueries([
+            'book',
+            'count',
+            'student-count',
+            'request-table',
+          ]);
+          // router.reload();
         },
       }
     );

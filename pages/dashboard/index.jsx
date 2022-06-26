@@ -22,7 +22,7 @@ export const getServerSideProps = ({ req }) => {
   };
 };
 
-const Dashboard = ({}) => {
+const Dashboard = () => {
   const { selectedTab, handleSelectTab } = useDashboardTab();
   const Comp = DashboardTable[selectedTab.compName];
 
@@ -41,7 +41,6 @@ const Dashboard = ({}) => {
         handleNext={handleNextPage}
         handlePrev={handlePrevPage}
         leftBtnDisabled={filterState.page === 0}
-        // filterState={filterState}
         handleSelectFilter={handleSelectFilter}
         requestSearch={requestSearch}
       >

@@ -95,7 +95,6 @@ const Report = () => {
     }
   );
 
-  console.log('ii', data);
   if (isFetching) return <LoadingModal />;
 
   return (
