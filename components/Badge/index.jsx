@@ -1,8 +1,10 @@
 const Badge = ({ title }) => {
   return (
-    <span className="px-7 py-3 leading-tight text-green-700 bg-primary-50 rounded-full text-primary-300 text-md-3 font-semibold">
-      {title}
-    </span>
+    <div className="w-min h-full px-7 py-2 bg-primary-50 rounded-full">
+      <p className="w-full leading-tight text-green-700  text-primary-300 text-md-3 font-semibold capitalize text-ellipsis line-clamp-1">
+        {title?.split('@') ? title?.split('@')[0] : title}
+      </p>
+    </div>
   );
 };
 
