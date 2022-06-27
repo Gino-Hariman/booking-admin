@@ -48,6 +48,7 @@ const ListData = ({
           />
           <div>
             <Dropdowns
+              isLocation
               placeholder="Location"
               Icon={LocationIcon}
               datas={locationData}

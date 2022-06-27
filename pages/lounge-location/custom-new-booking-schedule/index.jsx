@@ -94,6 +94,7 @@ const CustomNewBookingSchedule = ({ timeData }) => {
             data: locationData,
             idItem: 'id_location',
             valueItem: 'name_location',
+            isLocation: true,
             type: 'DropdownField',
           },
           {

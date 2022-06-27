@@ -116,6 +116,7 @@ const Report = () => {
             />
             <div className="flex my-4 xl:my-0 xl:space-x-4 flex-wrap">
               <Dropdowns
+                isLocation
                 placeholder="Location"
                 Icon={LocationIcon}
                 datas={locationData}

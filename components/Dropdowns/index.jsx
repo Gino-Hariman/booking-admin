@@ -5,6 +5,7 @@ import classNames from '@/helpers/classNames';
 import { LoadingSpinner } from '../Loading';
 
 const Dropdowns = ({
+  isLocation = false,
   idItem,
   valueItem,
   name = '',
@@ -17,7 +18,6 @@ const Dropdowns = ({
   loading = true,
 }) => {
   const [open, setOpen] = useState(false);
-  const [label, setLabel] = useState(null);
   const [selected, setSelected] = useState('');
   const handleClick = () => {
     setOpen((prev) => !prev);
@@ -29,7 +29,9 @@ const Dropdowns = ({
       shouldValidate: true,
       shouldDirty: true,
     });
-    setSelected(`${item[valueItem]} - ${item['spot_name']}`);
+    setSelected(
+      isLocation ? `${item[valueItem]} - ${item['spot_name']}` : item[valueItem]
+    );
   };
 
   console.log('datas', datas);
@@ -73,7 +75,11 @@ const Dropdowns = ({
                   onClick={() => handleSelect(item)}
                   key={item[idItem]}
                 >
-                  <a>{`${item[valueItem]} - ${item['spot_name']}`}</a>
+                  {isLocation ? (
+                    <a>{`${item[valueItem]} - ${item['spot_name']}`}</a>
+                  ) : (
+                    <a>{item[valueItem]}</a>
+                  )}
                 </li>
               ))
             )}

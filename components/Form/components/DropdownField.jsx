@@ -14,6 +14,7 @@ const DropdownField = ({
   setValue,
   idItem,
   valueItem,
+  isLocation,
 }) => {
   const isError = errors && errors[name];
 
@@ -22,6 +23,7 @@ const DropdownField = ({
     <div key={name} className="mt-5">
       <label className="label">{label}</label>
       <Dropdowns
+        isLocation={isLocation}
         rounded
         name={name}
         idItem={idItem}

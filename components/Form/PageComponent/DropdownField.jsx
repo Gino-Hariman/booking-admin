@@ -11,6 +11,7 @@ const DropdownField = ({
   data,
   setValue,
   hasBorder,
+  isLocation,
 }) => {
   const isError = errors && errors[name];
 
@@ -21,6 +22,7 @@ const DropdownField = ({
       labelComp={<FormLabel title={title} />}
       Comp={
         <Dropdowns
+          isLocation={isLocation}
           rounded
           name={name}
           idItem="id_location"
