@@ -15,7 +15,9 @@ export const generateTextColorByText = (text) => {
 };
 
 const TextStatus = ({ data }) => {
-  const text = `${changeFieldText(data.order_status)} by ${data.handle_by}`;
+  const text = data?.handle_by
+    ? `${changeFieldText(data.order_status)} by ${data.handle_by}`
+    : changeFieldText(data.order_status);
 
   return (
     <p
