@@ -9,12 +9,17 @@ const LoginForm = () => {
   const { login } = useAuth();
   const {
     register,
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
   } = useForm({
     resolver: yupResolver(
       Yup.object().shape({
-        username: Yup.string().required('Email Required'),
+        username: Yup.string()
+          .required('Email Required')
+          .matches(
+            '(@lecturer.uph.edu|@uph.edu)',
+            'only can @lecturer.uph.edu'
+          ),
         password: Yup.string('Password format is not valid').required(
           'Password Required'
         ),
@@ -24,6 +29,7 @@ const LoginForm = () => {
       username: '',
       password: '',
     },
+    mode: 'onBlur',
   });
 
   const onSubmit = (data) => {
@@ -35,7 +41,7 @@ const LoginForm = () => {
       <DataForm
         forms={[
           {
-            label: 'Username',
+            label: 'Email',
             name: 'username',
             placeholder: 'username',
             type: 'TextInput',
@@ -51,7 +57,11 @@ const LoginForm = () => {
         errors={errors}
       />
       <div className="mt-12 text-center">
-        <Button title="Login" onClick={handleSubmit(onSubmit)} />
+        <Button
+          title="Login"
+          isDisabled={!isValid}
+          onClick={handleSubmit(onSubmit)}
+        />
       </div>
     </form>
   );

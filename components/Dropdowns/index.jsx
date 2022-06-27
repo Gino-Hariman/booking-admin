@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ChevronUp from '@/icons/Outline/Chevron Up.svg';
 import ChevronDown from '@/icons/Outline/Chevron Down.svg';
 import classNames from '@/helpers/classNames';
+import { LoadingSpinner } from '../Loading';
 
 const Dropdowns = ({
   idItem,
@@ -16,6 +17,7 @@ const Dropdowns = ({
   loading = true,
 }) => {
   const [open, setOpen] = useState(false);
+  const [label, setLabel] = useState(null);
   const [selected, setSelected] = useState('');
   const handleClick = () => {
     setOpen((prev) => !prev);
@@ -27,8 +29,10 @@ const Dropdowns = ({
       shouldValidate: true,
       shouldDirty: true,
     });
-    setSelected(item[valueItem]);
+    setSelected(`${item[valueItem]} - ${item['spot_name']}`);
   };
+
+  console.log('datas', datas);
 
   return (
     <div>
@@ -60,15 +64,16 @@ const Dropdowns = ({
             className="absolute z-40 shadow-md w-full overflow-hidden mt-2 menu text-gray-700 bg-shade-FG rounded-3 "
           >
             {loading ? (
-              <p className="py-2 px-4">Loading...</p>
+              <LoadingSpinner />
             ) : (
+              // <p className="py-2 px-4">Loading...</p>
               datas.map((item) => (
                 <li
                   className="hover:bg-gray-300 cursor-pointer py-4 px-6"
                   onClick={() => handleSelect(item)}
                   key={item[idItem]}
                 >
-                  <a>{item[valueItem]}</a>
+                  <a>{`${item[valueItem]} - ${item['spot_name']}`}</a>
                 </li>
               ))
             )}
