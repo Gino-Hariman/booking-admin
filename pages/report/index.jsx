@@ -16,12 +16,9 @@ import spreadObject from '@/helpers/spreadObject';
 import useTableButton from '@/hooks/useTableButton';
 import DatePicker from '@/components/DatePicker';
 import RenderResult from '@/components/RenderResult';
-import generateExcelLayout from '@/helpers/generateExcelLayout';
-import { LoadingModal } from '@/components/Loading';
-import ReactExport from 'react-data-export';
-import ReportExport from '@/utils/DataExport/reportExport';
 
-const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
+import { LoadingModal } from '@/components/Loading';
+import ReportHeaders from '@/utils/DataExport/reportExport';
 
 const Report = () => {
   const { filterState, handleNextPage, handlePrevPage, handleSelectFilter } =
@@ -105,7 +102,7 @@ const Report = () => {
     >
       <TableList
         isNested
-        ExportComp={ReportExport}
+        ExportComp={ReportHeaders}
         downloadDataSet={data}
         hasHeader={data?.length !== 0}
         tableHeaderChild={

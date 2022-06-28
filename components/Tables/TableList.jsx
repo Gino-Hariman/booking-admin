@@ -10,14 +10,12 @@ const TableList = ({
   columns,
   data,
   pageNumber,
-  onHeaderButtonClick,
   btnTitle,
   tableHeaderChild,
   hasHeader = true,
   handleNextPage,
   handlePrevPage,
   emptyTitle,
-  isNested = false,
   ExportComp,
 }) => {
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, page } =
@@ -26,10 +24,8 @@ const TableList = ({
   return (
     <div className="mt-4 rounded-6 shadow bg-shade-FG p-12 flex flex-col">
       <TableHeader
-        isNested={isNested}
         ExportComp={ExportComp}
         downloadDataSet={downloadDataSet}
-        onHeaderButtonClick={onHeaderButtonClick}
         hasHeader={hasHeader}
         title={tableTitle}
         btnTitle={btnTitle}
