@@ -1,4 +1,5 @@
 import { Button } from '@/components/Buttons';
+import { LoadingModal } from '@/components/Loading';
 import SwithModal from '@/components/Modals/template/SwitchModal';
 import RenderResult from '@/components/RenderResult';
 import spreadObject from '@/helpers/spreadObject';
@@ -74,7 +75,7 @@ const TableLoungeLocation = () => {
     ['lounge-location-table', ...spreadObject(filterState)],
     `/location?page=${filterState.page}`
   );
-
+  if (isFetching) return <LoadingModal />;
   return (
     <RenderResult
       state={{ isFetching, isError, isSuccess }}

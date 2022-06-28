@@ -9,13 +9,12 @@ import React from 'react';
 import useGetQuery from '@/hooks/useGetQuery';
 import useFilter from '@/hooks/useFilter';
 import spreadObject from '@/helpers/spreadObject';
-import useTableButton from '@/hooks/useTableButton';
 import RenderResult from '@/components/RenderResult';
-import generateExcelLayout from '@/helpers/generateExcelLayout';
-import { LoadingModal, LoadingSpinner } from '@/components/Loading';
+
+import { LoadingSpinner } from '@/components/Loading';
+import StudentListHeaders from '@/utils/DataExport/studentListExport';
 
 const StudentList = () => {
-  const { handleDownload } = useTableButton();
   const { filterState, handleSelectFilter, handleNextPage, handlePrevPage } =
     useFilter();
   const columns = React.useMemo(
@@ -67,7 +66,6 @@ const StudentList = () => {
   );
 
   if (isFetching) return <LoadingSpinner />;
-
   return (
     <RenderResult
       state={{ isFetching, isError, isSuccess }}
@@ -75,9 +73,9 @@ const StudentList = () => {
       checkEmpty={false}
     >
       <TableList
-        downloadDataSet={generateExcelLayout(data, ['id_program'])}
+        downloadDataSet={data}
+        ExportComp={StudentListHeaders}
         hasHeader={data?.length !== 0}
-        onHeaderButtonClick={handleDownload}
         tableHeaderChild={
           <TableFilter>
             <Dropdowns

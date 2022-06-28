@@ -54,6 +54,8 @@ const TableBookingSchedule = () => {
     '/location/custom'
   );
 
+  if (isFetching) return <LoadingModal />;
+
   return (
     <RenderResult
       state={{ isFetching, isError, isSuccess }}
@@ -71,9 +73,6 @@ const TableBookingSchedule = () => {
             }
           />
         }
-        // onHeaderButtonClick={() =>
-        //   handleAdd('/lounge-location/custom-new-booking-schedule')
-        // }
         tableTitle="Custom Lounge Schedule"
         btnTitle="+ Custom New Booking Schedule"
         columns={bookingScheduleColumns}

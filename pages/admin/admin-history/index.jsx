@@ -5,7 +5,6 @@ import TableList from '@/components/Tables/TableList';
 import AdminLayout from '@/layout/AdminLayout';
 import React from 'react';
 import { useRouter } from 'next/router';
-import useTableButton from '@/hooks/useTableButton';
 import useFilter from '@/hooks/useFilter';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import useGetQuery from '@/hooks/useGetQuery';
@@ -15,7 +14,6 @@ import RenderResult from '@/components/RenderResult';
 
 const AdminHistory = () => {
   const router = useRouter();
-  const { handleDownload } = useTableButton();
   const { filterState, handleNextPage, handlePrevPage } = useFilter();
   const {
     query: { id_admin },
@@ -54,6 +52,7 @@ const AdminHistory = () => {
       params: filterState,
     }
   );
+  if (isFetching) return <LoadingModal />;
   return (
     <RenderResult
       state={{ isFetching, isError, isSuccess }}
@@ -63,7 +62,6 @@ const AdminHistory = () => {
       <>
         <Breadcrumbs />
         <TableList
-          onHeaderButtonClick={handleDownload}
           hasHeader={false}
           tableTitle="Admin History"
           columns={columns}

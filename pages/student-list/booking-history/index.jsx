@@ -1,4 +1,5 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { LoadingModal } from '@/components/Loading';
 import RenderResult from '@/components/RenderResult';
 import TextNote from '@/components/Tables/Contents/TextNote';
 import TextStatus from '@/components/Tables/Contents/TextStatus';
@@ -7,15 +8,14 @@ import TableList from '@/components/Tables/TableList';
 import spreadObject from '@/helpers/spreadObject';
 import useFilter from '@/hooks/useFilter';
 import useGetQuery from '@/hooks/useGetQuery';
-import useTableButton from '@/hooks/useTableButton';
 import AdminLayout from '@/layout/AdminLayout';
-import BookingHistoryExport from '@/utils/DataExport/BookingHistoryExport';
+import BookingHistoryHeaders from '@/utils/DataExport/BookingHistoryExport';
+
 import { useRouter } from 'next/router';
 import React from 'react';
 
 const BookingHistory = () => {
   const router = useRouter();
-  const { handleDownload } = useTableButton();
   const { filterState, handleNextPage, handlePrevPage } = useFilter();
   const {
     query: { name, nim, major, kelas },
@@ -54,6 +54,7 @@ const BookingHistory = () => {
     { params: { page: filterState.page } }
   );
 
+  if (isFetching) return <LoadingModal />;
   return (
     <>
       <Breadcrumbs />
@@ -64,10 +65,8 @@ const BookingHistory = () => {
           checkEmpty={false}
         >
           <TableList
-            isNested
-            ExportComp={BookingHistoryExport}
             downloadDataSet={data}
-            onHeaderButtonClick={handleDownload}
+            ExportComp={BookingHistoryHeaders}
             tableHeaderChild={
               <StudentDetail isHeader nim={nim} major={major} kelas={kelas} />
             }
