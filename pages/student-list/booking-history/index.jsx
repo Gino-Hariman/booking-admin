@@ -1,5 +1,4 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
-import { LoadingModal } from '@/components/Loading';
 import RenderResult from '@/components/RenderResult';
 import TextNote from '@/components/Tables/Contents/TextNote';
 import TextStatus from '@/components/Tables/Contents/TextStatus';
@@ -54,7 +53,6 @@ const BookingHistory = () => {
     { params: { page: filterState.page } }
   );
 
-  if (isFetching) return <LoadingModal />;
   return (
     <>
       <Breadcrumbs />

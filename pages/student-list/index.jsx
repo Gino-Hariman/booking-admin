@@ -11,7 +11,6 @@ import useFilter from '@/hooks/useFilter';
 import spreadObject from '@/helpers/spreadObject';
 import RenderResult from '@/components/RenderResult';
 
-import { LoadingSpinner } from '@/components/Loading';
 import StudentListHeaders from '@/utils/DataExport/studentListExport';
 
 const StudentList = () => {
@@ -65,7 +64,6 @@ const StudentList = () => {
     }
   );
 
-  if (isFetching) return <LoadingSpinner />;
   return (
     <RenderResult
       state={{ isFetching, isError, isSuccess }}

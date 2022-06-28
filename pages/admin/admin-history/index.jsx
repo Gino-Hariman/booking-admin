@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 import useFilter from '@/hooks/useFilter';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import useGetQuery from '@/hooks/useGetQuery';
-import { LoadingModal } from '@/components/Loading';
 import spreadObject from '@/helpers/spreadObject';
 import RenderResult from '@/components/RenderResult';
 
@@ -52,7 +51,6 @@ const AdminHistory = () => {
       params: filterState,
     }
   );
-  if (isFetching) return <LoadingModal />;
   return (
     <RenderResult
       state={{ isFetching, isError, isSuccess }}

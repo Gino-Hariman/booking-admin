@@ -17,7 +17,6 @@ import useTableButton from '@/hooks/useTableButton';
 import DatePicker from '@/components/DatePicker';
 import RenderResult from '@/components/RenderResult';
 
-import { LoadingModal } from '@/components/Loading';
 import ReportHeaders from '@/utils/DataExport/reportExport';
 
 const Report = () => {
@@ -91,8 +90,6 @@ const Report = () => {
       onError: (err) => console.log('er123', er),
     }
   );
-
-  if (isFetching) return <LoadingModal />;
 
   return (
     <RenderResult

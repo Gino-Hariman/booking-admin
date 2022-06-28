@@ -13,7 +13,6 @@ import SwithModal from '@/components/Modals/template/SwitchModal';
 import RenderResult from '@/components/RenderResult';
 import useFilter from '@/hooks/useFilter';
 import spreadObject from '@/helpers/spreadObject';
-import { LoadingModal } from '@/components/Loading';
 
 const Admin = () => {
   const [showModal, setShowModal] = useState(false);
@@ -108,8 +107,6 @@ const Admin = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-
-  if (isFetching) return <LoadingModal />;
 
   return (
     <RenderResult

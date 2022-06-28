@@ -1,5 +1,4 @@
 import { Button } from '@/components/Buttons';
-import { LoadingModal } from '@/components/Loading';
 import RenderResult from '@/components/RenderResult';
 import spreadObject from '@/helpers/spreadObject';
 
@@ -53,8 +52,6 @@ const TableBookingSchedule = () => {
     ['cutom', 'location', ...spreadObject(filterState)],
     '/location/custom'
   );
-
-  if (isFetching) return <LoadingModal />;
 
   return (
     <RenderResult
